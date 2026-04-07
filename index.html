@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turnero Pro | Con Precios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --primary: #6366f1;
+            --alem: #0ea5e9; --zico: #f43f5e; --border: #e2e8f0;
+            --grad: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+
+        .goal-panel {
+            background: var(--card); width: 100%; max-width: 1100px; padding: 25px;
+            border-radius: 25px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 25px; box-sizing: border-box;
+        }
+        .progress-bg { background: #e2e8f0; height: 14px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+        .progress-fill { background: var(--grad); height: 100%; width: 0%; transition: 1s ease; }
+        .goal-stats { display: flex; justify-content: space-around; text-align: center; }
+        .stat-val { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+        .stat-label { font-size: 0.7rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; }
+
+        .nav-container { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+        .date-display { background: white; padding: 10px 30px; border-radius: 50px; font-weight: 800; border: 1px solid var(--border); min-width: 220px; text-align: center; text-transform: capitalize; }
+        .btn-round { background: var(--primary); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+
+        .form-row {
+            background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid var(--border);
+            width: 100%; max-width: 1100px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; box-sizing: border-box;
+        }
+        .form-row input, .form-row select { padding: 10px; border-radius: 10px; border: 1px solid var(--border); flex: 1; min-width: 100px; font-size: 0.9rem; }
+        .btn-guardar { background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; padding: 10px 20px; min-width: 130px; }
+
+        .tab-box { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tab-btn { padding: 10px 25px; border-radius: 12px; border: 1px solid var(--border); background: white; font-weight: 800; cursor: pointer; color: #94a3b8; transition: 0.2s; }
+        .tab-btn.active.alem { background: var(--alem); color: white; border-color: var(--alem); }
+        .tab-btn.active.zico { background: var(--zico); color: white; border-color: var(--zico); }
+        .tab-btn.active.dual { background: #334155; color: white; border-color: #334155; }
+
+        .tables-wrapper { display: flex; gap: 20px; width: 100%; max-width: 1200px; }
+        .table-card { background: white; border-radius: 20px; border: 1px solid var(--border); flex: 1; overflow-x: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.02); display: none; }
+
+        .dual-view .table-card { display: block; }
+        .single-view-alem #card-alem { display: block; }
+        .single-view-zico #card-zico { display: block; }
+
+        table { width: 100%; border-collapse: collapse; min-width: 550px; }
+        th { background: #f8fafc; padding: 12px; font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; border-bottom: 1px solid var(--border); text-align: left; }
+        td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+        .dominio-tag { color: var(--primary); font-weight: 800; background: rgba(99, 102, 241, 0.1); padding: 3px 6px; border-radius: 6px; }
+        .precio-val { font-weight: 800; color: #10b981; }
+        .row-service { opacity: 0.6; background: #fafafa; }
+        .taller-label { padding: 10px 15px; font-weight: 800; font-size: 0.8rem; border-bottom: 2px solid var(--border); }
+        .btn-delete { border: none; background: none; cursor: pointer; }
+    </style>
+</head>
+<body class="single-view-alem">
+
+    <div class="goal-panel">
+        <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 0.9rem;">
+            <span>🚀 INSTALACIONES DEL MES</span>
+            <span id="mes-label" style="color: #94a3b8;">ABRIL 2026</span>
+        </div>
+        <div class="progress-bg"><div class="progress-fill" id="prog-bar"></div></div>
+        <div class="goal-stats">
+            <div><div class="stat-val" id="val-llevamos">0</div><div class="stat-label">Instaladas</div></div>
+            <div><div class="stat-val" style="color: #1e293b">45</div><div class="stat-label">Objetivo</div></div>
+            <div><div class="stat-val" id="val-faltan" style="color: var(--zico)">45</div><div class="stat-label">Faltan</div></div>
+        </div>
+    </div>
+
+    <div class="nav-container">
+        <button class="btn-round" onclick="moverDia(-1)">❮</button>
+        <div class="date-display" id="fecha-actual">...</div>
+        <button class="btn-round" onclick="moverDia(1)">❯</button>
+    </div>
+
+    <div class="form-row">
+        <input type="time" id="f-hora" value="08:00">
+        <input type="text" id="f-dom" placeholder="Patente">
+        <input type="text" id="f-auto" placeholder="Vehículo">
+        <input type="text" id="f-nombre" placeholder="Cliente">
+        <input type="text" id="f-precio" placeholder="Precio ($)">
+        <input type="text" id="f-obs" placeholder="Obs / Seña">
+        <select id="f-tipo"><option value="INSTALACION">INSTALACIÓN</option><option value="SERVICE">SERVICE</option></select>
+        <select id="f-suc"><option value="alem">ALEM</option><option value="zico">ZICO</option></select>
+        <button class="btn-guardar" onclick="guardar()">+ GUARDAR</button>
+    </div>
+
+    <div class="tab-box">
+        <button class="tab-btn active alem" id="t-alem" onclick="verTab('alem')">📍 ALEM</button>
+        <button class="tab-btn zico" id="t-zico" onclick="verTab('zico')">📍 ZICO</button>
+        <button class="tab-btn dual" id="t-dual" onclick="verTab('dual')">🌓 VISTA DUAL</button>
+    </div>
+
+    <div class="tables-wrapper" id="wrapper">
+        <div class="table-card" id="card-alem">
+            <div class="taller-label" style="color: var(--alem)">TALLER ALEM</div>
+            <table>
+                <thead><tr><th>Hora</th><th>Dom</th><th>Auto</th><th>Tipo</th><th>Precio</th><th>Obs</th><th></th></tr></thead>
+                <tbody id="lista-alem"></tbody>
+            </table>
+        </div>
+
+        <div class="table-card" id="card-zico">
+            <div class="taller-label" style="color: var(--zico)">TALLER ZICO</div>
+            <table>
+                <thead><tr><th>Hora</th><th>Dom</th><th>Auto</th><th>Tipo</th><th>Precio</th><th>Obs</th><th></th></tr></thead>
+                <tbody id="tbody-zico"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnw3MUG_tUPJSbbxtRaGo9PtPPRQP_jCQ",
+            authDomain: "basedatostaller-54e4b.firebaseapp.com",
+            databaseURL: "https://basedatostaller-54e4b-default-rtdb.firebaseio.com",
+            projectId: "basedatostaller-54e4b",
+            storageBucket: "basedatostaller-54e4b.firebasestorage.app",
+            messagingSenderId: "92715425671",
+            appId: "1:92715425671:web:2ef599317ebe18f602bd22"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        let fecha = new Date(2026, 3, 6);
+        const META = 45;
+        let datosGlobal = [];
+
+        window.onload = () => {
+            render();
+        };
+
+        window.moverDia = function(n) {
+            fecha.setDate(fecha.getDate() + n);
+            render();
+        };
+
+        window.verTab = function(s) {
+            document.body.className = s === 'dual' ? 'dual-view' : 'single-view-' + s;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('t-' + s).classList.add('active');
+        };
+
+        window.guardar = function() {
+            const dom = document.getElementById('f-dom').value.toUpperCase().trim();
+            if (!dom) return;
+
+            const turno = {
+                id: Date.now(),
+                fStr: fecha.toISOString().split('T')[0],
+                mes: fecha.getMonth(),
+                h: document.getElementById('f-hora').value,
+                d: dom,
+                a: document.getElementById('f-auto').value,
+                n: document.getElementById('f-nombre').value,
+                p: document.getElementById('f-precio').value,
+                o: document.getElementById('f-obs').value,
+                t: document.getElementById('f-tipo').value,
+                s: document.getElementById('f-suc').value
+            };
+
+            push(ref(db, 'turnero'), turno);
+
+            ['f-dom', 'f-auto', 'f-nombre', 'f-precio', 'f-obs'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+        };
+
+        onValue(ref(db, 'turnero'), snapshot => {
+            datosGlobal = [];
+
+            snapshot.forEach(child => {
+                datosGlobal.push({
+                    firebaseId: child.key,
+                    ...child.val()
+                });
+            });
+
+            render();
+        });
+
+        window.borrar = function(id) {
+            if (confirm('¿Borrar este turno?')) {
+                remove(ref(db, 'turnero/' + id));
+            }
+        };
+
+        function render() {
+            const hoyStr = fecha.toISOString().split('T')[0];
+
+            document.getElementById('fecha-actual').innerText = fecha.toLocaleDateString('es-ES', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long'
+            });
+
+            document.getElementById('mes-label').innerText = fecha.toLocaleDateString('es-ES', {
+                month: 'long',
+                year: 'numeric'
+            }).toUpperCase();
+
+            const instDelMes = datosGlobal.filter(x => x.mes === fecha.getMonth() && x.t === 'INSTALACION').length;
+            document.getElementById('val-llevamos').innerText = instDelMes;
+            document.getElementById('val-faltan').innerText = Math.max(0, META - instDelMes);
+            document.getElementById('prog-bar').style.width = Math.min((instDelMes / META) * 100, 100) + '%';
+
+            ['alem', 'zico'].forEach(suc => {
+                const tbody = document.getElementById(suc === 'alem' ? 'lista-alem' : 'tbody-zico');
+                tbody.innerHTML = '';
+
+                const filtrados = datosGlobal
+                    .filter(x => x.fStr === hoyStr && x.s === suc)
+                    .sort((a, b) => a.h.localeCompare(b.h));
+
+                filtrados.forEach(x => {
+                    tbody.innerHTML += `<tr class="${x.t === 'SERVICE' ? 'row-service' : ''}">
+                        <td><b>${x.h}</b></td>
+                        <td><span class="dominio-tag">${x.d}</span></td>
+                        <td>${x.a}</td>
+                        <td style="font-weight:bold; color:${x.t === 'SERVICE' ? '#94a3b8' : '#10b981'}">${x.t}</td>
+                        <td class="precio-val">${x.p ? '$' + x.p : '-'}</td>
+                        <td style="font-size:0.8rem; color:#64748b;">${x.o}</td>
+                        <td><button class="btn-delete" onclick="borrar('${x.firebaseId}')">✕</button></td>
+                    </tr>`;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
