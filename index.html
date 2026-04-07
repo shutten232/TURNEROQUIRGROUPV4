@@ -8,13 +8,14 @@
     <style>
         :root {
             --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --primary: #6366f1;
-            --alem: #0ea5e9; --zico: #f43f5e; --border: #e2e8f0;
+            --alem: #0ea5e9; --zico: #f43f5e; --border: #e2e8f0; 
             --grad: linear-gradient(90deg, #3b82f6, #8b5cf6);
         }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-
+        
+        /* PANEL OBJETIVO */
         .goal-panel {
-            background: var(--card); width: 100%; max-width: 1100px; padding: 25px;
+            background: var(--card); width: 100%; max-width: 1100px; padding: 25px; 
             border-radius: 25px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             margin-bottom: 25px; box-sizing: border-box;
         }
@@ -24,10 +25,12 @@
         .stat-val { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
         .stat-label { font-size: 0.7rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; }
 
+        /* NAVEGADOR */
         .nav-container { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
         .date-display { background: white; padding: 10px 30px; border-radius: 50px; font-weight: 800; border: 1px solid var(--border); min-width: 220px; text-align: center; text-transform: capitalize; }
         .btn-round { background: var(--primary); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-weight: bold; }
 
+        /* FORMULARIO (Agregado campo Precio) */
         .form-row {
             background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid var(--border);
             width: 100%; max-width: 1100px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; box-sizing: border-box;
@@ -35,15 +38,17 @@
         .form-row input, .form-row select { padding: 10px; border-radius: 10px; border: 1px solid var(--border); flex: 1; min-width: 100px; font-size: 0.9rem; }
         .btn-guardar { background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; padding: 10px 20px; min-width: 130px; }
 
+        /* PESTAÑAS */
         .tab-box { display: flex; gap: 10px; margin-bottom: 15px; }
         .tab-btn { padding: 10px 25px; border-radius: 12px; border: 1px solid var(--border); background: white; font-weight: 800; cursor: pointer; color: #94a3b8; transition: 0.2s; }
         .tab-btn.active.alem { background: var(--alem); color: white; border-color: var(--alem); }
         .tab-btn.active.zico { background: var(--zico); color: white; border-color: var(--zico); }
         .tab-btn.active.dual { background: #334155; color: white; border-color: #334155; }
 
+        /* TABLAS */
         .tables-wrapper { display: flex; gap: 20px; width: 100%; max-width: 1200px; }
         .table-card { background: white; border-radius: 20px; border: 1px solid var(--border); flex: 1; overflow-x: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.02); display: none; }
-
+        
         .dual-view .table-card { display: block; }
         .single-view-alem #card-alem { display: block; }
         .single-view-zico #card-zico { display: block; }
@@ -55,7 +60,6 @@
         .precio-val { font-weight: 800; color: #10b981; }
         .row-service { opacity: 0.6; background: #fafafa; }
         .taller-label { padding: 10px 15px; font-weight: 800; font-size: 0.8rem; border-bottom: 2px solid var(--border); }
-        .btn-delete { border: none; background: none; cursor: pointer; }
     </style>
 </head>
 <body class="single-view-alem">
@@ -115,125 +119,74 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAnw3MUG_tUPJSbbxtRaGo9PtPPRQP_jCQ",
-            authDomain: "basedatostaller-54e4b.firebaseapp.com",
-            databaseURL: "https://basedatostaller-54e4b-default-rtdb.firebaseio.com",
-            projectId: "basedatostaller-54e4b",
-            storageBucket: "basedatostaller-54e4b.firebasestorage.app",
-            messagingSenderId: "92715425671",
-            appId: "1:92715425671:web:2ef599317ebe18f602bd22"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
+    <script>
         let fecha = new Date(2026, 3, 6);
         const META = 45;
-        let datosGlobal = [];
 
-        window.onload = () => {
-            render();
-        };
+        window.onload = () => { render(); };
 
-        window.moverDia = function(n) {
-            fecha.setDate(fecha.getDate() + n);
-            render();
-        };
+        function moverDia(n) { fecha.setDate(fecha.getDate() + n); render(); }
 
-        window.verTab = function(s) {
-            document.body.className = s === 'dual' ? 'dual-view' : 'single-view-' + s;
+        function verTab(s) {
+            document.body.className = s === 'dual' ? "dual-view" : "single-view-" + s;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('t-' + s).classList.add('active');
-        };
+        }
 
-        window.guardar = function() {
-            const dom = document.getElementById('f-dom').value.toUpperCase().trim();
-            if (!dom) return;
-
+        function guardar() {
+            const dom = document.getElementById('f-dom').value.toUpperCase();
+            if(!dom) return;
             const turno = {
-                id: Date.now(),
-                fStr: fecha.toISOString().split('T')[0],
-                mes: fecha.getMonth(),
-                h: document.getElementById('f-hora').value,
-                d: dom,
-                a: document.getElementById('f-auto').value,
-                n: document.getElementById('f-nombre').value,
-                p: document.getElementById('f-precio').value,
-                o: document.getElementById('f-obs').value,
-                t: document.getElementById('f-tipo').value,
-                s: document.getElementById('f-suc').value
+                id: Date.now(), fStr: fecha.toISOString().split('T')[0], mes: fecha.getMonth(),
+                h: document.getElementById('f-hora').value, d: dom, a: document.getElementById('f-auto').value,
+                n: document.getElementById('f-nombre').value, p: document.getElementById('f-precio').value,
+                o: document.getElementById('f-obs').value, t: document.getElementById('f-tipo').value, s: document.getElementById('f-suc').value
             };
-
-            push(ref(db, 'turnero'), turno);
-
-            ['f-dom', 'f-auto', 'f-nombre', 'f-precio', 'f-obs'].forEach(id => {
-                document.getElementById(id).value = '';
-            });
-        };
-
-        onValue(ref(db, 'turnero'), snapshot => {
-            datosGlobal = [];
-
-            snapshot.forEach(child => {
-                datosGlobal.push({
-                    firebaseId: child.key,
-                    ...child.val()
-                });
-            });
-
+            let datos = JSON.parse(localStorage.getItem('turnero_vLimpia')) || [];
+            datos.push(turno);
+            localStorage.setItem('turnero_vLimpia', JSON.stringify(datos));
+            
+            // Limpiar inputs
+            ['f-dom', 'f-auto', 'f-nombre', 'f-precio', 'f-obs'].forEach(id => document.getElementById(id).value = "");
             render();
-        });
-
-        window.borrar = function(id) {
-            if (confirm('¿Borrar este turno?')) {
-                remove(ref(db, 'turnero/' + id));
-            }
-        };
+        }
 
         function render() {
+            const datos = JSON.parse(localStorage.getItem('turnero_vLimpia')) || [];
             const hoyStr = fecha.toISOString().split('T')[0];
+            document.getElementById('fecha-actual').innerText = fecha.toLocaleDateString('es-ES', {weekday:'long', day:'numeric', month:'long'});
+            document.getElementById('mes-label').innerText = fecha.toLocaleDateString('es-ES', {month:'long', year:'numeric'}).toUpperCase();
 
-            document.getElementById('fecha-actual').innerText = fecha.toLocaleDateString('es-ES', {
-                weekday: 'long',
-                day: 'numeric',
-                month: 'long'
-            });
-
-            document.getElementById('mes-label').innerText = fecha.toLocaleDateString('es-ES', {
-                month: 'long',
-                year: 'numeric'
-            }).toUpperCase();
-
-            const instDelMes = datosGlobal.filter(x => x.mes === fecha.getMonth() && x.t === 'INSTALACION').length;
+            // OBJETIVO (Solo instalaciones)
+            const instDelMes = datos.filter(x => x.mes === fecha.getMonth() && x.t === "INSTALACION").length;
             document.getElementById('val-llevamos').innerText = instDelMes;
             document.getElementById('val-faltan').innerText = Math.max(0, META - instDelMes);
-            document.getElementById('prog-bar').style.width = Math.min((instDelMes / META) * 100, 100) + '%';
+            document.getElementById('prog-bar').style.width = Math.min((instDelMes/META)*100, 100) + "%";
 
             ['alem', 'zico'].forEach(suc => {
                 const tbody = document.getElementById(suc === 'alem' ? 'lista-alem' : 'tbody-zico');
-                tbody.innerHTML = '';
-
-                const filtrados = datosGlobal
-                    .filter(x => x.fStr === hoyStr && x.s === suc)
-                    .sort((a, b) => a.h.localeCompare(b.h));
-
+                tbody.innerHTML = "";
+                const filtrados = datos.filter(x => x.fStr === hoyStr && x.s === suc).sort((a,b) => a.h.localeCompare(b.h));
                 filtrados.forEach(x => {
                     tbody.innerHTML += `<tr class="${x.t === 'SERVICE' ? 'row-service' : ''}">
                         <td><b>${x.h}</b></td>
                         <td><span class="dominio-tag">${x.d}</span></td>
                         <td>${x.a}</td>
-                        <td style="font-weight:bold; color:${x.t === 'SERVICE' ? '#94a3b8' : '#10b981'}">${x.t}</td>
-                        <td class="precio-val">${x.p ? '$' + x.p : '-'}</td>
+                        <td style="font-weight:bold; color:${x.t==='SERVICE'?'#94a3b8':'#10b981'}">${x.t}</td>
+                        <td class="precio-val">${x.p ? '$'+x.p : '-'}</td>
                         <td style="font-size:0.8rem; color:#64748b;">${x.o}</td>
-                        <td><button class="btn-delete" onclick="borrar('${x.firebaseId}')">✕</button></td>
+                        <td><button onclick="borrar(${x.id})" style="border:none; background:none; cursor:pointer;">✕</button></td>
                     </tr>`;
                 });
             });
+        }
+
+        function borrar(id) {
+            if(confirm("¿Borrar este turno?")) {
+                let datos = JSON.parse(localStorage.getItem('turnero_vLimpia'));
+                localStorage.setItem('turnero_vLimpia', JSON.stringify(datos.filter(x => x.id !== id)));
+                render();
+            }
         }
     </script>
 </body>
