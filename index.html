@@ -1,304 +1,412 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Turnero Pro | Con Precios</title>
+<title>Turnero Pro</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
-:root {
-    --bg: #f8fafc; 
-    --card: #ffffff; 
-    --text: #1e293b; 
-    --primary: #6366f1;
-    --alem: #0ea5e9; 
-    --zico: #f43f5e; 
-    --border: #e2e8f0; 
-    --grad: linear-gradient(90deg, #3b82f6, #8b5cf6);
+:root{
+--bg:#f1f5f9;
+--card:#ffffff;
+--text:#1e293b;
+--primary:#6366f1;
+
+--alem:#0ea5e9;
+--zico:#f43f5e;
+
+--border:#e2e8f0;
+
+--grad:linear-gradient(90deg,#3b82f6,#8b5cf6);
 }
 
-body { 
-    font-family: 'Inter', sans-serif; 
-    background: var(--bg); 
-    color: var(--text); 
-    margin: 0; 
-    padding: 20px; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
+body{
+font-family:Inter;
+background:var(--bg);
+color:var(--text);
+
+margin:0;
+padding:15px;
+
+display:flex;
+flex-direction:column;
+align-items:center;
 }
 
-/* PANEL OBJETIVO */
+/* PANEL */
 
-.goal-panel {
-    background: var(--card); 
-    width: 100%; 
-    max-width: 1100px; 
-    padding: 25px; 
-    border-radius: 25px; 
-    border: 1px solid var(--border); 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    margin-bottom: 25px; 
-    box-sizing: border-box;
+.goal-panel{
+
+background:var(--card);
+
+width:100%;
+max-width:1100px;
+
+padding:25px;
+
+border-radius:25px;
+border:1px solid var(--border);
+
+margin-bottom:25px;
 }
 
-.progress-bg { 
-    background: #e2e8f0; 
-    height: 14px; 
-    border-radius: 10px; 
-    margin: 15px 0; 
-    overflow: hidden; 
+.progress-bg{
+background:#e2e8f0;
+
+height:14px;
+
+border-radius:10px;
+
+margin:15px 0;
+
+overflow:hidden;
 }
 
-.progress-fill { 
-    background: var(--grad); 
-    height: 100%; 
-    width: 0%; 
-    transition: 1s ease; 
+.progress-fill{
+
+background:var(--grad);
+
+height:100%;
+
+width:0%;
+
+transition:1s;
 }
 
-.goal-stats { 
-    display: flex; 
-    justify-content: space-around; 
-    text-align: center; 
+.goal-stats{
+
+display:flex;
+
+justify-content:space-around;
+
+text-align:center;
 }
 
-.stat-val { 
-    font-size: 1.8rem; 
-    font-weight: 800; 
-    color: var(--primary); 
+.stat-val{
+
+font-size:1.8rem;
+
+font-weight:800;
+
+color:var(--primary);
 }
 
-.stat-label { 
-    font-size: 0.7rem; 
-    color: #94a3b8; 
-    font-weight: 700; 
-    text-transform: uppercase; 
+/* NAV */
+
+.nav-container{
+
+display:flex;
+
+gap:15px;
+
+margin-bottom:20px;
 }
 
-/* NAVEGADOR */
+.date-display{
 
-.nav-container { 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-    margin-bottom: 20px; 
-    flex-wrap: wrap; 
-    justify-content: center; 
+background:white;
+
+padding:10px 30px;
+
+border-radius:50px;
+
+font-weight:800;
+
+border:1px solid var(--border);
+
+min-width:220px;
+
+text-align:center;
 }
 
-.date-display { 
-    background: white; 
-    padding: 10px 30px; 
-    border-radius: 50px; 
-    font-weight: 800; 
-    border: 1px solid var(--border); 
-    min-width: 220px; 
-    text-align: center; 
-    text-transform: capitalize; 
-}
+.btn-round{
 
-.btn-round { 
-    background: var(--primary); 
-    color: white; 
-    border: none; 
-    width: 35px; 
-    height: 35px; 
-    border-radius: 50%; 
-    cursor: pointer; 
-    font-weight: bold; 
+background:var(--primary);
+
+color:white;
+
+border:none;
+
+width:35px;
+height:35px;
+
+border-radius:50%;
+
+cursor:pointer;
 }
 
 /* FORM */
 
-.form-row {
-    background: var(--card); 
-    padding: 20px; 
-    border-radius: 20px; 
-    border: 1px solid var(--border);
-    width: 100%; 
-    max-width: 1100px; 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 10px; 
-    margin-bottom: 25px; 
-    box-sizing: border-box;
+.form-row{
+
+background:var(--card);
+
+padding:20px;
+
+border-radius:20px;
+
+border:1px solid var(--border);
+
+width:100%;
+max-width:1100px;
+
+display:flex;
+flex-wrap:wrap;
+
+gap:10px;
+
+margin-bottom:25px;
 }
 
-.form-row input, 
-.form-row select { 
-    padding: 10px; 
-    border-radius: 10px; 
-    border: 1px solid var(--border); 
-    flex: 1; 
-    min-width: 100px; 
-    font-size: 0.9rem; 
+.form-row input,
+.form-row select{
+
+padding:10px;
+
+border-radius:10px;
+
+border:1px solid var(--border);
+
+flex:1;
+
+min-width:110px;
 }
 
-.btn-guardar { 
-    background: var(--primary); 
-    color: white; 
-    border: none; 
-    border-radius: 10px; 
-    font-weight: 800; 
-    cursor: pointer; 
-    padding: 10px 20px; 
-    min-width: 130px; 
+.btn-guardar{
+
+background:var(--primary);
+
+color:white;
+
+border:none;
+
+border-radius:10px;
+
+font-weight:800;
+
+cursor:pointer;
+
+padding:10px 20px;
 }
 
 /* TABS */
 
-.tab-box { 
-    display: flex; 
-    gap: 10px; 
-    margin-bottom: 15px; 
+.tab-box{
+
+display:flex;
+
+gap:10px;
+
+margin-bottom:15px;
 }
 
-.tab-btn { 
-    padding: 10px 25px; 
-    border-radius: 12px; 
-    border: 1px solid var(--border); 
-    background: white; 
-    font-weight: 800; 
-    cursor: pointer; 
-    color: #94a3b8; 
-    transition: 0.2s; 
+.tab-btn{
+
+padding:10px 25px;
+
+border-radius:12px;
+
+border:1px solid var(--border);
+
+background:white;
+
+font-weight:800;
+
+cursor:pointer;
 }
 
-.tab-btn.active.alem { 
-    background: var(--alem); 
-    color: white; 
-    border-color: var(--alem); 
+.tab-btn.active.alem{
+
+background:var(--alem);
+
+color:white;
 }
 
-.tab-btn.active.zico { 
-    background: var(--zico); 
-    color: white; 
-    border-color: var(--zico); 
+.tab-btn.active.zico{
+
+background:var(--zico);
+
+color:white;
 }
 
-.tab-btn.active.dual { 
-    background: #334155; 
-    color: white; 
-    border-color: #334155; 
+.tab-btn.active.dual{
+
+background:#334155;
+
+color:white;
 }
 
-/* TABLAS */
+/* TABLE */
 
-.tables-wrapper { 
-    display: flex; 
-    gap: 20px; 
-    width: 100%; 
-    max-width: 1200px; 
+.tables-wrapper{
+
+display:flex;
+
+gap:20px;
+
+width:100%;
+
+max-width:1200px;
 }
 
-.table-card { 
-    background: white; 
-    border-radius: 20px; 
-    border: 1px solid var(--border); 
-    flex: 1; 
-    overflow-x: auto; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.02); 
-    display: none; 
+.table-card{
+
+background:white;
+
+border-radius:20px;
+
+border:1px solid var(--border);
+
+flex:1;
+
+overflow-x:auto;
+
+display:none;
 }
 
-.dual-view .table-card { display: block; }
-.single-view-alem #card-alem { display: block; }
-.single-view-zico #card-zico { display: block; }
-
-table { 
-    width: 100%; 
-    border-collapse: collapse; 
-    min-width: 650px; 
+.dual-view .table-card{
+display:block;
 }
 
-th { 
-    background: #f8fafc; 
-    padding: 12px; 
-    font-size: 0.7rem; 
-    color: #94a3b8; 
-    text-transform: uppercase; 
-    border-bottom: 1px solid var(--border); 
-    text-align: left; 
+.single-view-alem #card-alem{
+display:block;
 }
 
-td { 
-    padding: 10px 12px; 
-    border-bottom: 1px solid var(--border); 
-    font-size: 0.85rem; 
+.single-view-zico #card-zico{
+display:block;
 }
 
-.precio-val { 
-    font-weight: 800; 
-    color: #10b981; 
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+min-width:650px;
 }
 
-.row-service { 
-    opacity: 0.6; 
-    background: #fafafa; 
+th{
+
+background:#f8fafc;
+
+padding:12px;
+
+font-size:11px;
+
+color:#94a3b8;
+
+border-bottom:1px solid var(--border);
+
+text-align:left;
 }
 
-.taller-label { 
-    padding: 10px 15px; 
-    font-weight: 800; 
-    font-size: 0.8rem; 
-    border-bottom: 2px solid var(--border); 
+td{
+
+padding:10px 12px;
+
+border-bottom:1px solid var(--border);
+
+font-size:13px;
 }
 
-.acciones {
-    display: flex;
-    gap: 6px;
+.precio-val{
+
+font-weight:800;
+
+color:#10b981;
 }
 
-.btn-mini {
-    border: 1px solid var(--border);
-    background: white;
-    border-radius: 8px;
-    cursor: pointer;
-    padding: 5px 8px;
-    font-size: 0.85rem;
+.row-service{
+
+opacity:.6;
+
+background:#fafafa;
+}
+
+.acciones{
+
+display:flex;
+
+gap:6px;
+}
+
+.btn-mini{
+
+border:1px solid var(--border);
+
+background:white;
+
+border-radius:8px;
+
+cursor:pointer;
+
+padding:5px 8px;
 }
 
 </style>
+
 </head>
+
 
 <body class="single-view-alem">
 
+
 <div class="goal-panel">
 
-<div style="display:flex; justify-content:space-between; font-weight:800; font-size:0.9rem;">
-<span>🚀 INSTALACIONES DEL MES</span>
-<span id="mes-label" style="color:#94a3b8;"></span>
+<div style="display:flex;justify-content:space-between;font-weight:800">
+
+<span>INSTALACIONES DEL MES</span>
+
+<span id="mes-label"></span>
+
 </div>
 
+
 <div class="progress-bg">
+
 <div class="progress-fill" id="prog-bar"></div>
+
 </div>
+
 
 <div class="goal-stats">
 
 <div>
+
 <div class="stat-val" id="val-llevamos">0</div>
-<div class="stat-label">Instaladas</div>
+
+<div>instaladas</div>
+
 </div>
+
 
 <div>
-<div class="stat-val" style="color:#1e293b">45</div>
-<div class="stat-label">Objetivo</div>
+
+<div class="stat-val">45</div>
+
+<div>objetivo</div>
+
 </div>
+
 
 <div>
-<div class="stat-val" id="val-faltan" style="color:var(--zico)">45</div>
-<div class="stat-label">Faltan</div>
-</div>
+
+<div class="stat-val" id="val-faltan">45</div>
+
+<div>faltan</div>
 
 </div>
 
 </div>
+
+</div>
+
+
 
 <div class="nav-container">
 
@@ -310,64 +418,102 @@ td {
 
 </div>
 
+
+
 <div class="form-row">
 
 <input type="time" id="f-hora" value="08:00">
 
-<input type="text" id="f-dom" placeholder="Patente">
+<input id="f-dom" placeholder="Patente">
 
-<input type="text" id="f-auto" placeholder="Vehículo">
+<input id="f-auto" placeholder="Vehiculo">
 
-<input type="text" id="f-nombre" placeholder="Cliente">
+<input id="f-nombre" placeholder="Cliente">
 
-<input type="text" id="f-tel" placeholder="Teléfono">
+<input id="f-tel" placeholder="Telefono">
 
-<input type="text" id="f-precio" placeholder="Precio ($)">
+<input id="f-precio" placeholder="Precio">
 
-<input type="text" id="f-obs" placeholder="Obs / Seña">
+<input id="f-obs" placeholder="Obs">
+
 
 <select id="f-tipo">
+
 <option value="INSTALACION">INSTALACION</option>
+
 <option value="SERVICE">SERVICE</option>
+
 </select>
+
+
+<select id="f-cat">
+
+<option value="MOSTRADOR">MOSTRADOR</option>
+
+<option value="ADS">ADS</option>
+
+<option value="META">META</option>
+
+</select>
+
 
 <select id="f-suc">
+
 <option value="alem">ALEM</option>
+
 <option value="zico">ZICO</option>
+
 </select>
 
-<button class="btn-guardar" id="btn-guardar" onclick="guardar()">+ GUARDAR</button>
+
+<button class="btn-guardar" id="btn-guardar" onclick="guardar()">GUARDAR</button>
 
 </div>
+
+
 
 <div class="tab-box">
 
-<button class="tab-btn active alem" id="t-alem" onclick="verTab('alem')">📍 ALEM</button>
+<button class="tab-btn active alem" id="t-alem" onclick="verTab('alem')">ALEM</button>
 
-<button class="tab-btn zico" id="t-zico" onclick="verTab('zico')">📍 ZICO</button>
+<button class="tab-btn zico" id="t-zico" onclick="verTab('zico')">ZICO</button>
 
-<button class="tab-btn dual" id="t-dual" onclick="verTab('dual')">🌓 VISTA DUAL</button>
+<button class="tab-btn dual" id="t-dual" onclick="verTab('dual')">DUAL</button>
 
 </div>
+
+
 
 <div class="tables-wrapper">
 
 <div class="table-card" id="card-alem">
 
-<div class="taller-label" style="color:var(--alem)">TALLER ALEM</div>
-
 <table>
+
 <thead>
+
 <tr>
+
 <th>Hora</th>
+
 <th>Dom</th>
+
 <th>Auto</th>
+
 <th>Tel</th>
+
 <th>Tipo</th>
+
+<th>Origen</th>
+
 <th>Precio</th>
+
 <th>Obs</th>
+
 <th></th>
+
 </tr>
+
 </thead>
 
 <tbody id="lista-alem"></tbody>
@@ -376,22 +522,36 @@ td {
 
 </div>
 
+
+
 <div class="table-card" id="card-zico">
 
-<div class="taller-label" style="color:var(--zico)">TALLER ZICO</div>
-
 <table>
+
 <thead>
+
 <tr>
+
 <th>Hora</th>
+
 <th>Dom</th>
+
 <th>Auto</th>
+
 <th>Tel</th>
+
 <th>Tipo</th>
+
+<th>Origen</th>
+
 <th>Precio</th>
+
 <th>Obs</th>
+
 <th></th>
+
 </tr>
+
 </thead>
 
 <tbody id="tbody-zico"></tbody>
@@ -402,181 +562,356 @@ td {
 
 </div>
 
+
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAnw3MUG_tUPJSbbxtRaGo9PtPPRQP_jCQ",
-  authDomain: "basedatostaller-54e4b.firebaseapp.com",
-  databaseURL: "https://basedatostaller-54e4b-default-rtdb.firebaseio.com",
-  projectId: "basedatostaller-54e4b",
-  storageBucket: "basedatostaller-54e4b.firebasestorage.app",
-  messagingSenderId: "92715425671",
-  appId: "1:92715425671:web:2ef599317ebe18f602bd22"
+import {
+
+getDatabase,
+
+ref,
+
+push,
+
+onValue,
+
+remove,
+
+update
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+const firebaseConfig={
+
+apiKey:"AIzaSyAnw3MUG_tUPJSbbxtRaGo9PtPPRQP_jCQ",
+
+authDomain:"basedatostaller-54e4b.firebaseapp.com",
+
+databaseURL:"https://basedatostaller-54e4b-default-rtdb.firebaseio.com",
+
+projectId:"basedatostaller-54e4b",
+
+storageBucket:"basedatostaller-54e4b.firebasestorage.app",
+
+messagingSenderId:"92715425671",
+
+appId:"1:92715425671:web:2ef599317ebe18f602bd22"
+
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
-let fecha = new Date(2026, 3, 6);
-const META = 45;
-let datos = [];
-let editId = null;
+const app=initializeApp(firebaseConfig);
 
-const $ = (id) => document.getElementById(id);
+const db=getDatabase(app);
 
-function limpiarFormulario() {
-  $("f-dom").value = "";
-  $("f-auto").value = "";
-  $("f-nombre").value = "";
-  $("f-tel").value = "";
-  $("f-precio").value = "";
-  $("f-obs").value = "";
-  $("f-hora").value = "08:00";
-  $("f-tipo").value = "INSTALACION";
-  $("f-suc").value = "alem";
-}
 
-function setModoGuardar() {
-  editId = null;
-  $("btn-guardar").innerText = "+ GUARDAR";
-}
+let fecha=new Date();
 
-function setModoEditar() {
-  $("btn-guardar").innerText = "ACTUALIZAR";
-}
+const META=45;
 
-onValue(ref(db, "turnero"), (snap) => {
-  datos = [];
-  snap.forEach((c) => {
-    datos.push({
-      id: c.key,
-      ...c.val()
-    });
-  });
-  render();
+let datos=[];
+
+let editId=null;
+
+
+onValue(ref(db,"turnero"),snap=>{
+
+datos=[];
+
+snap.forEach(c=>{
+
+datos.push({
+
+id:c.key,
+
+...c.val()
+
 });
 
-window.guardar = async function () {
-  const turno = {
-    fStr: fecha.toISOString().split("T")[0],
-    mes: fecha.getMonth(),
-    h: $("f-hora").value || "08:00",
-    d: ($("f-dom").value || "").toUpperCase(),
-    a: $("f-auto").value || "",
-    n: $("f-nombre").value || "",
-    tel: $("f-tel").value || "",
-    p: $("f-precio").value || "",
-    o: $("f-obs").value || "",
-    t: $("f-tipo").value,
-    s: $("f-suc").value
-  };
+});
 
-  if (editId) {
-    await update(ref(db, "turnero/" + editId), turno);
-    setModoGuardar();
-  } else {
-    await push(ref(db, "turnero"), turno);
-  }
+render();
 
-  limpiarFormulario();
+});
+
+
+window.guardar=function(){
+
+const turno={
+
+fStr:fecha.toISOString().split("T")[0],
+
+mes:fecha.getMonth(),
+
+
+h:document.getElementById("f-hora").value || "08:00",
+
+d:(document.getElementById("f-dom").value || "").toUpperCase(),
+
+a:document.getElementById("f-auto").value || "",
+
+n:document.getElementById("f-nombre").value || "",
+
+tel:document.getElementById("f-tel").value || "",
+
+p:document.getElementById("f-precio").value || "",
+
+o:document.getElementById("f-obs").value || "",
+
+
+t:document.getElementById("f-tipo").value,
+
+cat:document.getElementById("f-cat").value || "MOSTRADOR",
+
+s:document.getElementById("f-suc").value
+
 };
 
-window.editar = function (id) {
-  const t = datos.find(x => x.id === id);
-  if (!t) return;
 
-  editId = id;
-  fecha = new Date(t.fStr + "T00:00:00");
+if(editId){
 
-  $("f-hora").value = t.h || "08:00";
-  $("f-dom").value = t.d || "";
-  $("f-auto").value = t.a || "";
-  $("f-nombre").value = t.n || "";
-  $("f-tel").value = t.tel || "";
-  $("f-precio").value = t.p || "";
-  $("f-obs").value = t.o || "";
-  $("f-tipo").value = t.t || "INSTALACION";
-  $("f-suc").value = t.s || "alem";
+update(ref(db,"turnero/"+editId),turno);
 
-  setModoEditar();
-  render();
+editId=null;
+
+document.getElementById("btn-guardar").innerText="GUARDAR";
+
+}else{
+
+push(ref(db,"turnero"),turno);
+
+}
+
+
+
+["f-dom","f-auto","f-nombre","f-tel","f-precio","f-obs"]
+
+.forEach(x=>document.getElementById(x).value="");
+
 };
 
-window.borrar = async function (id) {
-  if (!confirm("¿Borrar turno?")) return;
-  await remove(ref(db, "turnero/" + id));
-  if (editId === id) {
-    setModoGuardar();
-    limpiarFormulario();
-  }
+
+
+window.editar=function(id){
+
+const t=datos.find(x=>x.id===id);
+
+
+editId=id;
+
+
+fecha=new Date(t.fStr);
+
+
+document.getElementById("f-hora").value=t.h;
+
+document.getElementById("f-dom").value=t.d;
+
+document.getElementById("f-auto").value=t.a;
+
+document.getElementById("f-nombre").value=t.n;
+
+document.getElementById("f-tel").value=t.tel;
+
+document.getElementById("f-precio").value=t.p;
+
+document.getElementById("f-obs").value=t.o;
+
+document.getElementById("f-tipo").value=t.t;
+
+document.getElementById("f-cat").value=t.cat || "MOSTRADOR";
+
+document.getElementById("f-suc").value=t.s;
+
+
+document.getElementById("btn-guardar").innerText="ACTUALIZAR";
+
+
+render();
+
 };
 
-window.verTab = function (s) {
-  document.body.className = s === "dual" ? "dual-view" : "single-view-" + s;
 
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-  const btn = $("t-" + s);
-  if (btn) btn.classList.add("active");
+window.borrar=function(id){
+
+if(confirm("borrar turno"))
+
+remove(ref(db,"turnero/"+id));
+
 };
 
-window.moverDia = function (n) {
-  fecha.setDate(fecha.getDate() + n);
-  render();
+
+window.verTab=function(s){
+
+document.body.className=
+
+s=="dual"
+
+?"dual-view"
+
+:"single-view-"+s;
+
+
+document.querySelectorAll(".tab-btn")
+
+.forEach(b=>b.classList.remove("active"));
+
+
+document.getElementById("t-"+s)
+
+.classList.add("active");
+
 };
 
-function render() {
-  const hoy = fecha.toISOString().split("T")[0];
 
-  $("fecha-actual").innerText = fecha.toLocaleDateString("es-ES", {
-    weekday: "long",
-    day: "numeric",
-    month: "long"
-  });
+window.moverDia=function(n){
 
-  $("mes-label").innerText = fecha.toLocaleDateString("es-ES", {
-    month: "long",
-    year: "numeric"
-  }).toUpperCase();
+fecha.setDate(fecha.getDate()+n);
 
-  const instDelMes = datos.filter(x => x.mes === fecha.getMonth() && x.t === "INSTALACION").length;
+render();
 
-  $("val-llevamos").innerText = instDelMes;
-  $("val-faltan").innerText = Math.max(0, META - instDelMes);
-  $("prog-bar").style.width = Math.min((instDelMes / META) * 100, 100) + "%";
+};
 
-  ["alem", "zico"].forEach((suc) => {
-    const tbody = $(suc === "alem" ? "lista-alem" : "tbody-zico");
-    tbody.innerHTML = "";
 
-    datos
-      .filter(x => x.fStr === hoy && x.s === suc)
-      .sort((a, b) => (a.h || "").localeCompare(b.h || ""))
-      .forEach((x) => {
-        tbody.innerHTML += `
-          <tr class="${x.t === "SERVICE" ? "row-service" : ""}">
-            <td><b>${x.h || "-"}</b></td>
-            <td>${x.d || "-"}</td>
-            <td>${x.a || "-"}</td>
-            <td>${x.tel || "-"}</td>
-            <td>${x.t || "-"}</td>
-            <td class="precio-val">${x.p ? "$" + x.p : "-"}</td>
-            <td>${x.o || "-"}</td>
-            <td>
-              <div class="acciones">
-                <button class="btn-mini" onclick="editar('${x.id}')">✏</button>
-                <button class="btn-mini" onclick="borrar('${x.id}')">✕</button>
-              </div>
-            </td>
-          </tr>
-        `;
-      });
-  });
+function render(){
+
+const hoy=fecha.toISOString().split("T")[0];
+
+
+document.getElementById("fecha-actual").innerText=
+
+fecha.toLocaleDateString("es",{weekday:"long",day:"numeric",month:"long"});
+
+
+document.getElementById("mes-label").innerText=
+
+fecha.toLocaleDateString("es",{month:"long",year:"numeric"});
+
+
+const total=
+
+datos.filter(x=>
+
+x.mes==fecha.getMonth()
+
+&&
+
+x.t=="INSTALACION"
+
+).length;
+
+
+document.getElementById("val-llevamos").innerText=total;
+
+document.getElementById("val-faltan").innerText=META-total;
+
+
+document.getElementById("prog-bar").style.width=
+
+(total/META*100)+"%";
+
+
+["alem","zico"].forEach(s=>{
+
+const tb=
+
+document.getElementById(
+
+s=="alem"
+
+?"lista-alem"
+
+:"tbody-zico"
+
+);
+
+
+tb.innerHTML="";
+
+
+datos
+
+.filter(x=>
+
+x.fStr==hoy
+
+&&
+
+x.s==s
+
+)
+
+.sort((a,b)=>
+
+(a.h||"").localeCompare(b.h||"")
+
+)
+
+.forEach(x=>{
+
+
+tb.innerHTML+=`
+
+<tr class="${x.t=="SERVICE"?"row-service":""}">
+
+<td>${x.h}</td>
+
+<td>${x.d||"-"}</td>
+
+<td>${x.a||"-"}</td>
+
+<td>${x.tel||"-"}</td>
+
+<td>${x.t}</td>
+
+<td>${x.cat||"-"}</td>
+
+<td class="precio-val">
+
+${x.p?"$"+x.p:"-"}
+
+</td>
+
+<td>${x.o||"-"}</td>
+
+<td>
+
+<div class="acciones">
+
+<button class="btn-mini" onclick="editar('${x.id}')">
+
+✏
+
+</button>
+
+<button class="btn-mini" onclick="borrar('${x.id}')">
+
+✕
+
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+});
+
 }
 
 </script>
+
 
 </body>
 </html>
