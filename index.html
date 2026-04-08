@@ -213,7 +213,7 @@ body {
 table { 
     width: 100%; 
     border-collapse: collapse; 
-    min-width: 550px; 
+    min-width: 650px; 
 }
 
 th { 
@@ -247,6 +247,20 @@ td {
     font-weight: 800; 
     font-size: 0.8rem; 
     border-bottom: 2px solid var(--border); 
+}
+
+.acciones {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-mini {
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px 8px;
+    font-size: 0.85rem;
 }
 
 </style>
@@ -286,7 +300,6 @@ td {
 
 </div>
 
-
 <div class="nav-container">
 
 <button class="btn-round" onclick="moverDia(-1)">❮</button>
@@ -297,7 +310,6 @@ td {
 
 </div>
 
-
 <div class="form-row">
 
 <input type="time" id="f-hora" value="08:00">
@@ -307,6 +319,8 @@ td {
 <input type="text" id="f-auto" placeholder="Vehículo">
 
 <input type="text" id="f-nombre" placeholder="Cliente">
+
+<input type="text" id="f-tel" placeholder="Teléfono">
 
 <input type="text" id="f-precio" placeholder="Precio ($)">
 
@@ -322,10 +336,9 @@ td {
 <option value="zico">ZICO</option>
 </select>
 
-<button class="btn-guardar" onclick="guardar()">+ GUARDAR</button>
+<button class="btn-guardar" id="btn-guardar" onclick="guardar()">+ GUARDAR</button>
 
 </div>
-
 
 <div class="tab-box">
 
@@ -336,7 +349,6 @@ td {
 <button class="tab-btn dual" id="t-dual" onclick="verTab('dual')">🌓 VISTA DUAL</button>
 
 </div>
-
 
 <div class="tables-wrapper">
 
@@ -350,6 +362,7 @@ td {
 <th>Hora</th>
 <th>Dom</th>
 <th>Auto</th>
+<th>Tel</th>
 <th>Tipo</th>
 <th>Precio</th>
 <th>Obs</th>
@@ -363,18 +376,17 @@ td {
 
 </div>
 
-
 <div class="table-card" id="card-zico">
 
 <div class="taller-label" style="color:var(--zico)">TALLER ZICO</div>
 
 <table>
-
 <thead>
 <tr>
 <th>Hora</th>
 <th>Dom</th>
 <th>Auto</th>
+<th>Tel</th>
 <th>Tipo</th>
 <th>Precio</th>
 <th>Obs</th>
@@ -390,189 +402,178 @@ td {
 
 </div>
 
-
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
-
-apiKey:"AIzaSyAnw3MUG_tUPJSbbxtRaGo9PtPPRQP_jCQ",
-authDomain:"basedatostaller-54e4b.firebaseapp.com",
-databaseURL:"https://basedatostaller-54e4b-default-rtdb.firebaseio.com",
-projectId:"basedatostaller-54e4b",
-storageBucket:"basedatostaller-54e4b.firebasestorage.app",
-messagingSenderId:"92715425671",
-appId:"1:92715425671:web:2ef599317ebe18f602bd22"
-
+  apiKey: "AIzaSyAnw3MUG_tUPJSbbxtRaGo9PtPPRQP_jCQ",
+  authDomain: "basedatostaller-54e4b.firebaseapp.com",
+  databaseURL: "https://basedatostaller-54e4b-default-rtdb.firebaseio.com",
+  projectId: "basedatostaller-54e4b",
+  storageBucket: "basedatostaller-54e4b.firebasestorage.app",
+  messagingSenderId: "92715425671",
+  appId: "1:92715425671:web:2ef599317ebe18f602bd22"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-let fecha = new Date(2026,3,6);
+let fecha = new Date(2026, 3, 6);
 const META = 45;
 let datos = [];
+let editId = null;
 
-/* realtime */
+const $ = (id) => document.getElementById(id);
 
-onValue(ref(db,"turnero"), snap => {
+function limpiarFormulario() {
+  $("f-dom").value = "";
+  $("f-auto").value = "";
+  $("f-nombre").value = "";
+  $("f-tel").value = "";
+  $("f-precio").value = "";
+  $("f-obs").value = "";
+  $("f-hora").value = "08:00";
+  $("f-tipo").value = "INSTALACION";
+  $("f-suc").value = "alem";
+}
 
-datos = [];
+function setModoGuardar() {
+  editId = null;
+  $("btn-guardar").innerText = "+ GUARDAR";
+}
 
-snap.forEach(c => {
+function setModoEditar() {
+  $("btn-guardar").innerText = "ACTUALIZAR";
+}
 
-datos.push({
-id:c.key,
-...c.val()
+onValue(ref(db, "turnero"), (snap) => {
+  datos = [];
+  snap.forEach((c) => {
+    datos.push({
+      id: c.key,
+      ...c.val()
+    });
+  });
+  render();
 });
 
-});
+window.guardar = async function () {
+  const turno = {
+    fStr: fecha.toISOString().split("T")[0],
+    mes: fecha.getMonth(),
+    h: $("f-hora").value || "08:00",
+    d: ($("f-dom").value || "").toUpperCase(),
+    a: $("f-auto").value || "",
+    n: $("f-nombre").value || "",
+    tel: $("f-tel").value || "",
+    p: $("f-precio").value || "",
+    o: $("f-obs").value || "",
+    t: $("f-tipo").value,
+    s: $("f-suc").value
+  };
 
-render();
+  if (editId) {
+    await update(ref(db, "turnero/" + editId), turno);
+    setModoGuardar();
+  } else {
+    await push(ref(db, "turnero"), turno);
+  }
 
-});
-
-/* guardar */
-
-window.guardar = function(){
-
-const turno = {
-
-fStr:fecha.toISOString().split("T")[0],
-mes:fecha.getMonth(),
-
-h:document.getElementById("f-hora").value || "08:00",
-
-d:(document.getElementById("f-dom").value || "").toUpperCase(),
-
-a:document.getElementById("f-auto").value || "",
-
-n:document.getElementById("f-nombre").value || "",
-
-p:document.getElementById("f-precio").value || "",
-
-o:document.getElementById("f-obs").value || "",
-
-t:document.getElementById("f-tipo").value,
-
-s:document.getElementById("f-suc").value
-
+  limpiarFormulario();
 };
 
-push(ref(db,"turnero"), turno);
+window.editar = function (id) {
+  const t = datos.find(x => x.id === id);
+  if (!t) return;
 
-["f-dom","f-auto","f-nombre","f-precio","f-obs"]
-.forEach(x=>document.getElementById(x).value="");
+  editId = id;
+  fecha = new Date(t.fStr + "T00:00:00");
 
+  $("f-hora").value = t.h || "08:00";
+  $("f-dom").value = t.d || "";
+  $("f-auto").value = t.a || "";
+  $("f-nombre").value = t.n || "";
+  $("f-tel").value = t.tel || "";
+  $("f-precio").value = t.p || "";
+  $("f-obs").value = t.o || "";
+  $("f-tipo").value = t.t || "INSTALACION";
+  $("f-suc").value = t.s || "alem";
+
+  setModoEditar();
+  render();
 };
 
-/* borrar */
-
-window.borrar = function(id){
-
-if(confirm("¿Borrar turno?"))
-remove(ref(db,"turnero/"+id));
-
+window.borrar = async function (id) {
+  if (!confirm("¿Borrar turno?")) return;
+  await remove(ref(db, "turnero/" + id));
+  if (editId === id) {
+    setModoGuardar();
+    limpiarFormulario();
+  }
 };
 
-/* tabs */
+window.verTab = function (s) {
+  document.body.className = s === "dual" ? "dual-view" : "single-view-" + s;
 
-window.verTab = function(s){
-
-document.body.className =
-s==="dual"
-? "dual-view"
-: "single-view-"+s;
-
-document.querySelectorAll(".tab-btn")
-.forEach(b => b.classList.remove("active"));
-
-document.getElementById("t-"+s)
-.classList.add("active");
-
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  const btn = $("t-" + s);
+  if (btn) btn.classList.add("active");
 };
 
-/* fecha */
-
-window.moverDia = function(n){
-
-fecha.setDate(fecha.getDate()+n);
-
-render();
-
+window.moverDia = function (n) {
+  fecha.setDate(fecha.getDate() + n);
+  render();
 };
 
-/* render */
+function render() {
+  const hoy = fecha.toISOString().split("T")[0];
 
-function render(){
+  $("fecha-actual").innerText = fecha.toLocaleDateString("es-ES", {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+  });
 
-const hoy = fecha.toISOString().split("T")[0];
+  $("mes-label").innerText = fecha.toLocaleDateString("es-ES", {
+    month: "long",
+    year: "numeric"
+  }).toUpperCase();
 
-document.getElementById("fecha-actual").innerText =
-fecha.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
+  const instDelMes = datos.filter(x => x.mes === fecha.getMonth() && x.t === "INSTALACION").length;
 
-document.getElementById("mes-label").innerText =
-fecha.toLocaleDateString("es-ES",{month:"long",year:"numeric"}).toUpperCase();
+  $("val-llevamos").innerText = instDelMes;
+  $("val-faltan").innerText = Math.max(0, META - instDelMes);
+  $("prog-bar").style.width = Math.min((instDelMes / META) * 100, 100) + "%";
 
-const instDelMes =
-datos.filter(x => x.mes===fecha.getMonth() && x.t==="INSTALACION").length;
+  ["alem", "zico"].forEach((suc) => {
+    const tbody = $(suc === "alem" ? "lista-alem" : "tbody-zico");
+    tbody.innerHTML = "";
 
-document.getElementById("val-llevamos").innerText = instDelMes;
-
-document.getElementById("val-faltan").innerText = Math.max(0,META-instDelMes);
-
-document.getElementById("prog-bar").style.width =
-Math.min((instDelMes/META)*100,100)+"%";
-
-["alem","zico"].forEach(suc => {
-
-const tbody =
-document.getElementById(
-suc==="alem"
-? "lista-alem"
-: "tbody-zico"
-);
-
-tbody.innerHTML="";
-
-datos
-.filter(x => x.fStr===hoy && x.s===suc)
-.sort((a,b)=>a.h.localeCompare(b.h))
-.forEach(x => {
-
-tbody.innerHTML += `
-
-<tr class="${x.t==="SERVICE"?"row-service":""}">
-
-<td><b>${x.h}</b></td>
-
-<td>${x.d || "-"}</td>
-
-<td>${x.a || "-"}</td>
-
-<td>${x.t}</td>
-
-<td class="precio-val">${x.p ? "$"+x.p : "-"}</td>
-
-<td>${x.o || "-"}</td>
-
-<td>
-
-<button onclick="borrar('${x.id}')">✕</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-});
-
+    datos
+      .filter(x => x.fStr === hoy && x.s === suc)
+      .sort((a, b) => (a.h || "").localeCompare(b.h || ""))
+      .forEach((x) => {
+        tbody.innerHTML += `
+          <tr class="${x.t === "SERVICE" ? "row-service" : ""}">
+            <td><b>${x.h || "-"}</b></td>
+            <td>${x.d || "-"}</td>
+            <td>${x.a || "-"}</td>
+            <td>${x.tel || "-"}</td>
+            <td>${x.t || "-"}</td>
+            <td class="precio-val">${x.p ? "$" + x.p : "-"}</td>
+            <td>${x.o || "-"}</td>
+            <td>
+              <div class="acciones">
+                <button class="btn-mini" onclick="editar('${x.id}')">✏</button>
+                <button class="btn-mini" onclick="borrar('${x.id}')">✕</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+  });
 }
 
 </script>
