@@ -3,477 +3,673 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Turnero Pro</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
 <style>
+
 :root{
-  --bg:#f1f5f9;
-  --card:#ffffff;
-  --text:#1e293b;
-  --primary:#6366f1;
-  --alem:#0ea5e9;
-  --zico:#f43f5e;
-  --border:#e2e8f0;
-  --grad:linear-gradient(90deg,#3b82f6,#8b5cf6);
+--bg:#f1f5f9;
+--card:#ffffff;
+--text:#1e293b;
+--primary:#6366f1;
+
+--alem:#0ea5e9;
+--zico:#f43f5e;
+
+--border:#e2e8f0;
+
+--grad:linear-gradient(90deg,#3b82f6,#8b5cf6);
 }
+
 body{
-  font-family:Inter, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  margin:0;
-  padding:15px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+font-family:Inter;
+background:var(--bg);
+color:var(--text);
+
+margin:0;
+padding:15px;
+
+display:flex;
+flex-direction:column;
+align-items:center;
 }
+
+/* PANEL */
+
 .goal-panel{
-  background:var(--card);
-  width:100%;
-  max-width:1100px;
-  padding:25px;
-  border-radius:25px;
-  border:1px solid var(--border);
-  margin-bottom:25px;
-  box-sizing:border-box;
+background:var(--card);
+width:100%;
+max-width:1100px;
+padding:25px;
+border-radius:25px;
+border:1px solid var(--border);
+margin-bottom:25px;
 }
+
 .progress-bg{
-  background:#e2e8f0;
-  height:14px;
-  border-radius:10px;
-  margin:15px 0;
-  overflow:hidden;
+background:#e2e8f0;
+height:14px;
+border-radius:10px;
+margin:15px 0;
+overflow:hidden;
 }
+
 .progress-fill{
-  background:var(--grad);
-  height:100%;
-  width:0%;
-  transition:1s;
+background:var(--grad);
+height:100%;
+width:0%;
+transition:1s;
 }
+
 .goal-stats{
-  display:flex;
-  justify-content:space-around;
-  text-align:center;
+display:flex;
+justify-content:space-around;
+text-align:center;
 }
+
 .stat-val{
-  font-size:1.8rem;
-  font-weight:800;
-  color:var(--primary);
+font-size:1.8rem;
+font-weight:800;
+color:var(--primary);
 }
+
+/* NAV */
+
 .nav-container{
-  display:flex;
-  gap:15px;
-  margin-bottom:20px;
-  align-items:center;
-  flex-wrap:wrap;
-  justify-content:center;
+display:flex;
+gap:15px;
+margin-bottom:20px;
+align-items:center;
+flex-wrap:wrap;
+justify-content:center;
 }
+
 .date-display{
-  background:white;
-  padding:10px 30px;
-  border-radius:50px;
-  font-weight:800;
-  border:1px solid var(--border);
-  min-width:220px;
-  text-align:center;
-  text-transform:capitalize;
+background:white;
+padding:10px 30px;
+border-radius:50px;
+font-weight:800;
+border:1px solid var(--border);
+min-width:220px;
+text-align:center;
 }
+
 .btn-round{
-  background:var(--primary);
-  color:white;
-  border:none;
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  cursor:pointer;
+background:var(--primary);
+color:white;
+border:none;
+width:35px;
+height:35px;
+border-radius:50%;
+cursor:pointer;
 }
+
+/* calendario */
+
 #selector-fecha{
-  padding:8px;
-  border-radius:8px;
-  border:1px solid var(--border);
-  font-weight:600;
+padding:8px;
+border-radius:8px;
+border:1px solid var(--border);
+font-weight:600;
 }
+
+/* FORM */
+
 .form-row{
-  background:var(--card);
-  padding:20px;
-  border-radius:20px;
-  border:1px solid var(--border);
-  width:100%;
-  max-width:1100px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:25px;
-  box-sizing:border-box;
+background:var(--card);
+padding:20px;
+border-radius:20px;
+border:1px solid var(--border);
+width:100%;
+max-width:1100px;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:25px;
 }
+
 .form-row input,
 .form-row select{
-  padding:10px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  flex:1;
-  min-width:110px;
+padding:10px;
+border-radius:10px;
+border:1px solid var(--border);
+flex:1;
+min-width:110px;
 }
+
 .btn-guardar{
-  background:var(--primary);
-  color:white;
-  border:none;
-  border-radius:10px;
-  font-weight:800;
-  cursor:pointer;
-  padding:10px 20px;
+background:var(--primary);
+color:white;
+border:none;
+border-radius:10px;
+font-weight:800;
+cursor:pointer;
+padding:10px 20px;
 }
+
+/* TABS */
+
 .tab-box{
-  display:flex;
-  gap:10px;
-  margin-bottom:15px;
+display:flex;
+gap:10px;
+margin-bottom:15px;
 }
+
 .tab-btn{
-  padding:10px 25px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:white;
-  font-weight:800;
-  cursor:pointer;
-  color:#94a3b8;
+padding:10px 25px;
+border-radius:12px;
+border:1px solid var(--border);
+background:white;
+font-weight:800;
+cursor:pointer;
 }
-.tab-btn.active.alem{ background:var(--alem); color:white; border-color:var(--alem); }
-.tab-btn.active.zico{ background:var(--zico); color:white; border-color:var(--zico); }
-.tab-btn.active.dual{ background:#334155; color:white; border-color:#334155; }
+
+.tab-btn.active.alem{
+background:var(--alem);
+color:white;
+}
+
+.tab-btn.active.zico{
+background:var(--zico);
+color:white;
+}
+
+.tab-btn.active.dual{
+background:#334155;
+color:white;
+}
+
+/* TABLAS */
+
 .tables-wrapper{
-  display:flex;
-  gap:20px;
-  width:100%;
-  max-width:1200px;
+display:flex;
+gap:20px;
+width:100%;
+max-width:1200px;
 }
+
 .table-card{
-  background:white;
-  border-radius:20px;
-  border:1px solid var(--border);
-  flex:1;
-  overflow-x:auto;
-  display:none;
+background:white;
+border-radius:20px;
+border:1px solid var(--border);
+flex:1;
+overflow-x:auto;
+display:none;
 }
-.dual-view .table-card{ display:block; }
-.single-view-alem #card-alem{ display:block; }
-.single-view-zico #card-zico{ display:block; }
+
+.dual-view .table-card{
+display:block;
+}
+
+.single-view-alem #card-alem{
+display:block;
+}
+
+.single-view-zico #card-zico{
+display:block;
+}
+
 .titulo-taller{
-  padding:12px 15px;
-  font-weight:800;
-  border-bottom:1px solid var(--border);
+padding:12px 15px;
+font-weight:800;
+border-bottom:1px solid var(--border);
 }
+
 .titulo-alem{ color:var(--alem); }
+
 .titulo-zico{ color:var(--zico); }
+
 table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:760px;
+width:100%;
+border-collapse:collapse;
+min-width:750px;
 }
+
 th{
-  background:#f8fafc;
-  padding:12px;
-  font-size:11px;
-  color:#94a3b8;
-  border-bottom:1px solid var(--border);
-  text-align:left;
-  text-transform:uppercase;
+background:#f8fafc;
+padding:12px;
+font-size:11px;
+color:#94a3b8;
+border-bottom:1px solid var(--border);
+text-align:left;
 }
+
 td{
-  padding:10px 12px;
-  border-bottom:1px solid var(--border);
-  font-size:13px;
+padding:10px 12px;
+border-bottom:1px solid var(--border);
+font-size:13px;
 }
-.precio-val{ font-weight:800; color:#10b981; }
-.row-service{ opacity:.6; background:#fafafa; }
-.acciones{ display:flex; gap:6px; }
+
+.precio-val{
+font-weight:800;
+color:#10b981;
+}
+
+.row-service{
+opacity:.6;
+background:#fafafa;
+}
+
+.acciones{
+display:flex;
+gap:6px;
+}
+
 .btn-mini{
-  border:1px solid var(--border);
-  background:white;
-  border-radius:8px;
-  cursor:pointer;
-  padding:5px 8px;
+border:1px solid var(--border);
+background:white;
+border-radius:8px;
+cursor:pointer;
+padding:5px 8px;
 }
+
 </style>
+
 </head>
+
+
 <body class="single-view-alem">
 
+
 <div class="goal-panel">
-  <div style="display:flex;justify-content:space-between;font-weight:800">
-    <span>INSTALACIONES DEL MES</span>
-    <span id="mes-label"></span>
-  </div>
-  <div class="progress-bg">
-    <div class="progress-fill" id="prog-bar"></div>
-  </div>
-  <div class="goal-stats">
-    <div>
-      <div class="stat-val" id="val-llevamos">0</div>
-      <div>instaladas</div>
-    </div>
-    <div>
-      <div class="stat-val">45</div>
-      <div>objetivo</div>
-    </div>
-    <div>
-      <div class="stat-val" id="val-faltan">45</div>
-      <div>faltan</div>
-    </div>
-  </div>
+
+<div style="display:flex;justify-content:space-between;font-weight:800">
+<span>INSTALACIONES DEL MES</span>
+<span id="mes-label"></span>
 </div>
+
+<div class="progress-bg">
+<div class="progress-fill" id="prog-bar"></div>
+</div>
+
+<div class="goal-stats">
+
+<div>
+<div class="stat-val" id="val-llevamos">0</div>
+<div>instaladas</div>
+</div>
+
+<div>
+<div class="stat-val">45</div>
+<div>objetivo</div>
+</div>
+
+<div>
+<div class="stat-val" id="val-faltan">45</div>
+<div>faltan</div>
+</div>
+
+</div>
+
+</div>
+
+
 
 <div class="nav-container">
-  <button class="btn-round" onclick="moverDia(-1)">❮</button>
-  <div class="date-display" id="fecha-actual"></div>
-  <button class="btn-round" onclick="moverDia(1)">❯</button>
-  <input type="date" id="selector-fecha">
+
+<button class="btn-round" onclick="moverDia(-1)">❮</button>
+
+<div class="date-display" id="fecha-actual"></div>
+
+<button class="btn-round" onclick="moverDia(1)">❯</button>
+
+<input type="date" id="selector-fecha">
+
 </div>
+
+
 
 <div class="form-row">
-  <input type="time" id="f-hora" value="08:00">
-  <input id="f-dom" placeholder="Patente">
-  <input id="f-auto" placeholder="Vehiculo">
-  <input id="f-nombre" placeholder="Cliente">
-  <input id="f-tel" placeholder="Telefono">
-  <input id="f-precio" placeholder="Precio">
-  <input id="f-obs" placeholder="Obs">
 
-  <select id="f-tipo">
-    <option value="INSTALACION">INSTALACION</option>
-    <option value="SERVICE">SERVICE</option>
-  </select>
+<input type="time" id="f-hora" value="08:00">
 
-  <select id="f-cat">
-    <option value="MOSTRADOR">MOSTRADOR</option>
-    <option value="ADS">ADS</option>
-    <option value="META">META</option>
-  </select>
+<input id="f-dom" placeholder="Patente">
 
-  <select id="f-suc">
-    <option value="alem">ALEM</option>
-    <option value="zico">ZICO</option>
-  </select>
+<input id="f-auto" placeholder="Vehiculo">
 
-  <button class="btn-guardar" id="btn-guardar" onclick="guardar()">GUARDAR</button>
+<input id="f-nombre" placeholder="Cliente">
+
+<input id="f-tel" placeholder="Telefono">
+
+<input id="f-precio" placeholder="Precio">
+
+<input id="f-obs" placeholder="Obs">
+
+
+<select id="f-tipo">
+
+<option value="INSTALACION">INSTALACION</option>
+
+<option value="SERVICE">SERVICE</option>
+
+</select>
+
+
+<select id="f-cat">
+
+<option value="MOSTRADOR">MOSTRADOR</option>
+
+<option value="ADS">ADS</option>
+
+<option value="META">META</option>
+
+</select>
+
+
+<select id="f-suc">
+
+<option value="alem">ALEM</option>
+
+<option value="zico">ZICO</option>
+
+</select>
+
+
+<button class="btn-guardar" id="btn-guardar" onclick="guardar()">GUARDAR</button>
+
 </div>
+
+
 
 <div class="tab-box">
-  <button class="tab-btn active alem" id="t-alem" onclick="verTab('alem')">ALEM</button>
-  <button class="tab-btn zico" id="t-zico" onclick="verTab('zico')">ZICO</button>
-  <button class="tab-btn dual" id="t-dual" onclick="verTab('dual')">DUAL</button>
+
+<button class="tab-btn active alem" id="t-alem" onclick="verTab('alem')">ALEM</button>
+
+<button class="tab-btn zico" id="t-zico" onclick="verTab('zico')">ZICO</button>
+
+<button class="tab-btn dual" id="t-dual" onclick="verTab('dual')">DUAL</button>
+
 </div>
+
+
 
 <div class="tables-wrapper">
-  <div class="table-card" id="card-alem">
-    <div class="titulo-taller titulo-alem">TALLER ALEM</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Hora</th>
-          <th>Dom</th>
-          <th>Auto</th>
-          <th>Tel</th>
-          <th>Tipo</th>
-          <th>Origen</th>
-          <th>Precio</th>
-          <th>Obs</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="lista-alem"></tbody>
-    </table>
-  </div>
 
-  <div class="table-card" id="card-zico">
-    <div class="titulo-taller titulo-zico">TALLER ZICO</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Hora</th>
-          <th>Dom</th>
-          <th>Auto</th>
-          <th>Tel</th>
-          <th>Tipo</th>
-          <th>Origen</th>
-          <th>Precio</th>
-          <th>Obs</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="tbody-zico"></tbody>
-    </table>
-  </div>
+<div class="table-card" id="card-alem">
+
+<div class="titulo-taller titulo-alem">
+TALLER ALEM
 </div>
 
+<table>
+
+<thead>
+
+<tr>
+
+<th>Hora</th>
+<th>Dom</th>
+<th>Auto</th>
+<th>Cliente</th>
+<th>Tel</th>
+<th>Tipo</th>
+<th>Origen</th>
+<th>Obs</th>
+<th>Precio</th>
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody id="lista-alem"></tbody>
+
+</table>
+
+</div>
+
+
+
+<div class="table-card" id="card-zico">
+
+<div class="titulo-taller titulo-zico">
+TALLER ZICO
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Hora</th>
+<th>Dom</th>
+<th>Auto</th>
+<th>Cliente</th>
+<th>Tel</th>
+<th>Tipo</th>
+<th>Origen</th>
+<th>Obs</th>
+<th>Precio</th>
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody id="tbody-zico"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, push, onValue, remove, update }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAnw3MUG_tUPJSbbxtRaGo9PtPPRQP_jCQ",
-  authDomain: "basedatostaller-54e4b.firebaseapp.com",
-  databaseURL: "https://basedatostaller-54e4b-default-rtdb.firebaseio.com",
-  projectId: "basedatostaller-54e4b",
-  storageBucket: "basedatostaller-54e4b.firebasestorage.app",
-  messagingSenderId: "92715425671",
-  appId: "1:92715425671:web:2ef599317ebe18f602bd22"
+
+const firebaseConfig={
+apiKey:"AIzaSyAnw3MUG_tUPJSbbxtRaGo9PtPPRQP_jCQ",
+authDomain:"basedatostaller-54e4b.firebaseapp.com",
+databaseURL:"https://basedatostaller-54e4b-default-rtdb.firebaseio.com",
+projectId:"basedatostaller-54e4b",
+storageBucket:"basedatostaller-54e4b.firebasestorage.app",
+messagingSenderId:"92715425671",
+appId:"1:92715425671:web:2ef599317ebe18f602bd22"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
 
-let fecha = new Date();
-const META = 45;
-let datos = [];
-let editId = null;
+const $ = id => document.getElementById(id);
 
-const $ = (id) => document.getElementById(id);
+let fecha=new Date();
+const META=45;
+let datos=[];
+let editId=null;
 
-function limpiarFormulario() {
-  ["f-dom","f-auto","f-nombre","f-tel","f-precio","f-obs"].forEach(id => {
-    $(id).value = "";
-  });
-  $("f-hora").value = "08:00";
-  $("f-tipo").value = "INSTALACION";
-  $("f-cat").value = "MOSTRADOR";
-  $("f-suc").value = "alem";
-}
 
-function setModoGuardar() {
-  editId = null;
-  $("btn-guardar").innerText = "GUARDAR";
-}
-
-$("selector-fecha").addEventListener("change", (e) => {
-  if (!e.target.value) return;
-  fecha = new Date(e.target.value + "T00:00:00");
-  render();
+$("selector-fecha").addEventListener("change",e=>{
+if(!e.target.value) return;
+fecha=new Date(e.target.value+"T00:00:00");
+render();
 });
 
-onValue(ref(db, "turnero"), (snap) => {
-  datos = [];
-  if (snap.exists()) {
-    snap.forEach((c) => {
-      datos.push({ id: c.key, ...c.val() });
-    });
-  }
-  render();
+
+onValue(ref(db,"turnero"),snap=>{
+datos=[];
+snap.forEach(c=>{
+datos.push({ id:c.key,...c.val() });
+});
+render();
 });
 
-window.guardar = async function () {
-  const turno = {
-    fStr: fecha.toISOString().split("T")[0],
-    mes: fecha.getMonth(),
-    h: $("f-hora").value || "08:00",
-    d: ($("f-dom").value || "").toUpperCase(),
-    a: $("f-auto").value || "",
-    n: $("f-nombre").value || "",
-    tel: $("f-tel").value || "",
-    p: $("f-precio").value || "",
-    o: $("f-obs").value || "",
-    t: $("f-tipo").value,
-    cat: $("f-cat").value || "MOSTRADOR",
-    s: $("f-suc").value
-  };
 
-  if (editId) {
-    await update(ref(db, "turnero/" + editId), turno);
-    setModoGuardar();
-  } else {
-    await push(ref(db, "turnero"), turno);
-  }
+window.guardar=function(){
 
-  limpiarFormulario();
+const turno={
+fStr:fecha.toISOString().split("T")[0],
+mes:fecha.getMonth(),
+
+h:$("f-hora").value || "08:00",
+d:($("f-dom").value || "").toUpperCase(),
+a:$("f-auto").value || "",
+n:$("f-nombre").value || "",
+tel:$("f-tel").value || "",
+p:$("f-precio").value || "",
+o:$("f-obs").value || "",
+t:$("f-tipo").value,
+cat:$("f-cat").value || "MOSTRADOR",
+s:$("f-suc").value
 };
 
-window.editar = function (id) {
-  const t = datos.find(x => x.id === id);
-  if (!t) return;
-
-  editId = id;
-  fecha = new Date(t.fStr + "T00:00:00");
-  $("selector-fecha").value = t.fStr || "";
-  $("f-hora").value = t.h || "08:00";
-  $("f-dom").value = t.d || "";
-  $("f-auto").value = t.a || "";
-  $("f-nombre").value = t.n || "";
-  $("f-tel").value = t.tel || "";
-  $("f-precio").value = t.p || "";
-  $("f-obs").value = t.o || "";
-  $("f-tipo").value = t.t || "INSTALACION";
-  $("f-cat").value = t.cat || "MOSTRADOR";
-  $("f-suc").value = t.s || "alem";
-  $("btn-guardar").innerText = "ACTUALIZAR";
-  render();
-};
-
-window.borrar = async function (id) {
-  if (!confirm("borrar turno")) return;
-  await remove(ref(db, "turnero/" + id));
-  if (editId === id) {
-    setModoGuardar();
-    limpiarFormulario();
-  }
-};
-
-window.verTab = function (s) {
-  document.body.className = s === "dual" ? "dual-view" : "single-view-" + s;
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-  const btn = $("t-" + s);
-  if (btn) btn.classList.add("active");
-};
-
-window.moverDia = function (n) {
-  fecha.setDate(fecha.getDate() + n);
-  render();
-};
-
-function render() {
-  const hoy = fecha.toISOString().split("T")[0];
-  $("selector-fecha").value = hoy;
-  $("fecha-actual").innerText = fecha.toLocaleDateString("es-ES", {
-    weekday: "long",
-    day: "numeric",
-    month: "long"
-  });
-  $("mes-label").innerText = fecha.toLocaleDateString("es-ES", {
-    month: "long",
-    year: "numeric"
-  }).toUpperCase();
-
-  const total = datos.filter(x => x.mes === fecha.getMonth() && x.t === "INSTALACION").length;
-  $("val-llevamos").innerText = total;
-  $("val-faltan").innerText = Math.max(0, META - total);
-  $("prog-bar").style.width = Math.min((total / META) * 100, 100) + "%";
-
-  ["alem", "zico"].forEach((s) => {
-    const tb = $(s === "alem" ? "lista-alem" : "tbody-zico");
-    tb.innerHTML = "";
-
-    datos
-      .filter(x => x.fStr === hoy && x.s === s)
-      .sort((a, b) => (a.h || "").localeCompare(b.h || ""))
-      .forEach((x) => {
-        tb.innerHTML += `
-          <tr class="${x.t === "SERVICE" ? "row-service" : ""}">
-            <td>${x.h || "-"}</td>
-            <td>${x.d || "-"}</td>
-            <td>${x.a || "-"}</td>
-            <td>${x.tel || "-"}</td>
-            <td>${x.t || "-"}</td>
-            <td>${x.cat || "-"}</td>
-            <td class="precio-val">${x.p ? "$" + x.p : "-"}</td>
-            <td>${x.o || "-"}</td>
-            <td>
-              <div class="acciones">
-                <button class="btn-mini" onclick="editar('${x.id}')">✏</button>
-                <button class="btn-mini" onclick="borrar('${x.id}')">✕</button>
-              </div>
-            </td>
-          </tr>
-        `;
-      });
-  });
+if(editId){
+update(ref(db,"turnero/"+editId),turno);
+editId=null;
+$("btn-guardar").innerText="GUARDAR";
+}else{
+push(ref(db,"turnero"),turno);
 }
+
+["f-dom","f-auto","f-nombre","f-tel","f-precio","f-obs"]
+.forEach(id=>$(id).value="");
+
+};
+
+
+window.editar=function(id){
+
+const t=datos.find(x=>x.id===id);
+if(!t) return;
+
+editId=id;
+
+fecha=new Date(t.fStr+"T00:00:00");
+
+$("selector-fecha").value=t.fStr;
+
+$("f-hora").value=t.h||"08:00";
+$("f-dom").value=t.d||"";
+$("f-auto").value=t.a||"";
+$("f-nombre").value=t.n||"";
+$("f-tel").value=t.tel||"";
+$("f-precio").value=t.p||"";
+$("f-obs").value=t.o||"";
+$("f-tipo").value=t.t||"INSTALACION";
+$("f-cat").value=t.cat||"MOSTRADOR";
+$("f-suc").value=t.s||"alem";
+
+$("btn-guardar").innerText="ACTUALIZAR";
+
+render();
+
+};
+
+
+window.borrar=function(id){
+if(confirm("borrar turno"))
+remove(ref(db,"turnero/"+id));
+};
+
+
+window.verTab=function(s){
+
+document.body.className=
+s==="dual"
+?"dual-view"
+:"single-view-"+s;
+
+document.querySelectorAll(".tab-btn")
+.forEach(b=>b.classList.remove("active"));
+
+$("t-"+s).classList.add("active");
+
+};
+
+
+window.moverDia=function(n){
+fecha.setDate(fecha.getDate()+n);
+render();
+};
+
+
+function render(){
+
+const hoy=fecha.toISOString().split("T")[0];
+
+$("selector-fecha").value=hoy;
+
+$("fecha-actual").innerText=
+fecha.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
+
+$("mes-label").innerText=
+fecha.toLocaleDateString("es-ES",{month:"long",year:"numeric"});
+
+
+const total=
+datos.filter(x=>x.mes===fecha.getMonth() && x.t==="INSTALACION").length;
+
+$("val-llevamos").innerText=total;
+$("val-faltan").innerText=Math.max(0,META-total);
+$("prog-bar").style.width=(total/META*100)+"%";
+
+
+["alem","zico"].forEach(s=>{
+
+const tb=$(s==="alem"?"lista-alem":"tbody-zico");
+
+tb.innerHTML="";
+
+datos
+.filter(x=>x.fStr===hoy && x.s===s)
+.sort((a,b)=>(a.h||"").localeCompare(b.h||""))
+.forEach(x=>{
+
+tb.innerHTML+=`
+
+<tr class="${x.t==="SERVICE"?"row-service":""}">
+
+<td>${x.h||"-"}</td>
+
+<td>${x.d||"-"}</td>
+
+<td>${x.a||"-"}</td>
+
+<td>${x.n||"-"}</td>
+
+<td>${x.tel||"-"}</td>
+
+<td>${x.t||"-"}</td>
+
+<td>${x.cat||"-"}</td>
+
+<td>${x.o||"-"}</td>
+
+<td class="precio-val">${x.p?"$"+x.p:"-"}</td>
+
+<td>
+
+<div class="acciones">
+
+<button class="btn-mini" onclick="editar('${x.id}')">✏</button>
+
+<button class="btn-mini" onclick="borrar('${x.id}')">✕</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+});
+
+}
+
 </script>
+
 
 </body>
 </html>
