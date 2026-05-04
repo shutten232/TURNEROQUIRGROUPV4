@@ -203,21 +203,28 @@ body{
 .form-fecha-badge{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:6px;
   font-size:13px;
   font-weight:600;
   color:#64748b;
   margin-bottom:14px;
+  flex-wrap:wrap;
 }
 
-.form-fecha-badge span{
-  background:#f1f5f9;
-  border:1px solid var(--border);
-  border-radius:6px;
-  padding:3px 10px;
-  color:var(--primary);
-  font-weight:800;
+.fecha-rapida{
+  padding:4px 12px;
+  border-radius:20px;
+  border:1.5px solid var(--border);
+  background:white;
+  font-weight:700;
+  font-size:12px;
+  cursor:pointer;
+  font-family:inherit;
+  color:#475569;
+  transition:.12s;
 }
+.fecha-rapida:hover{ border-color:var(--primary); color:var(--primary); }
+.fecha-rapida.sel{ background:var(--primary); color:white; border-color:var(--primary); }
 
 /* fila principal de inputs */
 .form-main{
@@ -1004,7 +1011,12 @@ td{
 <div class="form-card" id="form-card">
 
   <div class="form-fecha-badge">
-    📅 Guardando en: <span id="badge-fecha">—</span>
+    📅
+    <button class="fecha-rapida sel" id="fbtn-hoy"    onclick="setFormFecha(0)">Hoy</button>
+    <button class="fecha-rapida"     id="fbtn-manana" onclick="setFormFecha(1)">Mañana</button>
+    <button class="fecha-rapida"     id="fbtn-pasado" onclick="setFormFecha(2)">Pasado</button>
+    <input type="date" id="form-fecha-picker" style="padding:4px 8px;border-radius:8px;border:1.5px solid var(--border);font-family:inherit;font-size:13px;font-weight:600;color:var(--primary);cursor:pointer;" onchange="setFormFechaDirecta(this.value)">
+    <span id="badge-fecha" style="font-size:12px;color:#94a3b8;font-weight:600;"></span>
   </div>
 
   <!-- fila 1: datos del turno -->
@@ -1243,11 +1255,49 @@ let esSobre   = false;
 let semOffset = 0;  // semanas desde la semana actual
 
 // ── form colapsable ─────────────────────────────
+// ── fecha rápida dentro del form ────────────────
+let formFechaOffset = 0; // 0=hoy, 1=mañana, 2=pasado relativo a HOY
+
+function getFormFecha(){
+  const d = new Date();
+  d.setDate(d.getDate() + formFechaOffset);
+  return d;
+}
+
+function actualizarFormFecha(){
+  const d = getFormFecha();
+  fecha = d;
+  $("selector-fecha").value = fechaStr(d);
+  $("form-fecha-picker").value = fechaStr(d);
+  $("badge-fecha").innerText = "→ " + d.toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"});
+  [0,1,2].forEach(i=>{
+    const ids = ["fbtn-hoy","fbtn-manana","fbtn-pasado"];
+    $( ids[i] ).classList.toggle("sel", i === formFechaOffset);
+  });
+  render();
+}
+
+window.setFormFecha = function(offset){
+  formFechaOffset = offset;
+  actualizarFormFecha();
+};
+
+window.setFormFechaDirecta = function(val){
+  if(!val) return;
+  formFechaOffset = -999; // custom
+  fecha = new Date(val+"T00:00:00");
+  $("selector-fecha").value = val;
+  $("badge-fecha").innerText = "→ " + fecha.toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"});
+  ["fbtn-hoy","fbtn-manana","fbtn-pasado"].forEach(id=> $(id).classList.remove("sel"));
+  render();
+};
+
 function abrirForm(){
   $("form-card").classList.add("abierto");
   const b = $("btn-nuevo-turno");
   b.classList.add("abierto");
   b.innerHTML = "✕ Cerrar";
+  actualizarFormFecha();
   setTimeout(()=> $("f-dom").focus(), 50);
 }
 function cerrarForm(){
@@ -1462,7 +1512,8 @@ window.guardar = function(){
   $("btn-sobre").classList.remove("activo");
   $("btn-sobre").innerText = "🔶 SOBRE";
 
-  // cerrar form
+  // cerrar form y resetear fecha a hoy
+  formFechaOffset = 0;
   cerrarForm();
 
   // foco en patente para el próximo turno
