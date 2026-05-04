@@ -158,49 +158,59 @@ body{
   font-weight:600;
 }
 
-/* ── FORM ─────────────────────────────────────── */
-.form-row{
+/* ── FORM COLAPSABLE ──────────────────────────── */
+.form-card{
   background:var(--card);
-  padding:18px 20px;
+  padding:18px 22px;
   border-radius:20px;
   border:1px solid var(--border);
   width:100%;
   max-width:1100px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
   margin-bottom:10px;
-  position:relative;
+  overflow:hidden;
+  max-height:0;
+  padding-top:0;
+  padding-bottom:0;
+  opacity:0;
+  transition: max-height .3s ease, opacity .25s ease, padding .3s ease;
 }
 
-.form-row input,
-.form-row select{
-  padding:10px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  flex:1;
-  min-width:110px;
+.form-card.abierto{
+  max-height:400px;
+  padding:18px 22px;
+  opacity:1;
+}
+
+.btn-nuevo-turno{
+  background:var(--primary);
+  color:white;
+  border:none;
+  border-radius:50px;
+  padding:8px 20px;
+  font-weight:800;
+  cursor:pointer;
+  font-size:13px;
   font-family:inherit;
+  letter-spacing:.3px;
+  transition:.15s;
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
+.btn-nuevo-turno:hover{ background:#4f46e5; }
+.btn-nuevo-turno.abierto{ background:#64748b; }
 
-.form-row input.required-err{
-  border-color:#f43f5e;
-  background:#fff1f2;
-}
-
-/* fecha activa badge */
-.fecha-activa-badge{
-  width:100%;
+.form-fecha-badge{
   display:flex;
   align-items:center;
   gap:8px;
   font-size:13px;
   font-weight:600;
   color:#64748b;
-  margin-bottom:-2px;
+  margin-bottom:14px;
 }
 
-.fecha-activa-badge span{
+.form-fecha-badge span{
   background:#f1f5f9;
   border:1px solid var(--border);
   border-radius:6px;
@@ -209,6 +219,187 @@ body{
   font-weight:800;
 }
 
+/* fila principal de inputs */
+.form-main{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:stretch;
+  margin-bottom:10px;
+}
+
+.form-main input{
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  font-family:inherit;
+  font-size:13px;
+  background:white;
+}
+
+.form-main input:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(99,102,241,.1);
+}
+
+.fi-hora{ width:90px; flex-shrink:0; text-align:center; font-weight:700; }
+.fi-pat { flex:1.2; min-width:100px; font-weight:800; letter-spacing:1px; text-transform:uppercase; }
+.fi-auto{ flex:1.5; min-width:120px; }
+.fi-nom { flex:2;   min-width:140px; }
+.fi-tel { flex:1.2; min-width:110px; }
+.fi-obs { flex:2;   min-width:120px; }
+
+.form-main input.required-err{
+  border-color:#f43f5e;
+  background:#fff1f2;
+}
+
+/* fila inferior: cilindros + controles */
+.form-bottom{
+  display:flex;
+  gap:16px;
+  align-items:center;
+}
+
+/* filas de cilindros */
+.cil-row{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.cil-row-label{
+  font-size:10px;
+  font-weight:800;
+  color:#94a3b8;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+  min-width:30px;
+}
+
+/* preset cilindros */
+.cil-presets{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  flex:1;
+}
+
+.cil-preset{
+  padding:6px 10px;
+  border-radius:7px;
+  border:1.5px solid var(--border);
+  background:#f8fafc;
+  font-weight:700;
+  font-size:12px;
+  cursor:pointer;
+  font-family:inherit;
+  transition:.12s;
+  white-space:nowrap;
+  color:#475569;
+  line-height:1;
+}
+
+.cil-preset:hover{ background:#e0e7ff; border-color:var(--primary); color:var(--primary); }
+.cil-preset.sel  { background:var(--primary); border-color:var(--primary); color:white; }
+
+/* controles derechos */
+.form-controls{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+/* toggle generación */
+.gen-toggle{
+  display:flex;
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+}
+.gen-btn{
+  padding:6px 18px;
+  border:none;
+  background:white;
+  font-weight:800;
+  font-size:13px;
+  cursor:pointer;
+  font-family:inherit;
+  transition:.12s;
+  color:#94a3b8;
+}
+.gen-btn.sel-5ta{ background:#6366f1; color:white; }
+.gen-btn.sel-4ta{ background:#0ea5e9; color:white; }
+
+.tipo-toggle{
+  display:flex;
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+.tipo-btn{
+  padding:8px 14px;
+  border:none;
+  background:white;
+  font-weight:700;
+  font-size:12px;
+  cursor:pointer;
+  font-family:inherit;
+  transition:.12s;
+}
+
+.tipo-btn.sel-inst{ background:var(--primary); color:white; }
+.tipo-btn.sel-serv{ background:#f43f5e;        color:white; }
+
+/* toggle sucursal */
+.suc-toggle{
+  display:flex;
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+.suc-btn{
+  padding:8px 16px;
+  border:none;
+  background:white;
+  font-weight:800;
+  font-size:12px;
+  cursor:pointer;
+  font-family:inherit;
+  transition:.12s;
+}
+
+.suc-btn.sel-alem{ background:var(--alem); color:white; }
+.suc-btn.sel-zico{ background:var(--zico); color:white; }
+
+/* toggle categoria */
+.cat-toggle{
+  display:flex;
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+.cat-btn{
+  padding:7px 11px;
+  border:none;
+  background:white;
+  font-weight:700;
+  font-size:11px;
+  cursor:pointer;
+  font-family:inherit;
+  transition:.12s;
+  color:#64748b;
+}
+
+.cat-btn.sel{ background:#334155; color:white; }
+
 .btn-guardar{
   background:var(--primary);
   color:white;
@@ -216,8 +407,58 @@ body{
   border-radius:10px;
   font-weight:800;
   cursor:pointer;
-  padding:10px 20px;
+  padding:10px 22px;
   font-family:inherit;
+  font-size:14px;
+  flex-shrink:0;
+}
+
+.btn-guardar:hover{ background:#4f46e5; }
+
+/* ── SOBRETURNO ───────────────────────────────── */
+.btn-sobre{
+  background:#f8fafc;
+  color:#94a3b8;
+  border:2px solid var(--border);
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  padding:10px 16px;
+  font-family:inherit;
+  font-size:13px;
+  transition:.15s;
+  white-space:nowrap;
+}
+
+.btn-sobre.activo{
+  background:#fff7ed;
+  color:#ea580c;
+  border-color:#fb923c;
+}
+
+.badge-sobre{
+  display:inline-block;
+  background:#fff7ed;
+  color:#ea580c;
+  border:1px solid #fb923c;
+  border-radius:5px;
+  padding:1px 7px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.3px;
+  vertical-align:middle;
+  margin-left:4px;
+}
+
+.row-sobre td:first-child::before{
+  content:"🔶 ";
+}
+
+.dia-sobre-count{
+  font-size:10px;
+  font-weight:700;
+  color:#ea580c;
+  margin-top:3px;
 }
 
 .btn-importar{
@@ -755,43 +996,95 @@ td{
   <button class="btn-round" onclick="moverDia(1)">❯</button>
   <button class="btn-hoy" onclick="irHoy()">HOY</button>
   <input type="date" id="selector-fecha">
+  <button class="btn-nuevo-turno" id="btn-nuevo-turno" onclick="toggleForm()">＋ Nuevo turno</button>
 </div>
 
 
 <!-- ── FORM ─────────────────────────────────── -->
-<div class="form-row">
+<div class="form-card" id="form-card">
 
-  <div class="fecha-activa-badge">
+  <div class="form-fecha-badge">
     📅 Guardando en: <span id="badge-fecha">—</span>
   </div>
 
-  <input type="time" id="f-hora" value="08:00">
-  <input id="f-dom"    placeholder="Patente *">
-  <input id="f-auto"   placeholder="Vehículo">
-  <input id="f-nombre" placeholder="Cliente">
-  <input id="f-tel"    placeholder="Teléfono">
-  <input id="f-equipo" placeholder="Equipo / cilindro">
-  <input id="f-precio" placeholder="Precio" type="number">
-  <input id="f-obs"    placeholder="Obs">
+  <!-- fila 1: datos del turno -->
+  <div class="form-main">
+    <input class="fi-hora" type="time" id="f-hora" value="08:00" tabindex="1">
+    <input class="fi-pat"  id="f-dom"    placeholder="Patente" tabindex="2"
+           oninput="this.value=this.value.toUpperCase()">
+    <input class="fi-auto" id="f-auto"   placeholder="Vehículo" tabindex="3">
+    <input class="fi-nom"  id="f-nombre" placeholder="Cliente" tabindex="4">
+    <input class="fi-tel"  id="f-tel"    placeholder="Teléfono" tabindex="5">
+    <input class="fi-obs"  id="f-obs"    placeholder="Obs" tabindex="6">
+  </div>
 
-  <select id="f-tipo">
-    <option value="INSTALACION">INSTALACION</option>
-    <option value="SERVICE">SERVICE</option>
-  </select>
+  <!-- fila 2: generación + cilindros -->
+  <div style="margin-bottom:10px;">
 
-  <select id="f-cat">
-    <option value="MOSTRADOR">MOSTRADOR</option>
-    <option value="ADS">ADS</option>
-    <option value="META">META</option>
-    <option value="COKI">COKI</option>
-  </select>
+    <!-- toggle generación -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span class="cil-row-label">GEN.</span>
+      <div class="gen-toggle">
+        <button class="gen-btn sel-5ta" id="gbtn-5ta" onclick="selGen('5TA')">5TA</button>
+        <button class="gen-btn"         id="gbtn-4ta" onclick="selGen('4TA')">4TA</button>
+      </div>
+    </div>
+    <div class="cil-row">
+      <span class="cil-row-label">1 cil.</span>
+      <button class="cil-preset" onclick="selCil(this,'10 MTS')">10</button>
+      <button class="cil-preset" onclick="selCil(this,'12,5 MTS')">12,5</button>
+      <button class="cil-preset" onclick="selCil(this,'14 MTS')">14</button>
+      <button class="cil-preset" onclick="selCil(this,'16 MTS')">16</button>
+      <button class="cil-preset" onclick="selCil(this,'17 MTS')">17</button>
+      <button class="cil-preset" onclick="selCil(this,'20 MTS')">20</button>
+      <button class="cil-preset" onclick="selCil(this,'22 MTS')">22</button>
+      <button class="cil-preset" onclick="selCil(this,'30 MTS')">30</button>
+      <span style="color:#cbd5e1;margin:0 4px;">|</span>
+      <button class="cil-preset" onclick="selCil(this,'SERVICE')" style="color:#64748b;">SVC</button>
+      <input id="f-equipo" placeholder="otro…" style="width:80px;padding:5px 8px;border-radius:7px;border:1.5px solid var(--border);font-family:inherit;font-size:12px;margin-left:4px;" oninput="limpiarPresets()">
+    </div>
+    <div class="cil-row" style="margin-top:6px;">
+      <span class="cil-row-label">2 cil.</span>
+      <button class="cil-preset" onclick="selCil(this,'2 X 7,5 MTS')">7,5</button>
+      <button class="cil-preset" onclick="selCil(this,'2 X 10 MTS')">10</button>
+      <button class="cil-preset" onclick="selCil(this,'2 X 12,5 MTS')">12,5</button>
+      <button class="cil-preset" onclick="selCil(this,'2 X 14 MTS')">14</button>
+      <button class="cil-preset" onclick="selCil(this,'2 X 16 MTS')">16</button>
+      <button class="cil-preset" onclick="selCil(this,'2 X 20 MTS')">20</button>
+    </div>
+  </div>
 
-  <select id="f-suc">
-    <option value="alem">ALEM</option>
-    <option value="zico">ZICO</option>
-  </select>
+  <!-- fila 3: controles -->
+  <div class="form-controls">
 
-  <button class="btn-guardar" id="btn-guardar" onclick="guardar()">GUARDAR</button>
+    <div class="tipo-toggle">
+      <button class="tipo-btn sel-inst" id="tbtn-inst" onclick="selTipo('INSTALACION')">INST</button>
+      <button class="tipo-btn"          id="tbtn-serv" onclick="selTipo('SERVICE')">SERV</button>
+    </div>
+
+    <div class="suc-toggle">
+      <button class="suc-btn sel-alem" id="sbtn-alem" onclick="selSuc('alem')">ALEM</button>
+      <button class="suc-btn"          id="sbtn-zico" onclick="selSuc('zico')">ZICO</button>
+    </div>
+
+    <div class="cat-toggle">
+      <button class="cat-btn sel" id="cbtn-MOSTRADOR" onclick="selCat('MOSTRADOR')">MOST.</button>
+      <button class="cat-btn"     id="cbtn-ADS"       onclick="selCat('ADS')">ADS</button>
+      <button class="cat-btn"     id="cbtn-META"      onclick="selCat('META')">META</button>
+      <button class="cat-btn"     id="cbtn-COKI"      onclick="selCat('COKI')">COKI</button>
+    </div>
+
+    <button class="btn-sobre" id="btn-sobre" onclick="toggleSobre()">🔶 SOBRE</button>
+
+    <button class="btn-guardar" id="btn-guardar" onclick="guardar()">GUARDAR</button>
+
+  </div>
+
+  <!-- inputs hidden para compatibilidad con guardar() -->
+  <input type="hidden" id="f-tipo"  value="INSTALACION">
+  <input type="hidden" id="f-cat"   value="MOSTRADOR">
+  <input type="hidden" id="f-suc"   value="alem">
+  <input type="hidden" id="f-precio" value="">
 
 </div>
 
@@ -946,37 +1239,135 @@ let fecha     = new Date();
 let META      = 45;
 let datos     = [];
 let editId    = null;
+let esSobre   = false;
 let semOffset = 0;  // semanas desde la semana actual
+
+// ── form colapsable ─────────────────────────────
+function abrirForm(){
+  $("form-card").classList.add("abierto");
+  const b = $("btn-nuevo-turno");
+  b.classList.add("abierto");
+  b.innerHTML = "✕ Cerrar";
+  setTimeout(()=> $("f-dom").focus(), 50);
+}
+function cerrarForm(){
+  $("form-card").classList.remove("abierto");
+  const b = $("btn-nuevo-turno");
+  b.classList.remove("abierto");
+  b.innerHTML = "＋ Nuevo turno";
+}
+window.toggleForm = function(){
+  $("form-card").classList.contains("abierto") ? cerrarForm() : abrirForm();
+};
+
+window.toggleSobre = function(){
+  esSobre = !esSobre;
+  const btn = $("btn-sobre");
+  btn.classList.toggle("activo", esSobre);
+  btn.innerText = esSobre ? "🔶 SOBRE ✓" : "🔶 SOBRE";
+};
+
+// ── toggles rápidos del form ────────────────────
+let cilSelBtn = null;
+
+// ── generación del equipo ───────────────────────
+let genActual = "5TA";
+
+window.selGen = function(g){
+  genActual = g;
+  $("gbtn-5ta").className = "gen-btn" + (g==="5TA" ? " sel-5ta" : "");
+  $("gbtn-4ta").className = "gen-btn" + (g==="4TA" ? " sel-4ta" : "");
+};
+
+window.selCil = function(btn, sufijo){
+  if(cilSelBtn) cilSelBtn.classList.remove("sel");
+  cilSelBtn = btn;
+  btn.classList.add("sel");
+  // SERVICE no lleva generación
+  if(sufijo === "SERVICE"){
+    $("f-equipo").value = "SERVICE";
+    selTipo("SERVICE");
+  } else {
+    $("f-equipo").value = genActual + " - " + sufijo;
+  }
+};
+
+window.limpiarPresets = function(){
+  if(cilSelBtn){ cilSelBtn.classList.remove("sel"); cilSelBtn = null; }
+};
+
+window.selTipo = function(t){
+  $("f-tipo").value = t;
+  $("tbtn-inst").className = "tipo-btn" + (t==="INSTALACION"?" sel-inst":"");
+  $("tbtn-serv").className = "tipo-btn" + (t==="SERVICE"?" sel-serv":"");
+};
+
+window.selSuc = function(s){
+  $("f-suc").value = s;
+  $("sbtn-alem").className = "suc-btn" + (s==="alem"?" sel-alem":"");
+  $("sbtn-zico").className = "suc-btn" + (s==="zico"?" sel-zico":"");
+};
+
+window.selCat = function(c){
+  $("f-cat").value = c;
+  ["MOSTRADOR","ADS","META","COKI"].forEach(x=>{
+    $("cbtn-"+x).className = "cat-btn" + (x===c?" sel":"");
+  });
+};
+
+// Enter para guardar (excepto en textarea)
+document.addEventListener("keydown", e=>{
+  if(e.key==="Enter" && e.target.tagName!=="TEXTAREA"){
+    const active = document.activeElement;
+    if(active && active.closest(".form-card")) guardar();
+  }
+  // Flechas para cambiar de día (solo si no hay input activo)
+  const tag = document.activeElement?.tagName;
+  if(tag==="INPUT" || tag==="TEXTAREA" || tag==="SELECT") return;
+  if(e.key==="ArrowLeft")  moverDia(-1);
+  if(e.key==="ArrowRight") moverDia(1);
+});
 
 
 const TURNOS_MAYO_2026 = [
-  {fStr:"2026-05-02",h:"08:00",d:"",a:"PEUGEOT 307",n:"MADELEN",tel:"",eq:"SERVICE",p:"",s:"alem",o:"",t:"SERVICE",cat:"MOSTRADOR"},
-  {fStr:"2026-05-04",h:"08:00",d:"GCO011",a:"FOX",n:"JULIETA",tel:"3541224684",eq:"5TA - 10 MTS",p:"",s:"zico",o:"(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-04",h:"09:00",d:"AI159UM",a:"FIORINO",n:"LEONEL VILLAROEL",tel:"3513639750",eq:"5TA - 2 X 7,5 MTS C/REFORMA",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF) (META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-04",h:"10:00",d:"",a:"SANDERO",n:"",tel:"3513630851",eq:"5TA - 10 MTS",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF) (META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-04",h:"11:00",d:"",a:"SENDA",n:"",tel:"3512902813",eq:"CAMBIO DE CUNA",p:"",s:"zico",o:"CONTACTAR",t:"SERVICE",cat:"MOSTRADOR"},
-  {fStr:"2026-05-04",h:"08:00",d:"AD598RO",a:"PRISMA",n:"SERGIO TORRES",tel:"3513987584",eq:"5TA - 16 MTS",p:"",s:"alem",o:"SEÑA $20.000 (TRANSF) (META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-04",h:"09:00",d:"AI189TA",a:"PEUGEOT 208",n:"FIORELLA",tel:"3517025919",eq:"5TA - 10 MTS",p:"",s:"alem",o:"SEÑA $20.000 (TRANSF)(META) SOBRETURNO",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-04",h:"10:00",d:"",a:"FIESTA",n:"CLAUDIO",tel:"",eq:"SERVICE",p:"",s:"alem",o:"",t:"SERVICE",cat:"MOSTRADOR"},
-  {fStr:"2026-05-05",h:"08:00",d:"NPL528",a:"PEUGEOT 408",n:"DEPETRIS LUCAS",tel:"3513776769",eq:"5TA - 14 MTS C/RESET",p:"",s:"alem",o:"(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-05",h:"08:00",d:"OTC772",a:"PEUGEOT 208",n:"LUCIANO CARRANZA",tel:"3515129607",eq:"5TA - 10 MTS",p:"",s:"zico",o:"(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-05",h:"09:00",d:"AB687GN",a:"SANDERO",n:"CUITIÑO JOSE",tel:"3517434458",eq:"5TA - 10 MTS",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF)(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-05",h:"10:00",d:"PGL834",a:"PALIO",n:"CLAUDIO VILLULLAS",tel:"3512902813",eq:"5TA - 10 MTS",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF) (META) SOBRETURNO",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-05",h:"09:00",d:"JPR247",a:"ECOSPORT",n:"DIEGO MONTENEGRO",tel:"3547466812",eq:"5TA - 2 X 7,5 MTS S/REFORMA",p:"",s:"alem",o:"(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-05",h:"11:00",d:"PER372",a:"ECOSPORT",n:"JUAN IGNACIO",tel:"3516761480",eq:"GARANTIA",p:"",s:"zico",o:"corregir el escape",t:"SERVICE",cat:"MOSTRADOR"},
-  {fStr:"2026-05-06",h:"08:00",d:"AG240EK",a:"TORO FREEDOM",n:"PABLO ALTEA",tel:"",eq:"5TA X 2 TUBOS 10MTS",p:"",s:"alem",o:"ADS SOBRETURNO",t:"INSTALACION",cat:"ADS"},
-  {fStr:"2026-05-06",h:"09:00",d:"AE748JH",a:"CRONOS CAJA AUTOM",n:"RITA",tel:"3515467122",eq:"5TA - 16 MTS",p:"",s:"alem",o:"(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-06",h:"08:00",d:"AG803UO",a:"208",n:"GERMÁN REARTES",tel:"3515152578",eq:"5TA + 10 MTS",p:"",s:"zico",o:"ADS SOBRETURNO",t:"INSTALACION",cat:"ADS"},
-  {fStr:"2026-05-06",h:"09:00",d:"",a:"LOGAN",n:"",tel:"",eq:"5TA - 14 MTS",p:"",s:"zico",o:"(COKI)",t:"INSTALACION",cat:"COKI"},
-  {fStr:"2026-05-07",h:"08:00",d:"AH847CW",a:"CRONOS",n:"MATIAS IGLESIAS",tel:"1133603954",eq:"5TA - 14 MTS",p:"",s:"alem",o:"SEÑA $10.000 (TRANSF)(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-07",h:"08:00",d:"AA786MO",a:"KANGOO",n:"VIVAS DARIO",tel:"3515143574",eq:"5TA + 2 X 7.5 MTS",p:"",s:"zico",o:"SEÑA $20.000 MOSTRADOR",t:"INSTALACION",cat:"MOSTRADOR"},
-  {fStr:"2026-05-08",h:"08:00",d:"AA676YK",a:"FIESTA",n:"CRISTIAN NICOLAS TAPIA",tel:"3516827443",eq:"5TA - 10 MTS",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF) (META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-08",h:"09:00",d:"KEV424",a:"GOL",n:"MICAELA MAZA",tel:"3548565154",eq:"5TA - 10 MTS",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF)(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-08",h:"08:00",d:"AB468IZ",a:"PRISMA",n:"MONICA VIDELA",tel:"3516166761",eq:"5TA - 10 MTS",p:"",s:"alem",o:"(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-11",h:"08:00",d:"AC695PY",a:"PEUGEOT 208",n:"SEBASTIAN VARDARO",tel:"3514595605",eq:"5TA - 10 MTS",p:"",s:"alem",o:"SEÑA $20.000 (TRANSF)(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-11",h:"08:00",d:"KXP026",a:"DUSTER",n:"ANDRE FAYO",tel:"3543553337",eq:"5TA - DECIDIRÁ EN EL MOMENTO EL TUBO",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF) (META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-15",h:"08:00",d:"AE337TF",a:"CRONOS",n:"PABLO TOSELLI",tel:"2302605617",eq:"5TA - 16 MTS",p:"",s:"zico",o:"(META)",t:"INSTALACION",cat:"META"},
-  {fStr:"2026-05-22",h:"08:00",d:"POM112",a:"FIESTA",n:"FACUNDO IVAN",tel:"",eq:"5TA + 14 MTS",p:"",s:"zico",o:"MOSTRADOR SEÑA 260000",t:"INSTALACION",cat:"MOSTRADOR"}
+  // ── LUNES 04/05 ──────────────────────────────────────────────────────────
+  {fStr:"2026-05-04",h:"08:00",d:"GCO011",  a:"FOX",              n:"JULIETA",               tel:"3514224684",eq:"5TA - 10 MTS",              s:"zico",t:"INSTALACION",cat:"META",    o:"(META) SE REPROGRAMA",            sob:false},
+  {fStr:"2026-05-04",h:"09:00",d:"AI159UM", a:"FIORINO",          n:"LEONEL VILLAROEL",      tel:"3513639750",eq:"5TA - 2 X 7,5 MTS C/REFORMA",s:"zico",t:"INSTALACION",cat:"META",    o:"SEÑA $20.000 (TRANSF) (META)",    sob:false},
+  {fStr:"2026-05-04",h:"10:00",d:"",        a:"SANDERO",          n:"",                      tel:"3513630851",eq:"5TA - 10 MTS",              s:"zico",t:"INSTALACION",cat:"META",    o:"SEÑA $20.000 (TRANSF) (META)",    sob:false},
+  {fStr:"2026-05-04",h:"08:00",d:"AD598RO", a:"PRISMA",           n:"SERGIO TORRES",         tel:"3513987584",eq:"5TA - 16 MTS",              s:"alem",t:"INSTALACION",cat:"META",    o:"SEÑA $20.000 (TRANSF) (META)",    sob:false},
+  {fStr:"2026-05-04",h:"09:00",d:"AI189TA", a:"PEUGEOT 208",      n:"FIORELLA",              tel:"3517025919",eq:"5TA - 10 MTS",              s:"alem",t:"INSTALACION",cat:"META",    o:"SEÑA $20.000 (TRANSF)(META)",     sob:true},
+  {fStr:"2026-05-04",h:"10:00",d:"",        a:"FIESTA",           n:"CLAUDIO",               tel:"",          eq:"",                          s:"alem",t:"SERVICE",    cat:"MOSTRADOR",o:"",                               sob:false},
+  // ── MARTES 05/05 ─────────────────────────────────────────────────────────
+  {fStr:"2026-05-05",h:"08:00",d:"NPL528",  a:"PEUGEOT 408",      n:"DEPETRIS LUCAS",        tel:"3513776769",eq:"5TA - 14 MTS C/RESET",      s:"alem",t:"INSTALACION",cat:"META",    o:"(META)",                          sob:false},
+  {fStr:"2026-05-05",h:"09:00",d:"JPR247",  a:"ECOSPORT",         n:"DIEGO MONTENEGRO",      tel:"3547466812",eq:"5TA - 2 X 7,5 MTS S/REFORMA",s:"alem",t:"INSTALACION",cat:"META",   o:"(META)",                          sob:false},
+  {fStr:"2026-05-05",h:"10:00",d:"",        a:"CITROEN C3 AIRCROSS",n:"",                   tel:"",          eq:"",                          s:"alem",t:"SERVICE",    cat:"MOSTRADOR",o:"",                               sob:false},
+  {fStr:"2026-05-05",h:"08:00",d:"OTC772",  a:"PEUGEOT 208",      n:"LUCIANO CARRANZA",      tel:"3515129607",eq:"5TA - 10 MTS",              s:"zico",t:"INSTALACION",cat:"META",    o:"(META)",                          sob:false},
+  {fStr:"2026-05-05",h:"09:00",d:"AB687GN", a:"SANDERO",          n:"CUITIÑO JOSE",          tel:"3517434458",eq:"5TA - 10 MTS",              s:"zico",t:"INSTALACION",cat:"META",    o:"SEÑA $20.000 (TRANSF)(META)",     sob:false},
+  {fStr:"2026-05-05",h:"10:00",d:"PGL834",  a:"PALIO",            n:"CLAUDIO VILLULLAS",     tel:"3512902813",eq:"5TA - 10 MTS",              s:"zico",t:"INSTALACION",cat:"META",    o:"SEÑA $20.000 (TRANSF) (META)",    sob:true},
+  {fStr:"2026-05-05",h:"11:00",d:"PER372",  a:"ECOSPORT",         n:"JUAN IGNACIO",          tel:"3516761480",eq:"GARANTIA",                 s:"zico",t:"SERVICE",    cat:"MOSTRADOR",o:"corregir el escape",              sob:false},
+  // ── MIERCOLES 06/05 ──────────────────────────────────────────────────────
+  {fStr:"2026-05-06",h:"08:00",d:"AG240EK", a:"TORO FREEDOM",     n:"PABLO ALTEA",           tel:"",          eq:"5TA X 2 TUBOS 10MTS",       s:"alem",t:"INSTALACION",cat:"ADS",     o:"ADS",                             sob:true},
+  {fStr:"2026-05-06",h:"09:00",d:"AE748JH", a:"CRONOS CAJA AUTOM.",n:"RITA",                 tel:"3515467122",eq:"5TA - 16 MTS",              s:"alem",t:"INSTALACION",cat:"META",    o:"(META)",                          sob:false},
+  {fStr:"2026-05-06",h:"08:00",d:"AG803UO", a:"208",              n:"GERMÁN REARTES",        tel:"3515152578",eq:"5TA + 10 MTS",              s:"zico",t:"INSTALACION",cat:"ADS",     o:"ADS",                             sob:true},
+  {fStr:"2026-05-06",h:"09:00",d:"",        a:"LOGAN",            n:"",                      tel:"",          eq:"5TA - 14 MTS",              s:"zico",t:"INSTALACION",cat:"COKI",    o:"(COKI)",                          sob:false},
+  {fStr:"2026-05-06",h:"10:00",d:"AB682QL", a:"TORO",             n:"MARIA VICTORIA",        tel:"3513477756",eq:"5TA - 2 X 7,5 MTS",        s:"zico",t:"INSTALACION",cat:"MOSTRADOR",o:"SEÑA $20.000 (MOSTRADOR)",        sob:false},
+  {fStr:"2026-05-06",h:"11:00",d:"",        a:"CITROEN C3 AIRCROSS",n:"",                   tel:"",          eq:"GARANTIA - CAMBIO DE CUNA", s:"zico",t:"SERVICE",    cat:"MOSTRADOR",o:"Elevar cuna",                    sob:false},
+  // ── JUEVES 07/05 ─────────────────────────────────────────────────────────
+  {fStr:"2026-05-07",h:"08:00",d:"AH847CW", a:"CRONOS",           n:"MATIAS IGLESIAS",       tel:"1133603954",eq:"5TA - 14 MTS",              s:"alem",t:"INSTALACION",cat:"META",    o:"SEÑA $10.000 (TRANSF)(META)",     sob:false},
+  {fStr:"2026-05-07",h:"09:00",d:"",        a:"KANGOO",           n:"",                      tel:"",          eq:"GARANTIA",                  s:"alem",t:"SERVICE",    cat:"MOSTRADOR",o:"REPARACIÓN CUNA",                sob:false},
+  {fStr:"2026-05-07",h:"08:00",d:"AA786MO", a:"KANGOO",           n:"VIVAS DARIO",           tel:"3515143574",eq:"5TA + 2 X 7.5 MTS",        s:"zico",t:"INSTALACION",cat:"MOSTRADOR",o:"SEÑA $20.000 MOSTRADOR",          sob:false},
+  {fStr:"2026-05-07",h:"09:00",d:"",        a:"SENDA",            n:"",                      tel:"",          eq:"GARANTIA - CAMBIO DE CUNA", s:"zico",t:"SERVICE",    cat:"MOSTRADOR",o:"Cambiar de lugar la cuna",       sob:false},
+  // ── VIERNES 08/05 ────────────────────────────────────────────────────────
+  {fStr:"2026-05-08",h:"08:00",d:"AA676YK", a:"FIESTA",           n:"CRISTIAN NICOLAS TAPIA",tel:"3516827443",eq:"5TA - 10 MTS",              s:"zico",t:"INSTALACION",cat:"META",    o:"SEÑA $20.000 (TRANSF) (META)",    sob:false},
+  {fStr:"2026-05-08",h:"09:00",d:"KEV424",  a:"GOL",              n:"MICAELA MAZA",          tel:"3548565154",eq:"5TA - 10 MTS",              s:"zico",t:"INSTALACION",cat:"META",    o:"SEÑA $20.000 (TRANSF)(META)",     sob:false},
+  {fStr:"2026-05-08",h:"08:00",d:"AB468IZ", a:"PRISMA",           n:"MONICA VIDELA",         tel:"3516166761",eq:"5TA - 10 MTS",              s:"alem",t:"INSTALACION",cat:"META",    o:"(META)",                          sob:false},
+  // ── LUNES 11/05 ──────────────────────────────────────────────────────────
+  {fStr:"2026-05-11",h:"08:00",d:"AC695PY", a:"PEUGEOT 208",      n:"SEBASTIAN VARDARO",     tel:"3514595605",eq:"5TA - 10 MTS",              s:"alem",t:"INSTALACION",cat:"META",    o:"SEÑA $20.000 (TRANSF)(META)",     sob:false},
+  {fStr:"2026-05-11",h:"08:00",d:"KXP026",  a:"DUSTER",           n:"ANDRE FAYO",            tel:"3543553337",eq:"5TA - DECIDIRÁ EN EL MOMENTO EL TUBO",s:"zico",t:"INSTALACION",cat:"META",o:"SEÑA $20.000 (TRANSF) (META)",sob:false},
+  // ── VIERNES 15/05 ────────────────────────────────────────────────────────
+  {fStr:"2026-05-15",h:"08:00",d:"AE337TF", a:"CRONOS",           n:"PABLO TOSELLI",         tel:"2302605617",eq:"5TA - 16 MTS",              s:"zico",t:"INSTALACION",cat:"META",    o:"(META)",                          sob:false},
+  // ── VIERNES 22/05 ────────────────────────────────────────────────────────
+  {fStr:"2026-05-22",h:"08:00",d:"POM112",  a:"FIESTA",           n:"FACUNDO IVAN",          tel:"",          eq:"5TA + 14 MTS",              s:"zico",t:"INSTALACION",cat:"MOSTRADOR",o:"MOSTRADOR SEÑA 260000",            sob:false}
 ];
 
 function claveTurno(x){
@@ -1042,12 +1433,13 @@ window.guardar = function(){
     a:    $("f-auto").value  || "",
     n:    cliente,
     tel:  $("f-tel").value   || "",
-    eq:   $("f-equipo").value|| "",
+    eq:   $("f-equipo").value || "",
     p:    $("f-precio").value|| "",
     o:    $("f-obs").value   || "",
     t:    $("f-tipo").value,
     cat:  $("f-cat").value   || "MOSTRADOR",
-    s:    $("f-suc").value
+    s:    $("f-suc").value,
+    sob:  esSobre
   };
 
   if(editId){
@@ -1060,42 +1452,78 @@ window.guardar = function(){
 
   ["f-dom","f-auto","f-nombre","f-tel","f-equipo","f-precio","f-obs"]
     .forEach(id=>$(id).value="");
+
+  // reset presets
+  if(cilSelBtn){ cilSelBtn.classList.remove("sel"); cilSelBtn = null; }
+  $("f-equipo").value = "";
+
+  // reset sobreturno
+  esSobre = false;
+  $("btn-sobre").classList.remove("activo");
+  $("btn-sobre").innerText = "🔶 SOBRE";
+
+  // cerrar form
+  cerrarForm();
+
+  // foco en patente para el próximo turno
+  $("f-dom").focus();
 };
 
 
-// ── importar turnos de mayo 2026 ───────────────
-window.importarTurnosMayo2026 = async function(){
+// ── sincronizar turnos de mayo ──────────────────
+window.sincronizarMayo = async function(){
+  if(!confirm("Esto agrega los turnos faltantes sin borrar ni duplicar lo existente. ¿Continuar?")) return;
   const snap = await get(ref(db,"turnero"));
   const existentes = new Set();
-  snap.forEach(c=> existentes.add(claveTurno({id:c.key,...c.val()})) );
+  snap.forEach(c=> existentes.add(claveTurno({id:c.key,...c.val()})));
 
-  let cargados = 0;
-  let omitidos = 0;
-
+  let cargados = 0, omitidos = 0;
   for(const base of TURNOS_MAYO_2026){
-    const turno = {
-      ...base,
-      mes: 4,
-      anio: 2026
-    };
+    const turno = { ...base, mes:4, anio:2026, p:"" };
     const clave = claveTurno(turno);
-    if(existentes.has(clave)){
-      omitidos++;
-      continue;
-    }
+    if(existentes.has(clave)){ omitidos++; continue; }
     await push(ref(db,"turnero"), turno);
     existentes.add(clave);
     cargados++;
   }
-
-  alert(`Turnos de mayo cargados: ${cargados}\nDuplicados omitidos: ${omitidos}`);
+  alert(`✅ Sincronizado\nAgregados: ${cargados}\nYa existían: ${omitidos}`);
 };
+// ── limpiar duplicados ──────────────────────────
+window.limpiarDuplicados = async function(){
+  const snap = await get(ref(db,"turnero"));
+  const vistos  = new Map();
+  const aborrar = [];
 
-// ── editar ──────────────────────────────────────
+  snap.forEach(c=>{
+    const v = c.val();
+    // clave laxa: fecha + taller + patente + auto (ignora obs/sob/eq que pueden diferir)
+    const clave = [
+      v.fStr||"",
+      v.s||"",
+      (v.d||"").trim().toUpperCase(),
+      (v.a||"").trim().toUpperCase()
+    ].join("|");
+
+    if(vistos.has(clave)){
+      aborrar.push(c.key);
+    } else {
+      vistos.set(clave, c.key);
+    }
+  });
+
+  if(aborrar.length === 0){
+    alert("✅ No se encontraron duplicados."); return;
+  }
+  if(!confirm(`Se encontraron ${aborrar.length} entradas duplicadas.\n¿Eliminarlas ahora?`)) return;
+
+  for(const id of aborrar) await remove(ref(db,"turnero/"+id));
+  alert(`✅ Se eliminaron ${aborrar.length} duplicados.`);
+};
 window.editar = function(id){
   const t = datos.find(x=>x.id===id);
   if(!t) return;
   editId = id;
+  abrirForm();
   fecha  = new Date(t.fStr+"T00:00:00");
 
   $("selector-fecha").value = t.fStr;
@@ -1110,6 +1538,29 @@ window.editar = function(id){
   $("f-tipo").value   = t.t  || "INSTALACION";
   $("f-cat").value    = t.cat|| "MOSTRADOR";
   $("f-suc").value    = t.s  || "alem";
+
+  // sync visual toggles
+  selTipo(t.t || "INSTALACION");
+  selSuc(t.s  || "alem");
+  selCat(t.cat|| "MOSTRADOR");
+
+  // sync equipo: buscar preset o poner en input libre
+  if(cilSelBtn){ cilSelBtn.classList.remove("sel"); cilSelBtn = null; }
+  window._cilVal = null;
+  $("f-equipo").value = t.eq || "";
+  // intentar marcar preset si coincide
+  document.querySelectorAll(".cil-preset").forEach(btn=>{
+    if(btn.dataset && btn.getAttribute("onclick") && btn.getAttribute("onclick").includes("'"+t.eq+"'")){
+      btn.classList.add("sel");
+      cilSelBtn = btn;
+      window._cilVal = t.eq;
+      $("f-equipo").value = "";
+    }
+  });
+
+  esSobre = !!t.sob;
+  $("btn-sobre").classList.toggle("activo", esSobre);
+  $("btn-sobre").innerText = esSobre ? "🔶 SOBRE ✓" : "🔶 SOBRE";
 
   $("btn-guardar").innerText = "ACTUALIZAR";
   window.scrollTo({top:0, behavior:"smooth"});
@@ -1249,11 +1700,11 @@ function render(){
           : "-";
 
         tb.innerHTML += `
-        <tr class="${x.t==="SERVICE"?"row-service":""}">
+        <tr class="${x.t==="SERVICE"?"row-service":""}${x.sob?" row-sobre":""}">
           <td>${x.h||"-"}</td>
           <td>${x.d||"-"}</td>
           <td>${x.a||"-"}</td>
-          <td>${x.n||"-"}</td>
+          <td>${x.n||"-"} ${x.sob?'<span class="badge-sobre">SOBRE</span>':""}</td>
           <td>${telHtml}</td>
           <td>${x.eq||"-"}</td>
           <td>${x.t||"-"}</td>
@@ -1288,66 +1739,83 @@ function renderProyeccion(){
     +" – "+
     domingo.toLocaleDateString("es-ES",{day:"numeric",month:"short",year:"numeric"});
 
-  // grilla de días
+  // grilla de días — primero construimos el mapa de cilindros considerando sobreturnos
   const grid = $("semana-grid");
   grid.innerHTML = "";
   let totalSem = 0;
   let totalCilindrosSem = 0;
+
+  // Precalcular instalaciones efectivas por día (sobreturnos se mueven al día siguiente)
+  const instPorDia   = {};  // dStr → count de entrega
+  const cilPorDia    = {};  // dStr → { "10 MTS": n, ... }
 
   for(let i=0;i<7;i++){
     const d = new Date(lunes);
     d.setDate(d.getDate()+i);
     const dStr = fechaStr(d);
 
-    const turnosInst = datos.filter(x=>
-      x.fStr===dStr && x.s==="zico" && x.t==="INSTALACION"
-    );
-    const inst = turnosInst.length;
-    const cilindrosDia = turnosInst.reduce((acc,x)=>acc+cilindrosTurno(x),0);
+    datos.filter(x=> x.fStr===dStr && x.s==="zico" && x.t==="INSTALACION")
+      .forEach(x=>{
+        // Si es sobreturno, la entrega es el día siguiente
+        const entrega = new Date(d);
+        if(x.sob) entrega.setDate(entrega.getDate()+1);
+        const eStr = fechaStr(entrega);
 
-    // desglose por tipo para el día
-    const cilDia = {};
-    turnosInst.forEach(x=>{
-      const p = parsearCilindros(x);
-      for(const [size,qty] of Object.entries(p)){
-        cilDia[size] = (cilDia[size]||0)+qty;
-      }
-    });
+        instPorDia[eStr] = (instPorDia[eStr]||0) + 1;
+
+        const p = parsearCilindros(x);
+        if(!cilPorDia[eStr]) cilPorDia[eStr] = {};
+        for(const [size,qty] of Object.entries(p)){
+          cilPorDia[eStr][size] = (cilPorDia[eStr][size]||0)+qty;
+        }
+      });
+  }
+
+  for(let i=0;i<7;i++){
+    const d = new Date(lunes);
+    d.setDate(d.getDate()+i);
+    const dStr = fechaStr(d);
+
+    const turnosDelDia = datos.filter(x=> x.fStr===dStr && x.s==="zico" && x.t==="INSTALACION");
+    const sobresHoy    = turnosDelDia.filter(x=>x.sob).length;  // sobreturnos agendados hoy
+
+    const inst          = instPorDia[dStr] || 0;
+    const cilDia        = cilPorDia[dStr]  || {};
+    const cilindrosDia  = Object.values(cilDia).reduce((a,b)=>a+b,0);
+
+    totalSem          += inst;
+    totalCilindrosSem += cilindrosDia;
+
     const cilDiaHtml = Object.keys(cilDia).sort((a,b)=>parseFloat(a)-parseFloat(b))
       .map(s=>`<div class="dia-cil-tag">${cilDia[s]}× ${s}</div>`).join("");
 
-    totalSem += inst;
-    totalCilindrosSem += cilindrosDia;
+    const sobreHtml = sobresHoy
+      ? `<div class="dia-sobre-count">🔶 ${sobresHoy} sobre→mañana</div>`
+      : "";
 
     const esHoy = dStr === hoyStr;
-    const tieneTurnos = inst > 0;
+    const tieneTurnos = inst > 0 || sobresHoy > 0;
 
     grid.innerHTML += `
     <div class="dia-card${tieneTurnos?" tiene-turnos":""}${esHoy?" es-hoy":""}">
       <div class="dia-nombre">${diasNombres[i]}</div>
       <div class="dia-fecha-num">${d.getDate()}</div>
       <div class="dia-inst">${inst || "-"}</div>
-      <div class="dia-inst-label">${inst===1?"instal.":inst>1?"instal.":""}</div>
+      <div class="dia-inst-label">${inst===1?"entrega":inst>1?"entregas":""}</div>
       <div class="dia-cil-list">${cilDiaHtml}</div>
+      ${sobreHtml}
     </div>`;
   }
 
   $("total-cilindros") && ($("total-cilindros").innerText = totalCilindrosSem);
 
-  // -- desglose por tipo de cilindro --
+  // -- desglose por tipo de cilindro (semana completa) --
   const cilMap = {};
-  for(let i=0;i<7;i++){
-    const d2 = new Date(lunes);
-    d2.setDate(d2.getDate()+i);
-    const dStr2 = fechaStr(d2);
-    datos.filter(x=>x.fStr===dStr2 && x.s==="zico" && x.t==="INSTALACION")
-      .forEach(x=>{
-        const parsed = parsearCilindros(x);
-        for(const [size,qty] of Object.entries(parsed)){
-          cilMap[size] = (cilMap[size]||0) + qty;
-        }
-      });
-  }
+  Object.values(cilPorDia).forEach(diaMap=>{
+    for(const [size,qty] of Object.entries(diaMap)){
+      cilMap[size] = (cilMap[size]||0)+qty;
+    }
+  });
 
   const chipsEl = $("cil-chips-sem");
   const sizes = Object.keys(cilMap).sort((a,b)=>parseFloat(a)-parseFloat(b));
