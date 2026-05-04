@@ -3,458 +3,919 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Turnero Pro</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
---bg:#f1f5f9;
---card:#ffffff;
---text:#1e293b;
---primary:#6366f1;
-
---alem:#0ea5e9;
---zico:#f43f5e;
-
---border:#e2e8f0;
-
---grad:linear-gradient(90deg,#3b82f6,#8b5cf6);
+  --bg:#f0f4f8;
+  --card:#ffffff;
+  --text:#1e293b;
+  --primary:#6366f1;
+  --alem:#0ea5e9;
+  --zico:#f43f5e;
+  --border:#e2e8f0;
+  --grad:linear-gradient(90deg,#3b82f6,#8b5cf6);
+  --success:#10b981;
+  --warn:#f59e0b;
 }
+
+*{ box-sizing:border-box; }
 
 body{
-font-family:Inter;
-background:var(--bg);
-color:var(--text);
-
-margin:0;
-padding:15px;
-
-display:flex;
-flex-direction:column;
-align-items:center;
+  font-family:'DM Sans', sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  margin:0;
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-/* PANEL */
-
+/* ── PANEL META ───────────────────────────────── */
 .goal-panel{
-background:var(--card);
-width:100%;
-max-width:1100px;
-padding:25px;
-border-radius:25px;
-border:1px solid var(--border);
-margin-bottom:25px;
+  background:var(--card);
+  width:100%;
+  max-width:1100px;
+  padding:22px 25px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  margin-bottom:20px;
+}
+
+.goal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  font-weight:800;
+  margin-bottom:4px;
+}
+
+.meta-edit{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.meta-input{
+  width:70px;
+  padding:5px 10px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  font-weight:700;
+  font-size:14px;
+  text-align:center;
+}
+
+.btn-meta-save{
+  background:var(--primary);
+  color:white;
+  border:none;
+  border-radius:8px;
+  padding:5px 12px;
+  font-weight:700;
+  cursor:pointer;
+  font-size:13px;
 }
 
 .progress-bg{
-background:#e2e8f0;
-height:14px;
-border-radius:10px;
-margin:15px 0;
-overflow:hidden;
+  background:#e2e8f0;
+  height:12px;
+  border-radius:10px;
+  margin:12px 0;
+  overflow:hidden;
 }
 
 .progress-fill{
-background:var(--grad);
-height:100%;
-width:0%;
-transition:1s;
+  background:var(--grad);
+  height:100%;
+  width:0%;
+  transition:1s;
 }
 
 .goal-stats{
-display:flex;
-justify-content:space-around;
-text-align:center;
+  display:flex;
+  justify-content:space-around;
+  text-align:center;
 }
 
 .stat-val{
-font-size:1.8rem;
-font-weight:800;
-color:var(--primary);
+  font-size:1.8rem;
+  font-weight:800;
+  color:var(--primary);
 }
 
-/* NAV */
-
+/* ── NAV ──────────────────────────────────────── */
 .nav-container{
-display:flex;
-gap:15px;
-margin-bottom:20px;
-align-items:center;
-flex-wrap:wrap;
-justify-content:center;
+  display:flex;
+  gap:10px;
+  margin-bottom:18px;
+  align-items:center;
+  flex-wrap:wrap;
+  justify-content:center;
 }
 
 .date-display{
-background:white;
-padding:10px 30px;
-border-radius:50px;
-font-weight:800;
-border:1px solid var(--border);
-min-width:220px;
-text-align:center;
+  background:white;
+  padding:9px 28px;
+  border-radius:50px;
+  font-weight:800;
+  border:1px solid var(--border);
+  min-width:220px;
+  text-align:center;
 }
 
 .btn-round{
-background:var(--primary);
-color:white;
-border:none;
-width:35px;
-height:35px;
-border-radius:50%;
-cursor:pointer;
+  background:var(--primary);
+  color:white;
+  border:none;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:14px;
 }
 
-/* calendario */
+.btn-hoy{
+  background:#334155;
+  color:white;
+  border:none;
+  border-radius:50px;
+  padding:8px 18px;
+  font-weight:800;
+  cursor:pointer;
+  font-size:13px;
+  letter-spacing:.5px;
+}
 
 #selector-fecha{
-padding:8px;
-border-radius:8px;
-border:1px solid var(--border);
-font-weight:600;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  font-weight:600;
 }
 
-/* FORM */
-
+/* ── FORM ─────────────────────────────────────── */
 .form-row{
-background:var(--card);
-padding:20px;
-border-radius:20px;
-border:1px solid var(--border);
-width:100%;
-max-width:1100px;
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-bottom:25px;
+  background:var(--card);
+  padding:18px 20px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  width:100%;
+  max-width:1100px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:10px;
+  position:relative;
 }
 
 .form-row input,
 .form-row select{
-padding:10px;
-border-radius:10px;
-border:1px solid var(--border);
-flex:1;
-min-width:110px;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  flex:1;
+  min-width:110px;
+  font-family:inherit;
+}
+
+.form-row input.required-err{
+  border-color:#f43f5e;
+  background:#fff1f2;
+}
+
+/* fecha activa badge */
+.fecha-activa-badge{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+  font-weight:600;
+  color:#64748b;
+  margin-bottom:-2px;
+}
+
+.fecha-activa-badge span{
+  background:#f1f5f9;
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:3px 10px;
+  color:var(--primary);
+  font-weight:800;
 }
 
 .btn-guardar{
-background:var(--primary);
-color:white;
-border:none;
-border-radius:10px;
-font-weight:800;
-cursor:pointer;
-padding:10px 20px;
+  background:var(--primary);
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  padding:10px 20px;
+  font-family:inherit;
 }
 
-/* TABS */
+.btn-importar{
+  background:#0f172a;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  padding:10px 16px;
+  font-family:inherit;
+  font-size:13px;
+}
 
+.btn-importar:hover{ background:#1e293b; }
+
+/* ── TABS ─────────────────────────────────────── */
 .tab-box{
-display:flex;
-gap:10px;
-margin-bottom:15px;
+  display:flex;
+  gap:10px;
+  margin-bottom:12px;
+  width:100%;
+  max-width:1200px;
 }
 
 .tab-btn{
-padding:10px 25px;
-border-radius:12px;
-border:1px solid var(--border);
-background:white;
-font-weight:800;
-cursor:pointer;
+  padding:10px 25px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:white;
+  font-weight:800;
+  cursor:pointer;
+  font-family:inherit;
 }
 
-.tab-btn.active.alem{
-background:var(--alem);
-color:white;
+.tab-btn.active.alem{ background:var(--alem); color:white; border-color:var(--alem); }
+.tab-btn.active.zico{ background:var(--zico); color:white; border-color:var(--zico); }
+.tab-btn.active.dual{ background:#334155; color:white; border-color:#334155; }
+
+.btn-imprimir-sem{
+  padding:9px 16px;
+  border-radius:12px;
+  font-weight:800;
+  cursor:pointer;
+  font-family:inherit;
+  font-size:13px;
+  transition:.15s;
 }
 
-.tab-btn.active.zico{
-background:var(--zico);
-color:white;
+.btn-imprimir-sem.alem-print{
+  background:#e0f2fe;
+  color:#0369a1;
+  border:1px solid #bae6fd;
 }
 
-.tab-btn.active.dual{
-background:#334155;
-color:white;
+.btn-imprimir-sem.alem-print:hover{ background:#bae6fd; }
+
+.btn-imprimir-sem.zico-print{
+  background:#ffe4e6;
+  color:#be123c;
+  border:1px solid #fecdd3;
 }
 
-/* TABLAS */
+.btn-imprimir-sem.zico-print:hover{ background:#fecdd3; }
 
+/* ── RESUMEN DÍA ──────────────────────────────── */
+.resumen-dia{
+  display:flex;
+  gap:12px;
+  margin-bottom:14px;
+  width:100%;
+  max-width:1200px;
+  flex-wrap:wrap;
+}
+
+.resumen-card{
+  background:white;
+  border-radius:14px;
+  border:1px solid var(--border);
+  padding:12px 20px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex:1;
+  min-width:200px;
+}
+
+.resumen-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+.resumen-dot.alem{ background:var(--alem); }
+.resumen-dot.zico{ background:var(--zico); }
+
+.resumen-nums{
+  display:flex;
+  gap:20px;
+}
+
+.resumen-num{
+  text-align:center;
+}
+
+.resumen-num b{
+  display:block;
+  font-size:1.3rem;
+  font-weight:800;
+  color:var(--text);
+}
+
+.resumen-num small{
+  font-size:11px;
+  color:#94a3b8;
+  font-weight:600;
+}
+
+/* ── TABLAS ───────────────────────────────────── */
 .tables-wrapper{
-display:flex;
-gap:20px;
-width:100%;
-max-width:1200px;
+  display:flex;
+  gap:20px;
+  width:100%;
+  max-width:1200px;
 }
 
 .table-card{
-background:white;
-border-radius:20px;
-border:1px solid var(--border);
-flex:1;
-overflow-x:auto;
-display:none;
+  background:white;
+  border-radius:20px;
+  border:1px solid var(--border);
+  flex:1;
+  overflow-x:auto;
+  display:none;
 }
 
-.dual-view .table-card{
-display:block;
-}
-
-.single-view-alem #card-alem{
-display:block;
-}
-
-.single-view-zico #card-zico{
-display:block;
-}
+.dual-view .table-card{ display:block; }
+.single-view-alem #card-alem{ display:block; }
+.single-view-zico #card-zico{ display:block; }
 
 .titulo-taller{
-padding:12px 15px;
-font-weight:800;
-border-bottom:1px solid var(--border);
+  padding:12px 16px;
+  font-weight:800;
+  border-bottom:1px solid var(--border);
 }
 
 .titulo-alem{ color:var(--alem); }
-
 .titulo-zico{ color:var(--zico); }
 
-table{
-width:100%;
-border-collapse:collapse;
-min-width:750px;
-}
+table{ width:100%; border-collapse:collapse; min-width:750px; }
 
 th{
-background:#f8fafc;
-padding:12px;
-font-size:11px;
-color:#94a3b8;
-border-bottom:1px solid var(--border);
-text-align:left;
+  background:#f8fafc;
+  padding:11px 12px;
+  font-size:11px;
+  color:#94a3b8;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-weight:700;
+  letter-spacing:.5px;
 }
 
 td{
-padding:10px 12px;
-border-bottom:1px solid var(--border);
-font-size:13px;
+  padding:10px 12px;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
 }
 
-.precio-val{
-font-weight:800;
-color:#10b981;
-}
+.precio-val{ font-weight:800; color:var(--success); }
 
-.row-service{
-opacity:.6;
-background:#fafafa;
-}
+.row-service{ opacity:.6; background:#fafafa; }
 
-.acciones{
-display:flex;
-gap:6px;
-}
+.acciones{ display:flex; gap:6px; }
 
 .btn-mini{
-border:1px solid var(--border);
-background:white;
-border-radius:8px;
-cursor:pointer;
-padding:5px 8px;
+  border:1px solid var(--border);
+  background:white;
+  border-radius:8px;
+  cursor:pointer;
+  padding:5px 8px;
+  font-size:13px;
+}
+
+.btn-mini:hover{ background:#f1f5f9; }
+
+.tel-link{
+  color:#25d366;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.tel-link:hover{ text-decoration:underline; }
+
+/* ── PROYECCIÓN SEMANAL ZICO ──────────────────── */
+.proyeccion-panel{
+  background:white;
+  border-radius:20px;
+  border:2px solid var(--zico);
+  width:100%;
+  max-width:1200px;
+  margin-top:25px;
+  overflow:hidden;
+}
+
+.proyeccion-header{
+  background:var(--zico);
+  color:white;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.proyeccion-header h3{
+  margin:0;
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+
+.semana-nav{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.semana-label{
+  font-weight:700;
+  font-size:13px;
+  min-width:200px;
+  text-align:center;
+}
+
+.btn-sem{
+  background:rgba(255,255,255,.25);
+  color:white;
+  border:none;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.btn-sem:hover{ background:rgba(255,255,255,.4); }
+
+.proyeccion-body{ padding:16px 20px; }
+
+.semana-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+  margin-bottom:16px;
+}
+
+.dia-card{
+  background:#f8fafc;
+  border-radius:12px;
+  border:1px solid var(--border);
+  padding:10px 8px;
+  text-align:center;
+  transition:.2s;
+}
+
+.dia-card.tiene-turnos{
+  background:#fff1f2;
+  border-color:#fca5a5;
+}
+
+.dia-card.es-hoy{
+  border-color:var(--zico);
+  background:#fff1f2;
+  box-shadow:0 0 0 2px var(--zico);
+}
+
+.dia-nombre{
+  font-size:10px;
+  font-weight:700;
+  color:#94a3b8;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+}
+
+.dia-fecha-num{
+  font-size:18px;
+  font-weight:800;
+  color:var(--text);
+  margin:2px 0;
+}
+
+.dia-inst{
+  font-size:20px;
+  font-weight:800;
+  color:var(--zico);
+}
+
+.dia-inst-label{
+  font-size:10px;
+  color:#94a3b8;
+  font-weight:600;
+}
+
+.dia-cil-list{
+  margin-top:6px;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  align-items:center;
+}
+
+.dia-cil-tag{
+  font-size:9px;
+  font-weight:700;
+  color:#be123c;
+  background:#ffe4e6;
+  border-radius:5px;
+  padding:2px 6px;
+  white-space:nowrap;
+}
+
+.proyeccion-totales{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.total-card{
+  background:#f8fafc;
+  border-radius:14px;
+  border:1px solid var(--border);
+  padding:14px 22px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex:1;
+  min-width:180px;
+}
+
+.total-icon{
+  font-size:28px;
+}
+
+.total-info b{
+  display:block;
+  font-size:1.6rem;
+  font-weight:800;
+  color:var(--zico);
+}
+
+.total-info small{
+  font-size:12px;
+  color:#64748b;
+  font-weight:600;
+}
+
+.sin-datos{
+  text-align:center;
+  color:#94a3b8;
+  padding:20px;
+  font-weight:600;
+  font-size:14px;
+}
+
+/* ── DESGLOSE CILINDROS ───────────────────────── */
+.cil-breakdown{
+  background:#f8fafc;
+  border-radius:14px;
+  border:1px solid var(--border);
+  padding:14px 22px;
+  flex:2;
+  min-width:280px;
+}
+
+.cil-breakdown-title{
+  font-size:12px;
+  font-weight:700;
+  color:#64748b;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.cil-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.cil-chip{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:white;
+  border:1.5px solid #fca5a5;
+  border-radius:10px;
+  padding:6px 14px;
+}
+
+.cil-chip-qty{
+  font-size:1.3rem;
+  font-weight:800;
+  color:var(--zico);
+  line-height:1;
+}
+
+.cil-chip-label{
+  font-size:12px;
+  font-weight:700;
+  color:#475569;
+}
+
+.cil-chip-sin{
+  color:#94a3b8;
+  font-size:13px;
+  font-weight:600;
+  font-style:italic;
+}
+
+/* ── botones header proyección ────────────────── */
+.proyeccion-acciones{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.btn-proy{
+  background:rgba(255,255,255,.2);
+  color:white;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:8px;
+  padding:6px 14px;
+  font-weight:700;
+  font-size:12px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  transition:.15s;
+  font-family:inherit;
+}
+
+.btn-proy:hover{
+  background:rgba(255,255,255,.35);
+}
+
+/* ── totales colapsables ──────────────────────── */
+.proyeccion-totales{
+  overflow:hidden;
+  max-height:200px;
+  transition: max-height .35s ease, opacity .3s ease, margin .3s ease;
+  opacity:1;
+  margin-top:0;
+}
+
+.proyeccion-totales.collapsed{
+  max-height:0;
+  opacity:0;
+  margin-top:-8px;
+}
+
+/* ── PRINT ────────────────────────────────────── */
+@media print{
+  body > *{ display:none !important; }
+  .proyeccion-panel{ display:block !important; }
+  .proyeccion-panel *{ display:revert !important; }
+  .btn-proy, .btn-sem{ display:none !important; }
+  body{
+    background:white;
+    padding:0;
+  }
+  .proyeccion-panel{
+    border:none;
+    box-shadow:none;
+    width:100%;
+    max-width:100%;
+  }
+  .proyeccion-totales.collapsed{
+    max-height:none !important;
+    opacity:1 !important;
+  }
 }
 
 </style>
-
 </head>
-
 
 <body class="single-view-alem">
 
 
+<!-- ── META ─────────────────────────────────── -->
 <div class="goal-panel">
 
-<div style="display:flex;justify-content:space-between;font-weight:800">
-<span>INSTALACIONES DEL MES</span>
-<span id="mes-label"></span>
+  <div class="goal-header">
+    <span>INSTALACIONES DEL MES</span>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span id="mes-label" style="font-size:14px;color:#64748b;font-weight:600;"></span>
+    </div>
+    <div class="meta-edit">
+      <span style="font-size:13px;color:#64748b;font-weight:600;">Objetivo:</span>
+      <input class="meta-input" type="number" id="meta-input" value="45" min="1">
+      <button class="btn-meta-save" onclick="guardarMeta()">Guardar</button>
+    </div>
+  </div>
+
+  <div class="progress-bg">
+    <div class="progress-fill" id="prog-bar"></div>
+  </div>
+
+  <div class="goal-stats">
+    <div>
+      <div class="stat-val" id="val-llevamos">0</div>
+      <div style="font-size:13px;color:#64748b">instaladas</div>
+    </div>
+    <div>
+      <div class="stat-val" id="val-meta">45</div>
+      <div style="font-size:13px;color:#64748b">objetivo</div>
+    </div>
+    <div>
+      <div class="stat-val" id="val-faltan">45</div>
+      <div style="font-size:13px;color:#64748b">faltan</div>
+    </div>
+  </div>
+
 </div>
 
-<div class="progress-bg">
-<div class="progress-fill" id="prog-bar"></div>
-</div>
 
-<div class="goal-stats">
-
-<div>
-<div class="stat-val" id="val-llevamos">0</div>
-<div>instaladas</div>
-</div>
-
-<div>
-<div class="stat-val">45</div>
-<div>objetivo</div>
-</div>
-
-<div>
-<div class="stat-val" id="val-faltan">45</div>
-<div>faltan</div>
-</div>
-
-</div>
-
-</div>
-
-
-
+<!-- ── NAV ──────────────────────────────────── -->
 <div class="nav-container">
-
-<button class="btn-round" onclick="moverDia(-1)">❮</button>
-
-<div class="date-display" id="fecha-actual"></div>
-
-<button class="btn-round" onclick="moverDia(1)">❯</button>
-
-<input type="date" id="selector-fecha">
-
+  <button class="btn-round" onclick="moverDia(-1)">❮</button>
+  <div class="date-display" id="fecha-actual"></div>
+  <button class="btn-round" onclick="moverDia(1)">❯</button>
+  <button class="btn-hoy" onclick="irHoy()">HOY</button>
+  <input type="date" id="selector-fecha">
 </div>
 
 
-
+<!-- ── FORM ─────────────────────────────────── -->
 <div class="form-row">
 
-<input type="time" id="f-hora" value="08:00">
+  <div class="fecha-activa-badge">
+    📅 Guardando en: <span id="badge-fecha">—</span>
+  </div>
 
-<input id="f-dom" placeholder="Patente">
+  <input type="time" id="f-hora" value="08:00">
+  <input id="f-dom"    placeholder="Patente *">
+  <input id="f-auto"   placeholder="Vehículo">
+  <input id="f-nombre" placeholder="Cliente">
+  <input id="f-tel"    placeholder="Teléfono">
+  <input id="f-equipo" placeholder="Equipo / cilindro">
+  <input id="f-precio" placeholder="Precio" type="number">
+  <input id="f-obs"    placeholder="Obs">
 
-<input id="f-auto" placeholder="Vehiculo">
+  <select id="f-tipo">
+    <option value="INSTALACION">INSTALACION</option>
+    <option value="SERVICE">SERVICE</option>
+  </select>
 
-<input id="f-nombre" placeholder="Cliente">
+  <select id="f-cat">
+    <option value="MOSTRADOR">MOSTRADOR</option>
+    <option value="ADS">ADS</option>
+    <option value="META">META</option>
+    <option value="COKI">COKI</option>
+  </select>
 
-<input id="f-tel" placeholder="Telefono">
+  <select id="f-suc">
+    <option value="alem">ALEM</option>
+    <option value="zico">ZICO</option>
+  </select>
 
-<input id="f-precio" placeholder="Precio">
-
-<input id="f-obs" placeholder="Obs">
-
-
-<select id="f-tipo">
-
-<option value="INSTALACION">INSTALACION</option>
-
-<option value="SERVICE">SERVICE</option>
-
-</select>
-
-
-<select id="f-cat">
-
-<option value="MOSTRADOR">MOSTRADOR</option>
-
-<option value="ADS">ADS</option>
-
-<option value="META">META</option>
-
-</select>
-
-
-<select id="f-suc">
-
-<option value="alem">ALEM</option>
-
-<option value="zico">ZICO</option>
-
-</select>
-
-
-<button class="btn-guardar" id="btn-guardar" onclick="guardar()">GUARDAR</button>
+  <button class="btn-guardar" id="btn-guardar" onclick="guardar()">GUARDAR</button>
 
 </div>
 
 
+<!-- ── TABS ─────────────────────────────────── -->
+<div class="tab-box" style="justify-content:space-between;width:100%;max-width:1200px;">
+  <div style="display:flex;gap:10px;">
+    <button class="tab-btn active alem" id="t-alem" onclick="verTab('alem')">ALEM</button>
+    <button class="tab-btn zico"        id="t-zico" onclick="verTab('zico')">ZICO</button>
+    <button class="tab-btn dual"        id="t-dual" onclick="verTab('dual')">DUAL</button>
+  </div>
+  <div style="display:flex;gap:8px;">
+    <button class="btn-imprimir-sem alem-print" onclick="imprimirSemana('alem')">🖨 Semana ALEM</button>
+    <button class="btn-imprimir-sem zico-print" onclick="imprimirSemana('zico')">🖨 Semana ZICO</button>
+  </div>
+</div>
 
-<div class="tab-box">
 
-<button class="tab-btn active alem" id="t-alem" onclick="verTab('alem')">ALEM</button>
+<!-- ── RESUMEN DÍA ───────────────────────────── -->
+<div class="resumen-dia">
 
-<button class="tab-btn zico" id="t-zico" onclick="verTab('zico')">ZICO</button>
+  <div class="resumen-card" id="res-alem">
+    <div class="resumen-dot alem"></div>
+    <div style="font-weight:800;font-size:13px;color:var(--alem);min-width:50px;">ALEM</div>
+    <div class="resumen-nums">
+      <div class="resumen-num">
+        <b id="res-alem-inst">0</b>
+        <small>INSTAL.</small>
+      </div>
+      <div class="resumen-num">
+        <b id="res-alem-serv">0</b>
+        <small>SERVICE</small>
+      </div>
+    </div>
+  </div>
 
-<button class="tab-btn dual" id="t-dual" onclick="verTab('dual')">DUAL</button>
+  <div class="resumen-card" id="res-zico">
+    <div class="resumen-dot zico"></div>
+    <div style="font-weight:800;font-size:13px;color:var(--zico);min-width:50px;">ZICO</div>
+    <div class="resumen-nums">
+      <div class="resumen-num">
+        <b id="res-zico-inst">0</b>
+        <small>INSTAL.</small>
+      </div>
+      <div class="resumen-num">
+        <b id="res-zico-serv">0</b>
+        <small>SERVICE</small>
+      </div>
+    </div>
+  </div>
 
 </div>
 
 
-
+<!-- ── TABLAS ────────────────────────────────── -->
 <div class="tables-wrapper">
 
-<div class="table-card" id="card-alem">
+  <div class="table-card" id="card-alem">
+    <div class="titulo-taller titulo-alem">TALLER ALEM</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Hora</th><th>Patente</th><th>Auto</th>
+          <th>Cliente</th><th>Tel</th><th>Equipo</th><th>Tipo</th>
+          <th>Origen</th><th>Obs</th><th>Precio</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="lista-alem"></tbody>
+    </table>
+  </div>
 
-<div class="titulo-taller titulo-alem">
-TALLER ALEM
-</div>
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Hora</th>
-<th>Dom</th>
-<th>Auto</th>
-<th>Cliente</th>
-<th>Tel</th>
-<th>Tipo</th>
-<th>Origen</th>
-<th>Obs</th>
-<th>Precio</th>
-<th></th>
-
-</tr>
-
-</thead>
-
-<tbody id="lista-alem"></tbody>
-
-</table>
+  <div class="table-card" id="card-zico">
+    <div class="titulo-taller titulo-zico">TALLER ZICO</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Hora</th><th>Patente</th><th>Auto</th>
+          <th>Cliente</th><th>Tel</th><th>Equipo</th><th>Tipo</th>
+          <th>Origen</th><th>Obs</th><th>Precio</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="tbody-zico"></tbody>
+    </table>
+  </div>
 
 </div>
 
 
+<!-- ── PROYECCIÓN SEMANAL ZICO ───────────────── -->
+<div class="proyeccion-panel">
 
-<div class="table-card" id="card-zico">
+  <div class="proyeccion-header">
+    <h3>📦 PROYECCIÓN SEMANAL — ZICO · Cilindros &amp; Equipos</h3>
+    <div class="semana-nav">
+      <button class="btn-sem" onclick="moverSemana(-1)">❮</button>
+      <div class="semana-label" id="semana-label"></div>
+      <button class="btn-sem" onclick="moverSemana(1)">❯</button>
+    </div>
+    <div class="proyeccion-acciones">
+      <button class="btn-proy" id="btn-toggle-totales" onclick="toggleTotales()">
+        <span id="toggle-icon">▶</span> Totales
+      </button>
+      <button class="btn-proy" onclick="imprimirProyeccion()">
+        🖨 Imprimir
+      </button>
+    </div>
+  </div>
 
-<div class="titulo-taller titulo-zico">
-TALLER ZICO
-</div>
+  <div class="proyeccion-body">
 
-<table>
+    <div class="semana-grid" id="semana-grid"></div>
 
-<thead>
+    <div class="proyeccion-totales collapsed" id="proyeccion-totales">
 
-<tr>
+      <div class="cil-breakdown">
+        <div class="cil-breakdown-title">📦 Cilindros necesarios esta semana</div>
+        <div class="cil-chips" id="cil-chips-sem">
+          <span class="cil-chip-sin">Sin datos aún</span>
+        </div>
+      </div>
 
-<th>Hora</th>
-<th>Dom</th>
-<th>Auto</th>
-<th>Cliente</th>
-<th>Tel</th>
-<th>Tipo</th>
-<th>Origen</th>
-<th>Obs</th>
-<th>Precio</th>
-<th></th>
+    </div>
 
-</tr>
-
-</thead>
-
-<tbody id="tbody-zico"></tbody>
-
-</table>
-
-</div>
+  </div>
 
 </div>
 
@@ -463,213 +924,700 @@ TALLER ZICO
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, push, onValue, remove, update }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
+import { getDatabase, ref, push, onValue, remove, update, set, get }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig={
-apiKey:"AIzaSyAnw3MUG_tUPJSbbxtRaGo9PtPPRQP_jCQ",
-authDomain:"basedatostaller-54e4b.firebaseapp.com",
-databaseURL:"https://basedatostaller-54e4b-default-rtdb.firebaseio.com",
-projectId:"basedatostaller-54e4b",
-storageBucket:"basedatostaller-54e4b.firebasestorage.app",
-messagingSenderId:"92715425671",
-appId:"1:92715425671:web:2ef599317ebe18f602bd22"
+  apiKey:"AIzaSyAnw3MUG_tUPJSbbxtRaGo9PtPPRQP_jCQ",
+  authDomain:"basedatostaller-54e4b.firebaseapp.com",
+  databaseURL:"https://basedatostaller-54e4b-default-rtdb.firebaseio.com",
+  projectId:"basedatostaller-54e4b",
+  storageBucket:"basedatostaller-54e4b.firebasestorage.app",
+  messagingSenderId:"92715425671",
+  appId:"1:92715425671:web:2ef599317ebe18f602bd22"
 };
 
-const app=initializeApp(firebaseConfig);
-const db=getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
 
 const $ = id => document.getElementById(id);
 
-let fecha=new Date();
-const META=45;
-let datos=[];
-let editId=null;
+let fecha     = new Date();
+let META      = 45;
+let datos     = [];
+let editId    = null;
+let semOffset = 0;  // semanas desde la semana actual
 
 
-$("selector-fecha").addEventListener("change",e=>{
-if(!e.target.value) return;
-fecha=new Date(e.target.value+"T00:00:00");
-render();
-});
+const TURNOS_MAYO_2026 = [
+  {fStr:"2026-05-02",h:"08:00",d:"",a:"PEUGEOT 307",n:"MADELEN",tel:"",eq:"SERVICE",p:"",s:"alem",o:"",t:"SERVICE",cat:"MOSTRADOR"},
+  {fStr:"2026-05-04",h:"08:00",d:"GCO011",a:"FOX",n:"JULIETA",tel:"3541224684",eq:"5TA - 10 MTS",p:"",s:"zico",o:"(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-04",h:"09:00",d:"AI159UM",a:"FIORINO",n:"LEONEL VILLAROEL",tel:"3513639750",eq:"5TA - 2 X 7,5 MTS C/REFORMA",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF) (META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-04",h:"10:00",d:"",a:"SANDERO",n:"",tel:"3513630851",eq:"5TA - 10 MTS",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF) (META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-04",h:"11:00",d:"",a:"SENDA",n:"",tel:"3512902813",eq:"CAMBIO DE CUNA",p:"",s:"zico",o:"CONTACTAR",t:"SERVICE",cat:"MOSTRADOR"},
+  {fStr:"2026-05-04",h:"08:00",d:"AD598RO",a:"PRISMA",n:"SERGIO TORRES",tel:"3513987584",eq:"5TA - 16 MTS",p:"",s:"alem",o:"SEÑA $20.000 (TRANSF) (META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-04",h:"09:00",d:"AI189TA",a:"PEUGEOT 208",n:"FIORELLA",tel:"3517025919",eq:"5TA - 10 MTS",p:"",s:"alem",o:"SEÑA $20.000 (TRANSF)(META) SOBRETURNO",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-04",h:"10:00",d:"",a:"FIESTA",n:"CLAUDIO",tel:"",eq:"SERVICE",p:"",s:"alem",o:"",t:"SERVICE",cat:"MOSTRADOR"},
+  {fStr:"2026-05-05",h:"08:00",d:"NPL528",a:"PEUGEOT 408",n:"DEPETRIS LUCAS",tel:"3513776769",eq:"5TA - 14 MTS C/RESET",p:"",s:"alem",o:"(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-05",h:"08:00",d:"OTC772",a:"PEUGEOT 208",n:"LUCIANO CARRANZA",tel:"3515129607",eq:"5TA - 10 MTS",p:"",s:"zico",o:"(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-05",h:"09:00",d:"AB687GN",a:"SANDERO",n:"CUITIÑO JOSE",tel:"3517434458",eq:"5TA - 10 MTS",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF)(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-05",h:"10:00",d:"PGL834",a:"PALIO",n:"CLAUDIO VILLULLAS",tel:"3512902813",eq:"5TA - 10 MTS",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF) (META) SOBRETURNO",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-05",h:"09:00",d:"JPR247",a:"ECOSPORT",n:"DIEGO MONTENEGRO",tel:"3547466812",eq:"5TA - 2 X 7,5 MTS S/REFORMA",p:"",s:"alem",o:"(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-05",h:"11:00",d:"PER372",a:"ECOSPORT",n:"JUAN IGNACIO",tel:"3516761480",eq:"GARANTIA",p:"",s:"zico",o:"corregir el escape",t:"SERVICE",cat:"MOSTRADOR"},
+  {fStr:"2026-05-06",h:"08:00",d:"AG240EK",a:"TORO FREEDOM",n:"PABLO ALTEA",tel:"",eq:"5TA X 2 TUBOS 10MTS",p:"",s:"alem",o:"ADS SOBRETURNO",t:"INSTALACION",cat:"ADS"},
+  {fStr:"2026-05-06",h:"09:00",d:"AE748JH",a:"CRONOS CAJA AUTOM",n:"RITA",tel:"3515467122",eq:"5TA - 16 MTS",p:"",s:"alem",o:"(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-06",h:"08:00",d:"AG803UO",a:"208",n:"GERMÁN REARTES",tel:"3515152578",eq:"5TA + 10 MTS",p:"",s:"zico",o:"ADS SOBRETURNO",t:"INSTALACION",cat:"ADS"},
+  {fStr:"2026-05-06",h:"09:00",d:"",a:"LOGAN",n:"",tel:"",eq:"5TA - 14 MTS",p:"",s:"zico",o:"(COKI)",t:"INSTALACION",cat:"COKI"},
+  {fStr:"2026-05-07",h:"08:00",d:"AH847CW",a:"CRONOS",n:"MATIAS IGLESIAS",tel:"1133603954",eq:"5TA - 14 MTS",p:"",s:"alem",o:"SEÑA $10.000 (TRANSF)(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-07",h:"08:00",d:"AA786MO",a:"KANGOO",n:"VIVAS DARIO",tel:"3515143574",eq:"5TA + 2 X 7.5 MTS",p:"",s:"zico",o:"SEÑA $20.000 MOSTRADOR",t:"INSTALACION",cat:"MOSTRADOR"},
+  {fStr:"2026-05-08",h:"08:00",d:"AA676YK",a:"FIESTA",n:"CRISTIAN NICOLAS TAPIA",tel:"3516827443",eq:"5TA - 10 MTS",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF) (META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-08",h:"09:00",d:"KEV424",a:"GOL",n:"MICAELA MAZA",tel:"3548565154",eq:"5TA - 10 MTS",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF)(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-08",h:"08:00",d:"AB468IZ",a:"PRISMA",n:"MONICA VIDELA",tel:"3516166761",eq:"5TA - 10 MTS",p:"",s:"alem",o:"(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-11",h:"08:00",d:"AC695PY",a:"PEUGEOT 208",n:"SEBASTIAN VARDARO",tel:"3514595605",eq:"5TA - 10 MTS",p:"",s:"alem",o:"SEÑA $20.000 (TRANSF)(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-11",h:"08:00",d:"KXP026",a:"DUSTER",n:"ANDRE FAYO",tel:"3543553337",eq:"5TA - DECIDIRÁ EN EL MOMENTO EL TUBO",p:"",s:"zico",o:"SEÑA $20.000 (TRANSF) (META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-15",h:"08:00",d:"AE337TF",a:"CRONOS",n:"PABLO TOSELLI",tel:"2302605617",eq:"5TA - 16 MTS",p:"",s:"zico",o:"(META)",t:"INSTALACION",cat:"META"},
+  {fStr:"2026-05-22",h:"08:00",d:"POM112",a:"FIESTA",n:"FACUNDO IVAN",tel:"",eq:"5TA + 14 MTS",p:"",s:"zico",o:"MOSTRADOR SEÑA 260000",t:"INSTALACION",cat:"MOSTRADOR"}
+];
 
-
-onValue(ref(db,"turnero"),snap=>{
-datos=[];
-snap.forEach(c=>{
-datos.push({ id:c.key,...c.val() });
-});
-render();
-});
-
-
-window.guardar=function(){
-
-const turno={
-fStr:fecha.toISOString().split("T")[0],
-mes:fecha.getMonth(),
-
-h:$("f-hora").value || "08:00",
-d:($("f-dom").value || "").toUpperCase(),
-a:$("f-auto").value || "",
-n:$("f-nombre").value || "",
-tel:$("f-tel").value || "",
-p:$("f-precio").value || "",
-o:$("f-obs").value || "",
-t:$("f-tipo").value,
-cat:$("f-cat").value || "MOSTRADOR",
-s:$("f-suc").value
-};
-
-if(editId){
-update(ref(db,"turnero/"+editId),turno);
-editId=null;
-$("btn-guardar").innerText="GUARDAR";
-}else{
-push(ref(db,"turnero"),turno);
+function claveTurno(x){
+  return [x.fStr,x.s,x.d,x.a,x.n,x.eq].map(v=>(v||"").toString().trim().toUpperCase()).join("|");
 }
 
-["f-dom","f-auto","f-nombre","f-tel","f-precio","f-obs"]
-.forEach(id=>$(id).value="");
+// ── cargar META desde Firebase ──────────────────
+get(ref(db,"config/meta")).then(snap=>{
+  if(snap.exists()){
+    META = snap.val();
+    $("meta-input").value = META;
+    $("val-meta").innerText = META;
+  }
+});
 
+// ── guardar META ────────────────────────────────
+window.guardarMeta = function(){
+  const v = parseInt($("meta-input").value);
+  if(isNaN(v) || v < 1) return;
+  META = v;
+  set(ref(db,"config/meta"), META);
+  $("val-meta").innerText = META;
+  render();
+};
+
+// ── selector de fecha ───────────────────────────
+$("selector-fecha").addEventListener("change",e=>{
+  if(!e.target.value) return;
+  fecha = new Date(e.target.value+"T00:00:00");
+  render();
+});
+
+// ── listener principal ──────────────────────────
+onValue(ref(db,"turnero"),snap=>{
+  datos=[];
+  snap.forEach(c=>{ datos.push({ id:c.key,...c.val() }); });
+  render();
+});
+
+// ── guardar turno ───────────────────────────────
+window.guardar = function(){
+
+  // Validación
+  const patente = ($("f-dom").value||"").trim();
+  const cliente = ($("f-nombre").value||"").trim();
+  if(!patente && !cliente){
+    $("f-dom").classList.add("required-err");
+    $("f-nombre").classList.add("required-err");
+    $("f-dom").focus();
+    setTimeout(()=>{
+      $("f-dom").classList.remove("required-err");
+      $("f-nombre").classList.remove("required-err");
+    }, 2500);
+    return;
+  }
+
+  const turno={
+    fStr: fechaStr(fecha),
+    mes:  fecha.getMonth(),
+    anio: fecha.getFullYear(),
+    h:    $("f-hora").value  || "08:00",
+    d:    patente.toUpperCase(),
+    a:    $("f-auto").value  || "",
+    n:    cliente,
+    tel:  $("f-tel").value   || "",
+    eq:   $("f-equipo").value|| "",
+    p:    $("f-precio").value|| "",
+    o:    $("f-obs").value   || "",
+    t:    $("f-tipo").value,
+    cat:  $("f-cat").value   || "MOSTRADOR",
+    s:    $("f-suc").value
+  };
+
+  if(editId){
+    update(ref(db,"turnero/"+editId), turno);
+    editId = null;
+    $("btn-guardar").innerText = "GUARDAR";
+  } else {
+    push(ref(db,"turnero"), turno);
+  }
+
+  ["f-dom","f-auto","f-nombre","f-tel","f-equipo","f-precio","f-obs"]
+    .forEach(id=>$(id).value="");
 };
 
 
-window.editar=function(id){
+// ── importar turnos de mayo 2026 ───────────────
+window.importarTurnosMayo2026 = async function(){
+  const snap = await get(ref(db,"turnero"));
+  const existentes = new Set();
+  snap.forEach(c=> existentes.add(claveTurno({id:c.key,...c.val()})) );
 
-const t=datos.find(x=>x.id===id);
-if(!t) return;
+  let cargados = 0;
+  let omitidos = 0;
 
-editId=id;
+  for(const base of TURNOS_MAYO_2026){
+    const turno = {
+      ...base,
+      mes: 4,
+      anio: 2026
+    };
+    const clave = claveTurno(turno);
+    if(existentes.has(clave)){
+      omitidos++;
+      continue;
+    }
+    await push(ref(db,"turnero"), turno);
+    existentes.add(clave);
+    cargados++;
+  }
 
-fecha=new Date(t.fStr+"T00:00:00");
-
-$("selector-fecha").value=t.fStr;
-
-$("f-hora").value=t.h||"08:00";
-$("f-dom").value=t.d||"";
-$("f-auto").value=t.a||"";
-$("f-nombre").value=t.n||"";
-$("f-tel").value=t.tel||"";
-$("f-precio").value=t.p||"";
-$("f-obs").value=t.o||"";
-$("f-tipo").value=t.t||"INSTALACION";
-$("f-cat").value=t.cat||"MOSTRADOR";
-$("f-suc").value=t.s||"alem";
-
-$("btn-guardar").innerText="ACTUALIZAR";
-
-render();
-
+  alert(`Turnos de mayo cargados: ${cargados}\nDuplicados omitidos: ${omitidos}`);
 };
 
+// ── editar ──────────────────────────────────────
+window.editar = function(id){
+  const t = datos.find(x=>x.id===id);
+  if(!t) return;
+  editId = id;
+  fecha  = new Date(t.fStr+"T00:00:00");
 
-window.borrar=function(id){
-if(confirm("borrar turno"))
-remove(ref(db,"turnero/"+id));
+  $("selector-fecha").value = t.fStr;
+  $("f-hora").value   = t.h  || "08:00";
+  $("f-dom").value    = t.d  || "";
+  $("f-auto").value   = t.a  || "";
+  $("f-nombre").value = t.n  || "";
+  $("f-tel").value    = t.tel|| "";
+  $("f-equipo").value = t.eq || "";
+  $("f-precio").value = t.p  || "";
+  $("f-obs").value    = t.o  || "";
+  $("f-tipo").value   = t.t  || "INSTALACION";
+  $("f-cat").value    = t.cat|| "MOSTRADOR";
+  $("f-suc").value    = t.s  || "alem";
+
+  $("btn-guardar").innerText = "ACTUALIZAR";
+  window.scrollTo({top:0, behavior:"smooth"});
+  render();
 };
 
-
-window.verTab=function(s){
-
-document.body.className=
-s==="dual"
-?"dual-view"
-:"single-view-"+s;
-
-document.querySelectorAll(".tab-btn")
-.forEach(b=>b.classList.remove("active"));
-
-$("t-"+s).classList.add("active");
-
+// ── borrar ──────────────────────────────────────
+window.borrar = function(id){
+  if(confirm("¿Borrar este turno?"))
+    remove(ref(db,"turnero/"+id));
 };
 
-
-window.moverDia=function(n){
-fecha.setDate(fecha.getDate()+n);
-render();
+// ── tabs ────────────────────────────────────────
+window.verTab = function(s){
+  document.body.className =
+    s==="dual" ? "dual-view" : "single-view-"+s;
+  document.querySelectorAll(".tab-btn")
+    .forEach(b=>b.classList.remove("active"));
+  $("t-"+s).classList.add("active");
 };
 
+// ── nav fechas ──────────────────────────────────
+window.moverDia = function(n){
+  fecha.setDate(fecha.getDate()+n);
+  render();
+};
 
+window.irHoy = function(){
+  fecha = new Date();
+  render();
+};
+
+// ── nav semanas ─────────────────────────────────
+window.moverSemana = function(n){
+  semOffset += n;
+  renderProyeccion();
+};
+
+// ── helpers ─────────────────────────────────────
+function fechaStr(d){ return d.toISOString().split("T")[0]; }
+
+function getLunes(d, offsetSem=0){
+  const x = new Date(d);
+  const day = x.getDay();
+  const diff = (day===0 ? -6 : 1 - day);
+  x.setDate(x.getDate() + diff + offsetSem*7);
+  x.setHours(0,0,0,0);
+  return x;
+}
+
+function fmtPrecio(p){
+  const n = parseFloat(p);
+  if(isNaN(n)||n===0) return "$0";
+  return "$"+ n.toLocaleString("es-AR");
+}
+
+
+function mismoMes(x, d){
+  if(!x.fStr) return false;
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth()+1).padStart(2,"0");
+  return x.fStr.startsWith(`${yyyy}-${mm}`);
+}
+
+function cilindrosTurno(x){
+  if(!x || x.t !== "INSTALACION") return 0;
+  const eq = (x.eq || "").toUpperCase();
+  if(eq.includes("2 X") || eq.includes("2X") || eq.includes("2 TUBOS")) return 2;
+  return 1;
+}
+
+// ── parsear tipo de cilindro ────────────────────
+function parsearCilindros(x){
+  if(!x || x.t !== "INSTALACION") return {};
+  const eq = (x.eq || "").toUpperCase().replace(",",".");
+
+  // cantidad
+  let qty = 1;
+  if(/2\s*X|2\s*TUBOS/.test(eq)) qty = 2;
+
+  // tamaño: busca número + MTS
+  const match = eq.match(/(\d+(?:\.\d+)?)\s*MTS/);
+  if(!match) return {};
+
+  // normaliza 7.5 → "7,5 MTS", resto normal
+  const num = parseFloat(match[1]);
+  const label = (num % 1 !== 0 ? num.toString().replace(".",",") : match[1]) + " MTS";
+  return { [label]: qty };
+}
+
+// ── render principal ────────────────────────────
 function render(){
 
-const hoy=fecha.toISOString().split("T")[0];
+  const hoy = fechaStr(fecha);
 
-$("selector-fecha").value=hoy;
+  $("selector-fecha").value = hoy;
+  $("badge-fecha").innerText = fecha.toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"});
 
-$("fecha-actual").innerText=
-fecha.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
+  $("fecha-actual").innerText =
+    fecha.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"});
 
-$("mes-label").innerText=
-fecha.toLocaleDateString("es-ES",{month:"long",year:"numeric"});
+  $("mes-label").innerText =
+    fecha.toLocaleDateString("es-ES",{month:"long",year:"numeric"});
 
+  // -- progress bar --
+  const total = datos.filter(x=>mismoMes(x, fecha) && x.t==="INSTALACION").length;
+  $("val-llevamos").innerText = total;
+  $("val-faltan").innerText   = Math.max(0, META-total);
+  $("prog-bar").style.width   = (total/META*100)+"%";
 
-const total=
-datos.filter(x=>x.mes===fecha.getMonth() && x.t==="INSTALACION").length;
+  // -- resumen del día --
+  ["alem","zico"].forEach(s=>{
+    const delDia = datos.filter(x=>x.fStr===hoy && x.s===s);
+    const inst   = delDia.filter(x=>x.t==="INSTALACION").length;
+    const serv   = delDia.filter(x=>x.t==="SERVICE").length;
+    const pfx    = "res-"+s;
+    $(pfx+"-inst").innerText = inst;
+    $(pfx+"-serv").innerText = serv;
+  });
 
-$("val-llevamos").innerText=total;
-$("val-faltan").innerText=Math.max(0,META-total);
-$("prog-bar").style.width=(total/META*100)+"%";
+  // -- tablas --
+  [
+    { suc:"alem", tbId:"lista-alem"  },
+    { suc:"zico", tbId:"tbody-zico" }
+  ].forEach(({suc, tbId})=>{
 
+    const tb = $(tbId);
+    tb.innerHTML = "";
 
-["alem","zico"].forEach(s=>{
+    datos
+      .filter(x=>x.fStr===hoy && x.s===suc)
+      .sort((a,b)=>(a.h||"").localeCompare(b.h||""))
+      .forEach(x=>{
 
-const tb=$(s==="alem"?"lista-alem":"tbody-zico");
+        const telHtml = x.tel
+          ? `<a class="tel-link" href="https://wa.me/${x.tel.replace(/\D/g,'')}" target="_blank">📱 ${x.tel}</a>`
+          : "-";
 
-tb.innerHTML="";
+        tb.innerHTML += `
+        <tr class="${x.t==="SERVICE"?"row-service":""}">
+          <td>${x.h||"-"}</td>
+          <td>${x.d||"-"}</td>
+          <td>${x.a||"-"}</td>
+          <td>${x.n||"-"}</td>
+          <td>${telHtml}</td>
+          <td>${x.eq||"-"}</td>
+          <td>${x.t||"-"}</td>
+          <td>${x.cat||"-"}</td>
+          <td>${x.o||"-"}</td>
+          <td class="precio-val">${x.p?"$"+x.p:"-"}</td>
+          <td>
+            <div class="acciones">
+              <button class="btn-mini" onclick="editar('${x.id}')">✏</button>
+              <button class="btn-mini" onclick="borrar('${x.id}')">✕</button>
+            </div>
+          </td>
+        </tr>`;
+      });
+  });
 
-datos
-.filter(x=>x.fStr===hoy && x.s===s)
-.sort((a,b)=>(a.h||"").localeCompare(b.h||""))
-.forEach(x=>{
-
-tb.innerHTML+=`
-
-<tr class="${x.t==="SERVICE"?"row-service":""}">
-
-<td>${x.h||"-"}</td>
-
-<td>${x.d||"-"}</td>
-
-<td>${x.a||"-"}</td>
-
-<td>${x.n||"-"}</td>
-
-<td>${x.tel||"-"}</td>
-
-<td>${x.t||"-"}</td>
-
-<td>${x.cat||"-"}</td>
-
-<td>${x.o||"-"}</td>
-
-<td class="precio-val">${x.p?"$"+x.p:"-"}</td>
-
-<td>
-
-<div class="acciones">
-
-<button class="btn-mini" onclick="editar('${x.id}')">✏</button>
-
-<button class="btn-mini" onclick="borrar('${x.id}')">✕</button>
-
-</div>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-});
-
+  renderProyeccion();
 }
 
-</script>
+// ── proyección semanal ZICO ─────────────────────
+function renderProyeccion(){
 
+  const lunes = getLunes(new Date(), semOffset);
+  const diasNombres = ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
+  const hoyStr = fechaStr(new Date());
+
+  // label semana
+  const domingo = new Date(lunes);
+  domingo.setDate(domingo.getDate()+6);
+  $("semana-label").innerText =
+    lunes.toLocaleDateString("es-ES",{day:"numeric",month:"short"})
+    +" – "+
+    domingo.toLocaleDateString("es-ES",{day:"numeric",month:"short",year:"numeric"});
+
+  // grilla de días
+  const grid = $("semana-grid");
+  grid.innerHTML = "";
+  let totalSem = 0;
+  let totalCilindrosSem = 0;
+
+  for(let i=0;i<7;i++){
+    const d = new Date(lunes);
+    d.setDate(d.getDate()+i);
+    const dStr = fechaStr(d);
+
+    const turnosInst = datos.filter(x=>
+      x.fStr===dStr && x.s==="zico" && x.t==="INSTALACION"
+    );
+    const inst = turnosInst.length;
+    const cilindrosDia = turnosInst.reduce((acc,x)=>acc+cilindrosTurno(x),0);
+
+    // desglose por tipo para el día
+    const cilDia = {};
+    turnosInst.forEach(x=>{
+      const p = parsearCilindros(x);
+      for(const [size,qty] of Object.entries(p)){
+        cilDia[size] = (cilDia[size]||0)+qty;
+      }
+    });
+    const cilDiaHtml = Object.keys(cilDia).sort((a,b)=>parseFloat(a)-parseFloat(b))
+      .map(s=>`<div class="dia-cil-tag">${cilDia[s]}× ${s}</div>`).join("");
+
+    totalSem += inst;
+    totalCilindrosSem += cilindrosDia;
+
+    const esHoy = dStr === hoyStr;
+    const tieneTurnos = inst > 0;
+
+    grid.innerHTML += `
+    <div class="dia-card${tieneTurnos?" tiene-turnos":""}${esHoy?" es-hoy":""}">
+      <div class="dia-nombre">${diasNombres[i]}</div>
+      <div class="dia-fecha-num">${d.getDate()}</div>
+      <div class="dia-inst">${inst || "-"}</div>
+      <div class="dia-inst-label">${inst===1?"instal.":inst>1?"instal.":""}</div>
+      <div class="dia-cil-list">${cilDiaHtml}</div>
+    </div>`;
+  }
+
+  $("total-cilindros") && ($("total-cilindros").innerText = totalCilindrosSem);
+
+  // -- desglose por tipo de cilindro --
+  const cilMap = {};
+  for(let i=0;i<7;i++){
+    const d2 = new Date(lunes);
+    d2.setDate(d2.getDate()+i);
+    const dStr2 = fechaStr(d2);
+    datos.filter(x=>x.fStr===dStr2 && x.s==="zico" && x.t==="INSTALACION")
+      .forEach(x=>{
+        const parsed = parsearCilindros(x);
+        for(const [size,qty] of Object.entries(parsed)){
+          cilMap[size] = (cilMap[size]||0) + qty;
+        }
+      });
+  }
+
+  const chipsEl = $("cil-chips-sem");
+  const sizes = Object.keys(cilMap).sort((a,b)=>parseFloat(a)-parseFloat(b));
+  if(sizes.length === 0){
+    chipsEl.innerHTML = `<span class="cil-chip-sin">Sin instalaciones en esta semana</span>`;
+  } else {
+    chipsEl.innerHTML = sizes.map(size=>`
+      <div class="cil-chip">
+        <span class="cil-chip-qty">${cilMap[size]}</span>
+        <span class="cil-chip-label">${size}</span>
+      </div>`).join("");
+  }
+}
+
+// ── toggle totales ──────────────────────────────
+window.toggleTotales = function(){
+  const el   = $("proyeccion-totales");
+  const icon = $("toggle-icon");
+  const hidden = el.classList.toggle("collapsed");
+  icon.innerText = hidden ? "▶" : "▼";
+};
+
+// ── imprimir proyección ─────────────────────────
+window.imprimirProyeccion = function(){
+  // Asegura que los totales sean visibles al imprimir
+  const el = $("proyeccion-totales");
+  const eraOculto = el.classList.contains("collapsed");
+  if(eraOculto) el.classList.remove("collapsed");
+
+  window.print();
+
+  if(eraOculto) setTimeout(()=> el.classList.add("collapsed"), 500);
+};
+
+// ── imprimir semana completa (ventana A4) ────────
+window.imprimirSemana = function(suc){
+
+  const lunes = getLunes(new Date(), semOffset);
+  const diasNombres = ["LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO","DOMINGO"];
+  const color = suc === "alem" ? "#0ea5e9" : "#f43f5e";
+  const nombre = suc === "alem" ? "TALLER ALEM" : "TALLER ZICO";
+
+  const domingo = new Date(lunes);
+  domingo.setDate(domingo.getDate()+6);
+  const rango =
+    lunes.toLocaleDateString("es-AR",{day:"2-digit",month:"2-digit"})
+    +" al "+
+    domingo.toLocaleDateString("es-AR",{day:"2-digit",month:"2-digit",year:"numeric"});
+
+  const ahora = new Date().toLocaleString("es-AR");
+
+  let bodyHtml = "";
+  let totalSemana = 0;
+  let totalCilindrosSemana = 0;
+
+  for(let i=0;i<7;i++){
+    const d = new Date(lunes);
+    d.setDate(d.getDate()+i);
+    const dStr = d.toISOString().split("T")[0];
+    const dLabel = d.toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"});
+
+    const turnos = datos
+      .filter(x=> x.fStr===dStr && x.s===suc)
+      .sort((a,b)=>(a.h||"").localeCompare(b.h||""));
+
+    const inst = turnos.filter(x=>x.t==="INSTALACION").length;
+    const cilindrosDia = turnos.filter(x=>x.t==="INSTALACION").reduce((acc,x)=>acc+cilindrosTurno(x),0);
+    totalSemana += inst;
+    totalCilindrosSemana += cilindrosDia;
+
+    const filas = turnos.length
+      ? turnos.map(x=>`
+        <tr class="${x.t==="SERVICE"?"row-sv":""}">
+          <td class="tc">${x.h||"-"}</td>
+          <td><b>${x.d||"-"}</b></td>
+          <td>${x.a||"-"}</td>
+          <td>${x.n||"-"}</td>
+          <td>${x.tel||"-"}</td>
+          <td>${x.eq||"-"}</td>
+          <td class="tc badge-${x.t==="SERVICE"?"sv":"inst"}">${x.t}</td>
+          <td>${x.cat||"-"}</td>
+          <td>${x.o||"-"}</td>
+          <td class="precio">${x.p?"$"+x.p:"-"}</td>
+        </tr>`).join("")
+      : `<tr><td colspan="10" class="sin-turnos">Sin turnos agendados</td></tr>`;
+
+    bodyHtml += `
+      <div class="dia-bloque">
+        <div class="dia-header" style="background:${color}">
+          <span>${diasNombres[i]} ${d.getDate()}</span>
+          <span class="dia-sub">${turnos.length} turno${turnos.length!==1?"s":""} · ${inst} instalac.</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Hora</th><th>Patente</th><th>Auto</th>
+              <th>Cliente</th><th>Tel</th><th>Equipo</th><th>Tipo</th>
+              <th>Origen</th><th>Obs</th><th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>${filas}</tbody>
+        </table>
+      </div>`;
+  }
+
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>${nombre} — Semana ${rango}</title>
+<style>
+  @page{ size:A4 portrait; margin:12mm 10mm; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:'Helvetica Neue',Arial,sans-serif; font-size:10px; color:#1e293b; background:white; }
+
+  .print-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    padding-bottom:8px;
+    border-bottom:3px solid ${color};
+    margin-bottom:10px;
+  }
+  .print-header h1{
+    font-size:20px;
+    font-weight:900;
+    color:${color};
+    letter-spacing:1px;
+  }
+  .print-header .semana-txt{
+    font-size:11px;
+    color:#64748b;
+    font-weight:600;
+    margin-top:2px;
+  }
+  .print-header .meta-txt{
+    text-align:right;
+    font-size:10px;
+    color:#94a3b8;
+  }
+  .print-header .total-badge{
+    background:${color};
+    color:white;
+    padding:4px 12px;
+    border-radius:20px;
+    font-weight:800;
+    font-size:12px;
+    margin-bottom:4px;
+  }
+
+  .dia-bloque{
+    margin-bottom:8px;
+    border:1px solid #e2e8f0;
+    border-radius:6px;
+    overflow:hidden;
+    break-inside:avoid;
+  }
+
+  .dia-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:white;
+    padding:5px 10px;
+    font-weight:800;
+    font-size:11px;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+  }
+
+  .dia-sub{ font-weight:600; font-size:10px; opacity:.9; }
+
+  table{ width:100%; border-collapse:collapse; }
+
+  th{
+    background:#f8fafc;
+    padding:4px 6px;
+    font-size:9px;
+    color:#94a3b8;
+    text-align:left;
+    border-bottom:1px solid #e2e8f0;
+    font-weight:700;
+    letter-spacing:.3px;
+    text-transform:uppercase;
+  }
+
+  td{
+    padding:4px 6px;
+    border-bottom:1px solid #f1f5f9;
+    font-size:10px;
+    vertical-align:middle;
+  }
+
+  tr:last-child td{ border-bottom:none; }
+
+  .tc{ text-align:center; }
+
+  .row-sv td{ color:#94a3b8; background:#fafafa; }
+
+  .badge-inst{
+    background:#dbeafe;
+    color:#1d4ed8;
+    border-radius:4px;
+    padding:2px 6px;
+    font-weight:700;
+    font-size:9px;
+  }
+
+  .badge-sv{
+    background:#f1f5f9;
+    color:#64748b;
+    border-radius:4px;
+    padding:2px 6px;
+    font-weight:700;
+    font-size:9px;
+  }
+
+  .precio{ font-weight:800; color:#10b981; }
+
+  .sin-turnos{
+    text-align:center;
+    color:#cbd5e1;
+    padding:8px;
+    font-style:italic;
+    font-size:10px;
+  }
+
+  .print-footer{
+    margin-top:10px;
+    padding-top:6px;
+    border-top:1px solid #e2e8f0;
+    font-size:9px;
+    color:#94a3b8;
+    display:flex;
+    justify-content:space-between;
+  }
+</style>
+</head>
+<body>
+
+<div class="print-header">
+  <div>
+    <h1>${nombre}</h1>
+    <div class="semana-txt">📅 Semana del ${rango}</div>
+  </div>
+  <div style="text-align:right">
+    <div class="total-badge">Instalaciones: ${totalSemana} · Cilindros: ${totalCilindrosSemana}</div>
+    <div class="meta-txt">Impreso: ${ahora}</div>
+  </div>
+</div>
+
+${bodyHtml}
+
+<div class="print-footer">
+  <span>QuirGroup — Turnero Pro</span>
+  <span>${nombre} · ${rango}</span>
+</div>
+
+<script>window.onload=()=>{ window.print(); window.onafterprint=()=>window.close(); }<\/script>
+</body></html>`;
+
+  const win = window.open("","_blank","width=900,height=700");
+  win.document.write(html);
+  win.document.close();
+};
+
+// ── init ────────────────────────────────────────
+render();
+
+</script>
 
 </body>
 </html>
