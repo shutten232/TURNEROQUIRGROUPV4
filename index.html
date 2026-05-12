@@ -966,140 +966,6 @@ td{
 .sr-suc.zico{ background:var(--zico); }
 
 /* ── STRIP DÍAS ───────────────────────────────── */
-.day-strip{
-  display:flex;
-  gap:6px;
-  width:100%;
-  max-width:1100px;
-  margin-bottom:10px;
-  overflow-x:auto;
-  padding-bottom:2px;
-}
-.day-pill{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:6px 12px;
-  border-radius:12px;
-  border:1.5px solid var(--border);
-  background:white;
-  cursor:pointer;
-  transition:.12s;
-  min-width:52px;
-  flex-shrink:0;
-}
-.day-pill:hover{ border-color:var(--primary); }
-.day-pill.hoy{ border-color:var(--primary); background:#eef2ff; }
-.day-pill.tiene{ border-color:#c7d2fe; }
-.day-pill-nombre{ font-size:9px; font-weight:800; color:#94a3b8; letter-spacing:.5px; text-transform:uppercase; }
-.day-pill-num{ font-size:15px; font-weight:800; color:var(--text); line-height:1; margin:2px 0; }
-.day-pill-count{
-  font-size:10px;
-  font-weight:800;
-  background:var(--primary);
-  color:white;
-  border-radius:8px;
-  padding:0 6px;
-  min-width:16px;
-  text-align:center;
-}
-.day-pill.hoy .day-pill-nombre{ color:var(--primary); }
-.day-pill.hoy .day-pill-num{ color:var(--primary); }
-
-/* ── MINI CALENDARIO ──────────────────────────── */
-.mini-cal-panel{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
-  width:100%;
-  max-width:1100px;
-  margin-bottom:10px;
-  overflow:hidden;
-  max-height:0;
-  opacity:0;
-  transition: max-height .35s ease, opacity .3s ease;
-}
-.mini-cal-panel.abierto{
-  max-height:320px;
-  opacity:1;
-}
-.mini-cal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 18px;
-  border-bottom:1px solid var(--border);
-  font-weight:800;
-  font-size:13px;
-}
-.mini-cal-grid{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:0;
-}
-.cal-dow{
-  text-align:center;
-  font-size:9px;
-  font-weight:800;
-  color:#94a3b8;
-  padding:8px 0 4px;
-  letter-spacing:.5px;
-  text-transform:uppercase;
-}
-.cal-day{
-  aspect-ratio:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  border-radius:10px;
-  margin:2px;
-  position:relative;
-  transition:.1s;
-}
-.cal-day:hover{ background:#f1f5f9; }
-.cal-day.cal-hoy{ background:var(--primary); }
-.cal-day.cal-hoy .cal-num{ color:white; }
-.cal-day.cal-fecha{ background:#e0e7ff; }
-.cal-day.cal-fecha .cal-num{ color:var(--primary); }
-.cal-day.cal-vacio{ opacity:.35; pointer-events:none; }
-.cal-num{ font-size:12px; font-weight:700; color:var(--text); line-height:1; }
-.cal-dot{
-  width:5px; height:5px;
-  border-radius:50%;
-  background:var(--primary);
-  margin-top:2px;
-}
-.cal-day.cal-hoy .cal-dot{ background:rgba(255,255,255,.8); }
-.cal-count{
-  font-size:8px;
-  font-weight:800;
-  color:var(--primary);
-  margin-top:1px;
-  line-height:1;
-}
-.cal-day.cal-hoy .cal-count{ color:white; }
-
-/* ── TOAST CONFLICTO ──────────────────────────── */
-.toast-conflicto{
-  position:fixed;
-  bottom:24px;
-  left:50%;
-  transform:translateX(-50%) translateY(80px);
-  background:#1e293b;
-  color:white;
-  padding:12px 20px;
-  border-radius:12px;
-  font-size:13px;
-  font-weight:700;
-  box-shadow:0 8px 24px rgba(0,0,0,.25);
-  z-index:9999;
-  transition:transform .3s ease;
-  white-space:nowrap;
-}
-.toast-conflicto.visible{ transform:translateX(-50%) translateY(0); }
-
 /* ── WA CONFIRMAR ─────────────────────────────── */
 .btn-wa{
   background:#25d366;
@@ -1270,32 +1136,6 @@ td{
     oninput="buscar(this.value)" autocomplete="off">
 </div>
 <div class="search-results" id="search-results"></div>
-
-<!-- ── STRIP DE DÍAS ─────────────────────────── -->
-<div class="day-strip" id="day-strip"></div>
-
-<!-- ── MINI CALENDARIO (colapsable) ──────────── -->
-<div style="width:100%;max-width:1100px;display:flex;justify-content:flex-end;margin-bottom:4px;">
-  <button onclick="toggleMiniCal()" style="background:none;border:none;font-family:inherit;font-size:12px;font-weight:700;color:#94a3b8;cursor:pointer;display:flex;align-items:center;gap:4px;">
-    📅 <span id="mini-cal-label">Ver calendario</span>
-  </button>
-</div>
-<div class="mini-cal-panel" id="mini-cal-panel">
-  <div class="mini-cal-header">
-    <span id="mini-cal-titulo"></span>
-    <div style="display:flex;gap:8px;">
-      <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:#64748b;font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:var(--primary);display:inline-block;"></span> ALEM</span>
-      <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:#64748b;font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:var(--zico);display:inline-block;"></span> ZICO</span>
-    </div>
-  </div>
-  <div style="padding:8px 12px 12px;">
-    <div class="mini-cal-grid" id="mini-cal-dows"></div>
-    <div class="mini-cal-grid" id="mini-cal-grid"></div>
-  </div>
-</div>
-
-<!-- ── TOAST ──────────────────────────────────── -->
-<div class="toast-conflicto" id="toast">⚠️ Ya hay un turno a esa hora en ese taller</div>
 
 
 <div class="form-card" id="form-card">
@@ -1780,17 +1620,6 @@ window.guardar = function(){
     sob:  esSobre
   };
 
-  // ── chequeo conflicto de horario ──────────────
-  const conflicto = datos.find(x=>
-    x.fStr === turno.fStr &&
-    x.s    === turno.s    &&
-    x.h    === turno.h    &&
-    x.id   !== editId
-  );
-  if(conflicto){
-    mostrarToast(`⚠️ Ya hay un turno a las ${turno.h}hs en ${turno.s.toUpperCase()} — ${conflicto.d||conflicto.n}`);
-  }
-
   if(editId){
     update(ref(db,"turnero/"+editId), turno);
     editId = null;
@@ -2135,7 +1964,7 @@ function render(){
           .toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"});
         const sucNombre = x.s==="alem" ? "Taller ALEM" : "Taller ZICO";
         const waMsg = encodeURIComponent(
-          `Hola${x.n?" "+x.n.split(" ")[0]:""}! 👋\nTe confirmamos tu turno:\n📅 ${fechaTexto} a las ${x.h||""}hs\n🚗 ${x.a||""} ${x.d?"("+x.d+")":""}\n📍 ${sucNombre}\n¡Cualquier consulta avisanos!`
+          `Hola${x.n?" "+x.n.split(" ")[0]:""}! 👋\nTe confirmamos tu turno de *instalación de GNC*:\n📅 ${fechaTexto} a las *8:30hs*\n🚗 ${x.a||""} ${x.d?"("+x.d+")":""}\n📍 ${sucNombre}\nTe esperamos. ¡Cualquier consulta avisanos!`
         );
         const telHtml = numLimpio
           ? `<div style="display:flex;align-items:center;gap:5px;">
@@ -2168,8 +1997,6 @@ function render(){
   });
 
   renderProyeccion();
-  renderDayStrip();
-  renderMiniCal();
 }
 
 // ── proyección semanal ZICO ─────────────────────
@@ -2869,121 +2696,6 @@ document.addEventListener("click", e=>{
 
 // ── STRIP DE DÍAS ────────────────────────────────
 
-function renderDayStrip(){
-  const strip    = $("day-strip");
-  const hoyStr_  = fechaStr(new Date());
-  const fechaAct = fechaStr(fecha);
-  const diasNom  = ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
-
-  strip.innerHTML = "";
-
-  // ventana de 7 días: fecha-2 hasta fecha+4
-  for(let i = -2; i <= 4; i++){
-    const d    = new Date(fecha);
-    d.setDate(d.getDate() + i);
-    const dStr = fechaStr(d);
-
-    const count = datos.filter(x=> x.fStr === dStr).length;
-    const esHoy    = dStr === hoyStr_;
-    const esFecha  = dStr === fechaAct;
-    const dow      = (d.getDay() + 6) % 7; // 0=Lun … 6=Dom
-
-    const cls = ["day-pill",
-      esFecha ? "hoy" : "",
-      count   ? "tiene" : ""
-    ].filter(Boolean).join(" ");
-
-    strip.innerHTML += `
-      <div class="${cls}" onclick="irAFecha('${dStr}')">
-        <span class="day-pill-nombre">${diasNom[dow]}${esHoy ? " ●" : ""}</span>
-        <span class="day-pill-num">${d.getDate()}</span>
-        ${count
-          ? `<span class="day-pill-count">${count}</span>`
-          : `<span style="height:16px;display:block;"></span>`
-        }
-      </div>`;
-  }
-}
-
-
-// ── MINI CALENDARIO ──────────────────────────────
-
-let miniCalAbierto = false;
-
-window.toggleMiniCal = function(){
-  miniCalAbierto = !miniCalAbierto;
-  $("mini-cal-panel").classList.toggle("abierto", miniCalAbierto);
-  $("mini-cal-label").innerText = miniCalAbierto ? "Ocultar calendario" : "Ver calendario";
-  if(miniCalAbierto) renderMiniCal();
-};
-
-function renderMiniCal(){
-  if(!miniCalAbierto) return;
-
-  const anio    = fecha.getFullYear();
-  const mes     = fecha.getMonth();
-  const hoyStr_ = fechaStr(new Date());
-  const fechaAct= fechaStr(fecha);
-
-  $("mini-cal-titulo").innerText =
-    fecha.toLocaleDateString("es-ES",{month:"long",year:"numeric"}).toUpperCase();
-
-  // header días de la semana
-  $("mini-cal-dows").innerHTML =
-    ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"]
-      .map(d=>`<div class="cal-dow">${d}</div>`).join("");
-
-  // conteos por día del mes
-  const conteo = {};
-  datos.filter(x=> mismoMes(x, fecha)).forEach(x=>{
-    if(!conteo[x.fStr]) conteo[x.fStr] = { alem:0, zico:0 };
-    conteo[x.fStr][x.s] = (conteo[x.fStr][x.s]||0) + 1;
-  });
-
-  const colInicio  = (new Date(anio, mes, 1).getDay() + 6) % 7;
-  const diasEnMes  = new Date(anio, mes+1, 0).getDate();
-  let html = "";
-
-  // celdas vacías antes del día 1
-  for(let i = 0; i < colInicio; i++){
-    html += `<div class="cal-day cal-vacio"></div>`;
-  }
-
-  for(let d = 1; d <= diasEnMes; d++){
-    const dStr = `${anio}-${String(mes+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
-    const esHoy   = dStr === hoyStr_;
-    const esFecha = dStr === fechaAct && !esHoy;
-    const c       = conteo[dStr] || {};
-    const dotA    = c.alem ? `<span style="width:6px;height:6px;border-radius:50%;background:var(--alem);display:inline-block;margin:0 1px;"></span>` : "";
-    const dotZ    = c.zico ? `<span style="width:6px;height:6px;border-radius:50%;background:var(--zico);display:inline-block;margin:0 1px;"></span>` : "";
-
-    const cls = ["cal-day",
-      esHoy   ? "cal-hoy"   : "",
-      esFecha ? "cal-fecha" : ""
-    ].filter(Boolean).join(" ");
-
-    html += `
-      <div class="${cls}" onclick="irAFecha('${dStr}')">
-        <span class="cal-num">${d}</span>
-        ${(c.alem||c.zico) ? `<div style="display:flex;justify-content:center;">${dotA}${dotZ}</div>` : ""}
-      </div>`;
-  }
-
-  $("mini-cal-grid").innerHTML = html;
-}
-
-
-// ── TOAST ────────────────────────────────────────
-
-let _toastTimer = null;
-
-function mostrarToast(msg){
-  const el = $("toast");
-  el.innerText = msg;
-  el.classList.add("visible");
-  clearTimeout(_toastTimer);
-  _toastTimer = setTimeout(()=> el.classList.remove("visible"), 4000);
-}
 
 
 // ── init ────────────────────────────────────────
