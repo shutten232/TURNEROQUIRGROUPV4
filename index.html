@@ -1530,12 +1530,24 @@ function claveTurno(x){
   return [x.fStr,x.s,x.d,x.a,x.n,x.eq].map(v=>(v||"").toString().trim().toUpperCase()).join("|");
 }
 
-// ── cargar META desde Firebase ──────────────────
-get(ref(db,"config/meta")).then(snap=>{
-  if(snap.exists()){
+// ── cargar META ─────────────────────────────────
+// 1) localStorage: instantáneo, sin esperar red
+const _metaLocal = parseInt(localStorage.getItem("turnero_meta"));
+if(!isNaN(_metaLocal) && _metaLocal > 0){
+  META = _metaLocal;
+  $("meta-input").value = META;
+  $("val-meta").innerText = META;
+}
+
+// 2) Firebase en tiempo real: fuente de verdad, sincroniza entre dispositivos
+//    onValue (no get) → se actualiza solo si alguien cambia el valor desde otra PC
+onValue(ref(db,"config/meta"), snap=>{
+  if(snap.exists() && snap.val() > 0){
     META = snap.val();
+    localStorage.setItem("turnero_meta", META);
     $("meta-input").value = META;
     $("val-meta").innerText = META;
+    render();   // redibujar barra con el META correcto
   }
 });
 
@@ -1544,7 +1556,8 @@ window.guardarMeta = function(){
   const v = parseInt($("meta-input").value);
   if(isNaN(v) || v < 1) return;
   META = v;
-  set(ref(db,"config/meta"), META);
+  localStorage.setItem("turnero_meta", META);   // siempre funciona
+  set(ref(db,"config/meta"), META).catch(()=>{}); // intenta Firebase, ignora error
   $("val-meta").innerText = META;
   render();
 };
@@ -1929,8 +1942,8 @@ function render(){
   const total   = instMes.length;
   $("val-llevamos").innerText = total;
   $("val-meta").innerText     = META;
-  $("val-faltan").innerText   = Math.max(0, META-total);
-  $("prog-bar").style.width   = Math.min(100, total/META*100)+"%";
+  $("val-faltan").innerText   = Math.max(0, META - total);
+  $("prog-bar").style.width   = META > 0 ? Math.min(100, total / META * 100) + "%" : "0%";
 
   // -- desglose cilindros del mes --
   renderCilindrosMes(instMes);
