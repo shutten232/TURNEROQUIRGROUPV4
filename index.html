@@ -1565,10 +1565,15 @@ window.guardarMeta = function(){
 // ── backup completo ─────────────────────────────
 window.backupData = async function(){
   try {
-    const snap = await get(ref(db, "/"));
+    // Leemos los nodos que la app usa, NO la raíz "/" (las reglas de Firebase
+    // deniegan leer "/" → eso causaba "permission denied").
+    const snapTurnero = await get(ref(db, "turnero"));
+    let config = null;
+    try { config = (await get(ref(db, "config"))).val(); } catch(_){ /* opcional */ }
+
     const payload = {
       fecha_backup: new Date().toLocaleString("es-AR"),
-      datos: snap.val()
+      datos: { turnero: snapTurnero.val(), config }
     };
     const json    = JSON.stringify(payload, null, 2);
     const blob    = new Blob([json], { type:"application/json" });
@@ -1796,7 +1801,12 @@ window.moverSemana = function(n){
 };
 
 // ── helpers ─────────────────────────────────────
-function fechaStr(d){ return d.toISOString().split("T")[0]; }
+function fechaStr(d){
+  const y  = d.getFullYear();
+  const m  = String(d.getMonth()+1).padStart(2,"0");
+  const dd = String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${dd}`;   // fecha LOCAL — no usa UTC, así no corre el día
+}
 
 function getLunes(d, offsetSem=0){
   const x = new Date(d);
@@ -2336,7 +2346,7 @@ window.imprimirSemana = function(suc){
   for(let i=0;i<7;i++){
     const d = new Date(lunes);
     d.setDate(d.getDate()+i);
-    const dStr = d.toISOString().split("T")[0];
+    const dStr = fechaStr(d);
 
     const turnos = datos
       .filter(x=> x.fStr===dStr && x.s===suc)
